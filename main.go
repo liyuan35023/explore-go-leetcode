@@ -1,7 +1,7 @@
 package main
 
 import (
-	_5_three_sum "explore-go-leetcode/15-three-sum"
+	_8_four_sum "explore-go-leetcode/18-four-sum"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -91,8 +91,9 @@ func reEnter(rw sync.RWMutex) {
 }
 
 func main() {
-	ret := _5_three_sum.ThreeSum([]int{-1, 0, 1, 2, -4})
+	ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
 	fmt.Println(ret)
+
 
 
 
