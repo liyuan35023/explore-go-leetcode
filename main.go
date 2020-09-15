@@ -1,11 +1,13 @@
 package main
 
 import (
-	_8_four_sum "explore-go-leetcode/18-four-sum"
+	"bytes"
 	"fmt"
+	"gopkg.in/gomail.v2"
 	"math/rand"
 	"strconv"
 	"sync"
+	"time"
 )
 type Person struct {
 	age int
@@ -90,13 +92,47 @@ func reEnter(rw sync.RWMutex) {
 	fmt.Println("keyi")
 }
 
+func sendEmail(subject string, info string) error {
+	m := gomail.NewMessage()
+	m.SetHeader("From", "pallas2@sohu-inc.com")
+	m.SetHeader("To", "yuanli213962@sohu-inc.com")
+	m.SetHeader("Subject", subject)
+	timeStr := time.Now().Format("2006-1-2#15:04:05")
+	var buf bytes.Buffer
+	buf.WriteString(fmt.Sprintf("Time:%s\n", timeStr))
+	buf.WriteString("Check Result:\n")
+	buf.WriteString(info)
+	m.SetBody("text/plain", buf.String())
+	d := gomail.Dialer{Host: "transport.mail.sohu-inc.com", Port: 25}
+	if err := d.DialAndSend(m); err != nil {
+		return err
+	}
+	return nil
+}
+
 func main() {
-	ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
-	fmt.Println(ret)
+	//ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
+	//fmt.Println(ret)
+	var mmm sync.Map
+	mmm.Store("z", 26)
+	mmm.Store("y", 25)
+	mmm.Store("z", 24)
+	go func() {
+		mmm.Range(func(key, value interface{}) bool {
+			k := key.(string)
+			v := value.(int)
+			fmt.Println(k, " ", v)
+			return true
+		})
+	}()
 
+	go func() {
+		mmm.Store("a", 1)
+		time.Sleep(2*time.Second)
+		mmm.Store("b", 2)
+	}()
 
-
-
+	time.Sleep(10 * time.Second)
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
 
