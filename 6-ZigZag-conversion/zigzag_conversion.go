@@ -33,6 +33,7 @@ func convert(s string, numRows int) string {
 	ret := bytes.NewBuffer([]byte{})
 	for _, buf := range bufs {
 		ret.WriteString(buf.String())
+		ret.Write(buf.Bytes())
 	}
 	return ret.String()
 }

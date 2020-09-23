@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	_2_generate_parenttheses "explore-go-leetcode/22-generate-parenttheses"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -42,7 +43,7 @@ func TestGenBlockIdSeqId() {
 }
 
 func TestGenGroupId() {
-	blockId := uint32(25633063)
+	blockId := uint32(8811601)
 	fmt.Println(GenGroupId(blockId))
 	seqId := uint32(7355)
 	objId := GenObjectId(blockId, seqId)
@@ -113,26 +114,20 @@ func sendEmail(subject string, info string) error {
 func main() {
 	//ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
 	//fmt.Println(ret)
-	var mmm sync.Map
-	mmm.Store("z", 26)
-	mmm.Store("y", 25)
-	mmm.Store("z", 24)
-	go func() {
-		mmm.Range(func(key, value interface{}) bool {
-			k := key.(string)
-			v := value.(int)
-			fmt.Println(k, " ", v)
-			return true
-		})
-	}()
+	ret := _2_generate_parenttheses.GenerateParenthesis(1)
+	fmt.Println(ret)
 
-	go func() {
-		mmm.Store("a", 1)
-		time.Sleep(2*time.Second)
-		mmm.Store("b", 2)
-	}()
+	TestGenGroupId()
 
-	time.Sleep(10 * time.Second)
+	s := "fadsfa"
+
+	for k, v := range s {
+		df := s[k]
+		if df == 'f' {
+			fmt.Println(v)
+		}
+	}
+
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
 

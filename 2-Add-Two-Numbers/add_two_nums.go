@@ -20,27 +20,21 @@ type ListNode struct {
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-
 	dummyHead := &ListNode{}
 	cur := dummyHead
 	carry := 0
-	for l1 != nil || l2 != nil {
-		val1, val2 := 0, 0
+	for l1 != nil || l2 != nil || carry != 0 {
 		if l1 != nil {
-			val1 = l1.Val
+			carry += l1.Val
 			l1 = l1.Next
 		}
 		if l2 != nil {
-			val2 = l2.Val
+			carry += l2.Val
 			l2 = l2.Next
 		}
-		val := (val1 + val2 + carry) % 10
-		carry = (val1 + val2 + carry) / 10
-		cur.Next = &ListNode{Val:val}
+		cur.Next = &ListNode{Val:carry%10}
+		carry = carry / 10
 		cur = cur.Next
-	}
-	if carry == 1 {
-		cur.Next = &ListNode{Val:1}
 	}
 	return dummyHead.Next
 
