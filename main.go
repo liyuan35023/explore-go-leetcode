@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	_2_generate_parenttheses "explore-go-leetcode/22-generate-parenttheses"
+	_3_search_in_rotated_orderd_array "explore-go-leetcode/33-search-in-rotated-orderd-array"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -43,7 +43,7 @@ func TestGenBlockIdSeqId() {
 }
 
 func TestGenGroupId() {
-	blockId := uint32(8811601)
+	blockId := uint32(2836495)
 	fmt.Println(GenGroupId(blockId))
 	seqId := uint32(7355)
 	objId := GenObjectId(blockId, seqId)
@@ -114,19 +114,12 @@ func sendEmail(subject string, info string) error {
 func main() {
 	//ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
 	//fmt.Println(ret)
-	ret := _2_generate_parenttheses.GenerateParenthesis(1)
+	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
+	//fmt.Println(ret)
+	ret := _3_search_in_rotated_orderd_array.Search([]int{8,1,2,3,4,5,6,7}, 6)
 	fmt.Println(ret)
 
-	TestGenGroupId()
-
-	s := "fadsfa"
-
-	for k, v := range s {
-		df := s[k]
-		if df == 'f' {
-			fmt.Println(v)
-		}
-	}
+	//TestGenGroupId()
 
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
