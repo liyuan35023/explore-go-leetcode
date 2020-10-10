@@ -61,5 +61,4 @@ func Search(nums []int, target int) int {
 			return Search(nums[:length/2], target)
 		}
 	}
-
 }

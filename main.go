@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	_3_search_in_rotated_orderd_array "explore-go-leetcode/33-search-in-rotated-orderd-array"
+	_4_find_firstandlast_position "explore-go-leetcode/34-find-firstandlast-position"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -116,7 +116,7 @@ func main() {
 	//fmt.Println(ret)
 	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
 	//fmt.Println(ret)
-	ret := _3_search_in_rotated_orderd_array.Search([]int{8,1,2,3,4,5,6,7}, 6)
+	ret := _4_find_firstandlast_position.SearchRange([]int{5,7,7,8,8,10}, 8)
 	fmt.Println(ret)
 
 	//TestGenGroupId()
