@@ -24,4 +24,5 @@ package _0_pow_n
  */
 func myPow(x float64, n int) float64 {
 
+
 }
