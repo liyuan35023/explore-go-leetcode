@@ -22,4 +22,6 @@ package _0_pow_n
 	题目大意 #
 	实现 pow(x, n) ，即计算 x 的 n 次幂函数。
  */
+func myPow(x float64, n int) float64 {
 
+}
