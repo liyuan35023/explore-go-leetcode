@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	_4_find_firstandlast_position "explore-go-leetcode/34-find-firstandlast-position"
+	_9_group_anagrams "explore-go-leetcode/49-group-anagrams"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -34,7 +34,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() {
-	objID := uint64(177480035924445773)
+	objID := uint64(35271564219910998)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
@@ -116,11 +116,11 @@ func main() {
 	//fmt.Println(ret)
 	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
 	//fmt.Println(ret)
-	ret := _4_find_firstandlast_position.SearchRange([]int{5,7,7,8,8,10}, 8)
+ 	ret := _9_group_anagrams.GroupAnagrams([]string{"eat","tea","tan","ate","nat","bat"})
 	fmt.Println(ret)
 
 	//TestGenGroupId()
-
+	TestGenBlockIdSeqId()
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
 
