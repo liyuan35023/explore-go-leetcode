@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	_9_group_anagrams "explore-go-leetcode/49-group-anagrams"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -34,7 +33,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() {
-	objID := uint64(35271564219910998)
+	objID := uint64(65662821525882663)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
@@ -116,8 +115,8 @@ func main() {
 	//fmt.Println(ret)
 	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
 	//fmt.Println(ret)
- 	ret := _9_group_anagrams.GroupAnagrams([]string{"eat","tea","tan","ate","nat","bat"})
-	fmt.Println(ret)
+ 	//ret := _4_Wildcard_Matching.IsMatch("", "*")
+	//fmt.Println(ret)
 
 	//TestGenGroupId()
 	TestGenBlockIdSeqId()

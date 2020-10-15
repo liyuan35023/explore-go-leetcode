@@ -14,7 +14,6 @@ package _0_pow_n
 	Output: 0.25000
 	Explanation: 2-2 = 1/22 = 1/4 = 0.25
 
-
 	Note:
 	-100.0 < x < 100.0
 	n is a 32-bit signed integer, within the range [−2^31, 2^31− 1]
@@ -23,5 +22,35 @@ package _0_pow_n
 	实现 pow(x, n) ，即计算 x 的 n 次幂函数。
  */
 func myPow(x float64, n int) float64 {
-
+	if n >= 0 {
+		return powHelper(x, n)
+	} else {
+		return 1 / powHelper(x, -n)
+	}
 }
+
+func powHelper(x float64, n int) float64 {
+	if n == 0 {
+		return 1
+	}
+	if n == 1 {
+		return x
+	}
+	tmp := myPow(x, n / 2)
+	return tmp * tmp * myPow(x, n % 2)
+}
+
+func quickMul(x float64, n int) float64 {
+	// 迭代
+	ans := 1.0
+	contributor := x
+	for n > 0 {
+		if n % 2 == 1 {
+			ans *= contributor
+		}
+		contributor *= contributor
+		n = n / 2
+	}
+	return ans
+}
+
