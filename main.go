@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	_3_unique_path_II "explore-go-leetcode/63-unique-path-II"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -110,13 +111,31 @@ func sendEmail(subject string, info string) error {
 	return nil
 }
 
+func finbina(n int) int {
+	dp := make([]int, n+1)
+	for i := 0; i < n+1; i++ {
+		if i < 2 {
+			dp[i] = i
+			continue
+		}
+		dp[i] = (dp[i-1] % 1000000007 + dp[i-2] % 1000000007) % 1000000007
+	}
+	return dp[n]
+}
+
+
 func main() {
 	//ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
 	//fmt.Println(ret)
 	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
 	//fmt.Println(ret)
- 	//ret := _4_Wildcard_Matching.IsMatch("", "*")
-	//fmt.Println(ret)
+ 	ret := _3_unique_path_II.UniquePathsWithObstacles([][]int{[]int{0,0,0}, []int{0,1,0}, []int{0,0,0}})
+	fmt.Println(ret)
+
+
+
+ 	//ans := finbina(45)
+ 	//fmt.Println(ans)
 
 	//TestGenGroupId()
 	TestGenBlockIdSeqId()

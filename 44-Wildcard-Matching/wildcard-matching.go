@@ -49,27 +49,30 @@ package _4_Wildcard_Matching
  */
 
 func IsMatch(s string, p string) bool {
-	if p == "" || s == "" && p != "*"{
-		return false
+	// 动态规划
+	// dp[i][j]表示字符串s的前i个 与 字符模式p的前j个是否匹配
+
+	dp := make([][]bool, len(s)+1)
+	for i := 0; i <= len(s); i++ {
+		dp[i] = make([]bool, len(p)+1)
 	}
-	curIndex := 0
-	for _, v := range p {
-		switch v {
-		case '*':
-			for
+	dp[0][0] = true
 
-
-		case '?':
-		default:
-
-
+	for j := 1; j <= len(p); j++ {
+		if p[j-1] == '*' {
+			dp[0][j] = true
+		} else {
+			break
 		}
-
-
-
 	}
-
-
-	return true
-
+	for i := 1; i <= len(s); i++ {
+		for j := 1; j <= len(p); j++ {
+			if s[i-1] == p[j-1] || p[j-1] == '?' {
+				dp[i][j] = dp[i-1][j-1]
+			} else if p[j-1] == '*' {
+				dp[i][j] = dp[i-1][j] || dp[i][j-1]
+			}
+		}
+	}
+	return dp[len(s)][len(p)]
 }
