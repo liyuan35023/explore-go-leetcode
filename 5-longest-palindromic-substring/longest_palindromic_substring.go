@@ -4,6 +4,7 @@ package __longest_palindromic_substring
 // 最长回文子串：https://leetcode-cn.com/problems/longest-palindromic-substring/
 // 1.  暴力法，把所有的回文子串找出来
 // 2.  中心扩展算法
+// 3.  dp
 
 func longestPalindrome(s string) string {
 	if len(s) < 2 {

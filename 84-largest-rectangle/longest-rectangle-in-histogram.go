@@ -8,7 +8,7 @@ package _4_largest_rectangle
 	Output: 10
 
 */
-func largestRectangleArea(heights []int) int {
+func LargestRectangleArea(heights []int) int {
 	if len(heights) < 1 {
 		return 0
 	}
@@ -22,7 +22,7 @@ func largestRectangleArea(heights []int) int {
 			if j > 0 {
 				tmp = (i - stack[j-1] - 1) * heights[stack[j]]
 			} else {
-				tmp = (i - stack[j]) * heights[stack[j]]
+				tmp = i * heights[stack[j]]
 			}
 			ans = max(ans, tmp)
 			stack = stack[:len(stack)-1]

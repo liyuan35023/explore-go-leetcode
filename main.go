@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	_3_unique_path_II "explore-go-leetcode/63-unique-path-II"
+	_6_minimum_window_substring "explore-go-leetcode/76-minimum-window-substring"
 	"fmt"
 	"gopkg.in/gomail.v2"
 	"math/rand"
@@ -129,10 +129,12 @@ func main() {
 	//fmt.Println(ret)
 	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
 	//fmt.Println(ret)
- 	ret := _3_unique_path_II.UniquePathsWithObstacles([][]int{[]int{0,0,0}, []int{0,1,0}, []int{0,0,0}})
+ 	//ret := _3_unique_path_II.UniquePathsWithObstacles([][]int{[]int{0,0,0}, []int{0,1,0}, []int{0,0,0}})
+	//ret := _5_max_rectangle.MaximalRectangle([][]byte{[]byte{'1','0','1','0','0'}, []byte{'1','0','1','1','1'},
+	//	[]byte{'1','1','1','1','1'}, []byte{'1','0','0','1','0'}})
+	ret := _6_minimum_window_substring.MinWindow("ADOBECODEBANC", "ABC")
 	fmt.Println(ret)
-
-
+	//[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
 
  	//ans := finbina(45)
  	//fmt.Println(ans)
