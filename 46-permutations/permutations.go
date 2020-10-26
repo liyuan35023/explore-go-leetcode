@@ -50,3 +50,35 @@ func permute(nums []int) [][]int {
 	}
 	return ans
 }
+
+func PermuteII(nums []int) [][]int {
+	ans := make([][]int, 0)
+	solution := make([]int, 0)
+	usedMap := make(map[int]bool)
+	for k := range nums {
+		backTrace(k, nums, solution, &ans, usedMap)
+	}
+	return ans
+}
+
+func backTrace(curIndex int, nums []int, solution []int, ans *[][]int, usedMap map[int]bool) {
+	solution = append(solution, nums[curIndex])
+	usedMap[curIndex] = true
+	defer func() {
+		solution = solution[:len(solution)-1]
+		usedMap[curIndex] = false
+	}()
+	if len(solution) == len(nums) {
+		tmp := make([]int, len(solution))
+		copy(tmp, solution)
+		*ans = append(*ans, tmp)
+		return
+	}
+	for i := 0; i < len(nums); i++ {
+		if usedMap[i] {
+			continue
+		}
+		backTrace(i, nums, solution, ans, usedMap)
+	}
+
+}
