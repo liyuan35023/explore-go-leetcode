@@ -1,7 +1,6 @@
 package main
 
 import (
-	_6_merge_intervals "explore-go-leetcode/56-merge-intervals"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -31,7 +30,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() {
-	objID := uint64(65662821525882663)
+	objID := uint64(67661158139560943)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
@@ -111,8 +110,8 @@ func main() {
  	//ret := _3_unique_path_II.UniquePathsWithObstacles([][]int{[]int{0,0,0}, []int{0,1,0}, []int{0,0,0}})
 	//ret := _5_max_rectangle.MaximalRectangle([][]byte{[]byte{'1','0','1','0','0'}, []byte{'1','0','1','1','1'},
 	//	[]byte{'1','1','1','1','1'}, []byte{'1','0','0','1','0'}})
-	ret := _6_merge_intervals.Merge([][]int{[]int{1, 3}, []int{2, 6}, []int{15,18}, []int{8, 10}})
-	fmt.Println(ret)
+	//ret := _6_merge_intervals.Merge([][]int{[]int{1, 3}, []int{2, 6}, []int{15,18}, []int{8, 10}})
+	//fmt.Println(ret)
 
 
 	//[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
