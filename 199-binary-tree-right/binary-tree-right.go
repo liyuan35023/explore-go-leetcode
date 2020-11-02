@@ -43,3 +43,28 @@ func rangeHelper(root *TreeNode, depth int, ans *[]int) {
 		rangeHelper(root.Left, depth+1, ans)
 	}
 }
+
+func rightSideView2(root *TreeNode) []int {
+	// bfs 广搜
+	ans := make([]int, 0)
+	queue := make([]*TreeNode, 0)
+	if root != nil {
+		queue = append(queue, root)
+	}
+	for len(queue) != 0 {
+		thisDepthNodeNum := len(queue)
+		for i := 0; i < thisDepthNodeNum; i++ {
+			if queue[i].Left != nil {
+				queue = append(queue, queue[i].Left)
+			}
+			if queue[i].Right != nil {
+				queue = append(queue, queue[i].Right)
+			}
+			if i == thisDepthNodeNum-1 {
+				ans = append(ans, queue[i].Val)
+			}
+		}
+		queue = queue[thisDepthNodeNum:]
+	}
+	return ans
+}

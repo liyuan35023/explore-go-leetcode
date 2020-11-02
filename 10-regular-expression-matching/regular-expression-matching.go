@@ -48,6 +48,9 @@ package _0_regular_expression_matching
  */
 
 func isMatch(s string, p string) bool {
+	// 动态规划
+	// dp[i][j] 表示 字符串前i个字符可不可以被 pattern的前j个字符所匹配
+
 
 
 }

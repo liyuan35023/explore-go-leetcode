@@ -38,6 +38,7 @@ func findExpandLongestSubString(s string, left int, right int) (int, int) {
 
 func longestPalindromeDP(s string) string {
 	// 动态规划
+	// dp[i][j] 表示从第i+1个字母到第j+1个字母是不是回文子串
 	if len(s) < 2 {
 		return s
 	}
