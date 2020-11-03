@@ -23,11 +23,20 @@ func mergeKLists(lists []*ListNode) *ListNode {
     if len(lists) < 1 {
         return nil
     }
-    ans := lists[0]
-    for i := 1; i < len(lists); i++ {
-        ans = mergeTwo(ans, lists[i])
+
+    for len(lists) > 1 {
+    	k := len(lists)
+        for i := 0; i < k-1; i=i+2 {
+            merged := mergeTwo(lists[i], lists[i+1])
+            lists = append(lists, merged)
+        }
+        if k % 2 == 0 {
+            lists = lists[k:]
+        } else {
+            lists = lists[k-1:]
+        }
     }
-    return ans
+    return lists[0]
 }
 
 func mergeTwo(l1 *ListNode, l2 *ListNode) *ListNode {
