@@ -1,7 +1,7 @@
 package main
 
 import (
-	_2_edit_distance "explore-go-leetcode/72-edit-distance"
+	_9_divide_two_integer "explore-go-leetcode/29-divide-two-integer"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -112,7 +112,7 @@ func main() {
 	//ret := _5_max_rectangle.MaximalRectangle([][]byte{[]byte{'1','0','1','0','0'}, []byte{'1','0','1','1','1'},
 	//	[]byte{'1','1','1','1','1'}, []byte{'1','0','0','1','0'}})
 	//nums := []int{3,2,1,5,6,4}
-	ret := _2_edit_distance.MinDistance("horse", "ros")
+	ret := _9_divide_two_integer.Divide(-2147483648, -1)
 	fmt.Println(ret)
 
 
