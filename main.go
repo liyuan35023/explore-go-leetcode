@@ -1,7 +1,7 @@
 package main
 
 import (
-	_9_divide_two_integer "explore-go-leetcode/29-divide-two-integer"
+	sort_alogrithm "explore-go-leetcode/sort-alogrithm"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -112,9 +112,8 @@ func main() {
 	//ret := _5_max_rectangle.MaximalRectangle([][]byte{[]byte{'1','0','1','0','0'}, []byte{'1','0','1','1','1'},
 	//	[]byte{'1','1','1','1','1'}, []byte{'1','0','0','1','0'}})
 	//nums := []int{3,2,1,5,6,4}
-	ret := _9_divide_two_integer.Divide(-2147483648, -1)
+	ret := sort_alogrithm.MergeSortLoop([]int{1,4,-4,3,2,10,-2, 18})
 	fmt.Println(ret)
-
 
 
 	//[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
