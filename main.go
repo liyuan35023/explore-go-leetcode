@@ -1,7 +1,7 @@
 package main
 
 import (
-	sort_alogrithm "explore-go-leetcode/sort-alogrithm"
+	_2_reverse_linkedList_II "explore-go-leetcode/92-reverse-linkedList-II"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -31,7 +31,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() {
-	objID := uint64(67661158139560943)
+	objID := uint64(115361245317562925)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
@@ -104,16 +104,32 @@ func finbina(n int) int {
 
 
 func main() {
-	//ret := _8_four_sum.FourSum([]int{-3,-2,-1,0,0,1,2,3}, 0)
-	//fmt.Println(ret)
-	//ret := _2_generate_parenttheses.GenerateParenthesis(1)
-	//fmt.Println(ret)
- 	//ret := _3_unique_path_II.UniquePathsWithObstacles([][]int{[]int{0,0,0}, []int{0,1,0}, []int{0,0,0}})
-	//ret := _5_max_rectangle.MaximalRectangle([][]byte{[]byte{'1','0','1','0','0'}, []byte{'1','0','1','1','1'},
-	//	[]byte{'1','1','1','1','1'}, []byte{'1','0','0','1','0'}})
-	//nums := []int{3,2,1,5,6,4}
-	ret := sort_alogrithm.MergeSortLoop([]int{1,4,-4,3,2,10,-2, 18})
-	fmt.Println(ret)
+	//node6 := &_2_reverse_linkedList_II.ListNode{Val: 6}
+	//node5 := &_2_reverse_linkedList_II.ListNode{Val: 5, Next: node6}
+	//node4 := &_2_reverse_linkedList_II.ListNode{Val: 4, Next: node5}
+	//node3 := &_2_reverse_linkedList_II.ListNode{Val: 3, Next: node4}
+	next := &_2_reverse_linkedList_II.ListNode{Val: 2, Next: nil}
+	head := &_2_reverse_linkedList_II.ListNode{Next: next, Val: 1}
+	re := _2_reverse_linkedList_II.ReverseBetweenOneTurn(head, 1, 2)
+	for re != nil {
+		fmt.Println(re)
+		re = re.Next
+	}
+
+	//head := &_48_sort_list.ListNode{Val: -1}
+	//two := &_48_sort_list.ListNode{Val: 5}
+	//tree := &_48_sort_list.ListNode{Val: 3}
+	//four := &_48_sort_list.ListNode{Val: 4}
+	//five := &_48_sort_list.ListNode{Val: 0}
+	//head.Next = two
+	//two.Next = tree
+	//tree.Next = four
+	//four.Next = five
+	//newHead := _48_sort_list.SortListLoop(head)
+	//for newHead != nil {
+	//	fmt.Println(newHead.Val)
+	//	newHead = newHead.Next
+	//}
 
 
 	//[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]

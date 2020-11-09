@@ -41,14 +41,17 @@ func MergeSortLoop(nums []int) []int {
 	result := make([]int, len(nums))
 	n := len(nums)
 
-	for block := 1; block < 2*n; block*=2 {
+	for block := 1; block < n; block*=2 {
 		for i := 0; i < n; i += 2*block {
 			start := i
 			end := i + 2*block - 1
 			if end >= n {
 				end = n-1
 			}
-			mid := start + (end - start) / 2
+			mid := start + block - 1
+			if mid >= n  {
+				mid = n - 1
+			}
 			i ,j := start, mid + 1
 			k := start
 			for ; i <= mid && j <= end; k++ {
@@ -70,6 +73,7 @@ func MergeSortLoop(nums []int) []int {
 				nums[n] = result[n]
 			}
 		}
+
 	}
 	return result
 }
