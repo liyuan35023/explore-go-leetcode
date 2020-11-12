@@ -1,7 +1,6 @@
 package main
 
 import (
-	_2_reverse_linkedList_II "explore-go-leetcode/92-reverse-linkedList-II"
 	"fmt"
 	"math/rand"
 	"strconv"
@@ -104,17 +103,11 @@ func finbina(n int) int {
 
 
 func main() {
-	//node6 := &_2_reverse_linkedList_II.ListNode{Val: 6}
-	//node5 := &_2_reverse_linkedList_II.ListNode{Val: 5, Next: node6}
-	//node4 := &_2_reverse_linkedList_II.ListNode{Val: 4, Next: node5}
-	//node3 := &_2_reverse_linkedList_II.ListNode{Val: 3, Next: node4}
-	next := &_2_reverse_linkedList_II.ListNode{Val: 2, Next: nil}
-	head := &_2_reverse_linkedList_II.ListNode{Next: next, Val: 1}
-	re := _2_reverse_linkedList_II.ReverseBetweenOneTurn(head, 1, 2)
-	for re != nil {
-		fmt.Println(re)
-		re = re.Next
-	}
+	//third := _4_binary_tree_inorder.TreeNode{Val: 3}
+	//second := _4_binary_tree_inorder.TreeNode{Val: 2, Left: &third}
+	//root := _4_binary_tree_inorder.TreeNode{Val: 1, Right: &second}
+	//
+	//ret := _4_binary_tree_inorder.InorderTraversalLoop(&root)
 
 	//head := &_48_sort_list.ListNode{Val: -1}
 	//two := &_48_sort_list.ListNode{Val: 5}
