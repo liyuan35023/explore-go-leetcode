@@ -1,6 +1,9 @@
 package _3_multipy_strings
 
-import "strconv"
+import (
+	"bytes"
+	"strconv"
+)
 
 /*
 	给定两个以字符串形式表示的非负整数num1和num2，返回num1和num2的乘积，它们的乘积也表示为字符串形式。
@@ -74,4 +77,45 @@ func strSum(num1, num2 string) string {
 		ans = strconv.Itoa(carry) + ans
 	}
 	return ans
+}
+
+func multiply2(num1 string, num2 string) string {
+	if num1 == "0" || num2 == "0" {
+		return "0"
+	}
+	m := len(num1)
+	n := len(num2)
+	ans := make([]int, m+n)
+	// num1[i] * nums2[j] 的结果位于ans[i+j+1]
+	for i := m-1; i >= 0; i-- {
+		for j := n-1; j >= 0; j-- {
+			v1 := int(num1[i] - '0')
+			v2 := int(num2[j] - '0')
+			ans[i+j+1] += v1 * v2
+			//idx := i + j + 1
+			//tmp := v1 * v2
+			//for {
+			//	ans[idx] += tmp
+			//	if ans[idx] < 10 {
+			//		break
+			//	}
+			//	tmp = ans[idx] / 10
+			//	ans[idx] %= 10
+			//	idx--
+			//}
+		}
+	}
+	for i := m+n-1; i > 0; i-- {
+		ans[i-1] += ans[i] / 10
+		ans[i] %= 10
+	}
+
+	ret := bytes.NewBuffer([]byte{})
+	for i := 0; i < m+n; i++ {
+		if i == 0 && ans[i] == 0 {
+			continue
+		}
+		ret.WriteString(strconv.Itoa(ans[i]))
+	}
+	return ret.String()
 }

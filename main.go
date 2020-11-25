@@ -30,7 +30,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() {
-	objID := uint64(115361245317562925)
+	objID := uint64(122442667136123138)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
