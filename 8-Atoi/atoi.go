@@ -53,25 +53,26 @@ func MyAtoi(str string) int {
 	for _, c := range str {
 		curState = stateMap[curState][getColumn(c)]
 		if curState == "in" {
-			ret = ret*10 + int(c-'0')
+			tmp := int(c-'0')
 			if sign == 1 {
-				if ret > math.MaxInt32 {
+				if ret > (math.MaxInt32 - tmp) / 10 {
 					ret = math.MaxInt32
+					return ret
 				}
 			} else {
-				if ret * sign < math.MinInt32 {
-					ret = -math.MinInt32
+				if ret > (-math.MinInt32 - tmp) / 10 {
+					ret = math.MinInt32
+					return ret
 				}
 			}
+			ret = ret*10 + int(c-'0')
 		} else if curState == "signed" && c == '-' {
 			sign = -1
 		} else if curState == "end" {
 			break
 		}
 	}
-
-
-	return int(ret)*sign
+	return ret*sign
 }
 
 

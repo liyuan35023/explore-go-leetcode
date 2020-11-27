@@ -23,9 +23,9 @@ package _0_pow_n
  */
 func myPow(x float64, n int) float64 {
 	if n >= 0 {
-		return powHelper(x, n)
+		return quickMul(x, n)
 	} else {
-		return 1 / powHelper(x, -n)
+		return 1 / quickMul(x, -n)
 	}
 }
 
