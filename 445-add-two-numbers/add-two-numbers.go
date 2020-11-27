@@ -1,0 +1,58 @@
+package _45_add_two_numbers
+
+/*
+	Example:
+
+
+	Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+	Output: 7 -> 8 -> 0 -> 7
+
+	题目大意 #
+	这道题是第 2 题的变种题，第 2 题中的 2 个数是从个位逆序排到高位，这样相加只用从头交到尾，进位一直进位即可。
+	这道题目中强制要求不能把链表逆序。2 个数字是从高位排到低位的，这样进位是倒着来的。
+
+	You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+	Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
+
+ */
+
+type ListNode struct {
+    Val int
+    Next *ListNode
+}
+
+func addTwoNumbers445(l1 *ListNode, l2 *ListNode) *ListNode {
+	// stack
+	stack1 := make([]*ListNode, 0)
+	stack2 := make([]*ListNode, 0)
+	for l1 != nil {
+		stack1 = append(stack1, l1)
+		l1 = l1.Next
+	}
+	for l2 != nil {
+		stack2 = append(stack2, l2)
+		l2 = l2.Next
+	}
+	var pre *ListNode
+	var cur1, cur2 int
+	carry := 0
+	for len(stack1) != 0 || len(stack2) != 0 || carry != 0 {
+		if len(stack1) != 0 {
+			cur1 = stack1[len(stack1)-1].Val
+			stack1 = stack1[:len(stack1)-1]
+		} else {
+			cur1 = 0
+		}
+		if len(stack2) != 0 {
+			cur2 = stack2[len(stack2)-1].Val
+			stack2 = stack2[:len(stack2)-1]
+		} else {
+			cur2 = 0
+		}
+		node := &ListNode{Val: (cur1+cur2+carry)%10, Next: pre}
+		carry = (cur1+cur2+carry) / 10
+		pre = node
+	}
+	return pre
+}
