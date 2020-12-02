@@ -103,6 +103,12 @@ func finbina(n int) int {
 
 
 func main() {
+	sli := make([]string, 0)
+	s := "fads"
+	sli = append(sli, s)
+	s = "fda"
+	fmt.Println(sli[0])
+
 	//third := _4_binary_tree_inorder.TreeNode{Val: 3}
 	//second := _4_binary_tree_inorder.TreeNode{Val: 2, Left: &third}
 	//root := _4_binary_tree_inorder.TreeNode{Val: 1, Right: &second}

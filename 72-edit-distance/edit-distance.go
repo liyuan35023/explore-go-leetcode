@@ -44,7 +44,7 @@ func MinDistance(word1 string, word2 string) int {
 	for i := 1; i < m+1; i++ {
 		for j := 1; j < n+1; j++ {
 			if word1[i-1] == word2[j-1] {
-				dp[i][j] = dp[i-1][j-1]
+				dp[i][j] = min(dp[i-1][j-1], dp[i-1][j]+1, dp[i][j-1]+1)
 			} else {
 				dp[i][j]= 1 + min(dp[i-1][j-1], dp[i-1][j], dp[i][j-1])
 			}
