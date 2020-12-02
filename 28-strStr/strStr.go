@@ -21,18 +21,31 @@ func strStr(haystack string, needle string) int {
 	if len(haystack) < len(needle) {
 		return -1
 	}
-	needleLen := len(needle)
-	j := 0
+	//needleLen := len(needle)
+	//j := 0
 	for i := 0; i < len(haystack) - len(needle) + 1; i++ {
-		tmp := i
-		for haystack[tmp] == needle[j] {
-			tmp++
-			j++
-			if j == needleLen {
+		if haystack[i] == needle[0] {
+			match := true
+			for k := 1; k < len(needle); k++ {
+				if haystack[i+k] != needle[k] {
+					match = false
+					break
+				}
+			}
+			if match {
 				return i
 			}
 		}
-		j = 0
+
+		//tmp := i
+		//for haystack[tmp] == needle[j] {
+		//	tmp++
+		//	j++
+		//	if j == needleLen {
+		//		return i
+		//	}
+		//}
+		//j = 0
 	}
 	return -1
 }
