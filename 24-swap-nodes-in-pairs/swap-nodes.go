@@ -15,7 +15,7 @@ type ListNode struct {
 }
 
 func swapPairs(head *ListNode) *ListNode {
-	if head == nil {
+	if head == nil  {
 		return nil
 	}
 	dummyHead := &ListNode{Next: head}
@@ -37,8 +37,8 @@ func swapPairs2(head *ListNode) *ListNode {
 		return head
 	}
 	newHead := head.Next
-	tmp := head.Next.Next
+	next := swapPairs2(head.Next.Next)
 	head.Next.Next = head
-	head.Next = swapPairs2(tmp)
+	head.Next = next
 	return newHead
 }

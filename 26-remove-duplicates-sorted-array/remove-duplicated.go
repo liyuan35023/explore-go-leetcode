@@ -22,14 +22,14 @@ func removeDuplicates(nums []int) int {
 	if len(nums) < 1 {
 		return 0
 	}
-	ans := 1
-	curNum := nums[0]
+
+	curIdx := 0
+
 	for i := 1; i < len(nums); i++ {
-		if nums[i] != curNum {
-			nums[ans] = nums[i]
-			ans++
-			curNum = nums[i]
+		if nums[i] != nums[curIdx] {
+			nums[curIdx+1] = nums[i]
+			curIdx++
 		}
 	}
-	return ans
+	return curIdx+1
 }
