@@ -31,6 +31,45 @@ type TreeNode struct {
 }
 
 func generateTrees(n int) []*TreeNode {
+	if n < 1 {
+		return nil
+	}
 
+	return helper(1, n)
 }
+
+func helper(start, end int) []*TreeNode {
+	if start > end {
+		return []*TreeNode{nil}
+	}
+	if start == end {
+		return []*TreeNode{&TreeNode{Val: start}}
+	}
+	allTrees := make([]*TreeNode, 0)
+	for i := start; i <= end; i++ {
+		leftTrees := helper(start, i-1)
+		rightTrees := helper(i+1, end)
+
+		for m := 0; m < len(leftTrees); m++ {
+			for n := 0; n < len(rightTrees); n++ {
+				root := &TreeNode{Val: i}
+				root.Left = leftTrees[m]
+				root.Right = rightTrees[n]
+				//newRoot := copyTree(root)
+				allTrees = append(allTrees, root)
+			}
+		}
+	}
+	return allTrees
+}
+
+func copyTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	return &TreeNode{Val: root.Val, Left: copyTree(root.Left), Right: copyTree(root.Right)}
+}
+
+
+
 
