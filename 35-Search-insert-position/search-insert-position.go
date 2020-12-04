@@ -31,16 +31,16 @@ func searchInsert(nums []int, target int) int {
 		if target == nums[mid] {
 			return mid
 		} else if target < nums[mid] {
-			if mid == 0 || target > nums[mid-1] {
-				return mid
-			}
+			//if mid == 0 || target > nums[mid-1] {
+			//	return mid
+			//}
 			j = mid - 1
 		} else if target > nums[mid] {
-			if mid == len(nums)-1 || target < nums[mid+1] {
-				return mid + 1
-			}
+			//if mid == len(nums)-1 || target < nums[mid+1] {
+			//	return mid + 1
+			//}
 			i = mid + 1
 		}
 	}
-	return -1
+	return i
 }
