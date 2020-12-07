@@ -46,10 +46,10 @@ func CountAndSay(n int) string {
 	}
 	ans := bytes.NewBuffer([]byte{})
 	pre := CountAndSay(n-1)
-	curNumber := -1
-	count := 0
-	for _, r := range pre {
-		tmp := r - '0'
+	curNumber := int(pre[0] - '0')
+	count := 1
+	for i := 1; i < len(pre); i++ {
+		tmp := pre[i] - '0'
 		if int(tmp) != curNumber && curNumber != -1 {
 			ans.WriteString(strconv.Itoa(count))
 			ans.WriteString(strconv.Itoa(curNumber))
@@ -57,7 +57,6 @@ func CountAndSay(n int) string {
 			curNumber = int(tmp)
 			continue
 		}
-		curNumber = int(tmp)
 		count++
 	}
 	ans.WriteString(strconv.Itoa(count))
