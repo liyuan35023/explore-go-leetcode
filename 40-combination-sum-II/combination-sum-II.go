@@ -63,3 +63,32 @@ func backTrace(candidates []int, target int, index int, tmp []int) {
 	}
 }
 
+func CombinationSum2II(candidates []int, target int) [][]int {
+	ans := make([][]int, 0)
+	if len(candidates) < 1 {
+		return ans
+	}
+	solution := make([]int, 0)
+	sort.Ints(candidates)
+	var dfs func(idx int, target int)
+	dfs = func(idx int, target int) {
+		if target == 0 {
+			ans = append(ans, append([]int{}, solution...))
+			return
+		}
+		for i := idx; i < len(candidates); i++ {
+			if candidates[i] > target {
+				return
+			}
+			if i > idx && candidates[i] == candidates[i-1] {
+				continue
+			}
+			solution = append(solution, candidates[i])
+			dfs(i+1, target-candidates[i])
+			solution = solution[:len(solution)-1]
+		}
+	}
+	dfs(0, target)
+	return ans
+}
+
