@@ -12,7 +12,21 @@ package _5_jump_game_II
  */
 
 func Jump(nums []int) int {
-
+	if len(nums) < 2 {
+		return 0
+	}
+	step := 0
+	n := len(nums)
+	maxLocation := 0
+	curStepMax := 0
+	for i := 0; i < len(nums) && maxLocation < n-1; i++ {
+		curStepMax = max(curStepMax, i+nums[i])
+		if i == maxLocation {
+			step++
+			maxLocation = curStepMax
+		}
+	}
+	return step
 }
 
 func max(a, b int) int {
