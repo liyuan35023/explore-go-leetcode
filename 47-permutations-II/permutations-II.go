@@ -51,3 +51,34 @@ func backTrace(nums []int, used []bool, index int, solution []int) {
 		used[i] = false
 	}
 }
+
+func PermuteUniqueII(nums []int) [][]int {
+	ans := make([][]int, 0)
+	if len(nums) < 1 {
+		return ans
+	}
+	n := len(nums)
+	sort.Ints(nums)
+	solution := make([]int, 0)
+	used := make([]bool, n)
+	var dfs func(idx int)
+	dfs = func(idx int) {
+		if idx > n {
+			ans = append(ans, append([]int{}, solution...))
+			return
+		}
+		for i := 0; i < n; i++ {
+			if used[i] || i > 0 && nums[i] == nums[i-1] && !used[i-1] {
+				continue
+			}
+			solution = append(solution, nums[i])
+			used[i] = true
+			dfs(idx+1)
+			used[i] = false
+			solution = solution[:len(solution)-1]
+		}
+	}
+	dfs(1)
+	return ans
+}
+
