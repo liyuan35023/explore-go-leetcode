@@ -36,8 +36,7 @@ func powHelper(x float64, n int) float64 {
 	if n == 1 {
 		return x
 	}
-	tmp := myPow(x, n / 2)
-	return tmp * tmp * myPow(x, n % 2)
+	return powHelper(x * x, n / 2) * powHelper(x, n % 2)
 }
 
 func quickMul(x float64, n int) float64 {
