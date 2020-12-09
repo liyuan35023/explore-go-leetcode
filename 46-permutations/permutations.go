@@ -19,35 +19,27 @@ package _6_permutations
 
 func permute(nums []int) [][]int {
 	var ans [][]int
-	usedMap := make([]bool, len(nums))
+	n := len(nums)
+	usedMap := make([]bool, n)
 	solution := make([]int, 0)
-	var dfs func(nums []int, index int, tmp []int)
+	var dfs func(index int)
 
-	dfs = func(nums []int, index int, solution []int) {
-		solution = append(solution, nums[index])
-		usedMap[index] = true
-		defer func() {
-			solution = solution[:len(solution)-1]
-			usedMap[index] = false
-		}()
-		if len(solution) == len(nums) {
-			tmp := make([]int, len(solution))
-			copy(tmp, solution)
-			ans = append(ans, tmp)
+	dfs = func(index int) {
+		if index > n {
+			ans = append(ans, append([]int{}, solution...))
 			return
 		}
-		for k, used := range usedMap {
-			if used {
-				continue
+		for i := 0; i < n; i++ {
+			if !usedMap[i] {
+				solution = append(solution, nums[i])
+				usedMap[i] = true
+				dfs(index+1)
+				solution = solution[:len(solution)-1]
+				usedMap[i] = false
 			}
-			dfs(nums, k, solution)
 		}
-		//solution = solution[:len(solution)-1]
-		//usedMap[index] = false
 	}
-	for k := range nums {
-		dfs(nums, k, solution)
-	}
+	dfs(1)
 	return ans
 }
 
