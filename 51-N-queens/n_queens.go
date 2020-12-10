@@ -1,5 +1,6 @@
 package _1_N_queens
 
+import "bytes"
 
 var ret [][]string
 func solveNQueens(n int) [][]string {
@@ -54,3 +55,53 @@ func generateMap(queens []int) []string {
 	return ret
 }
 
+func solveNQueensII(n int) [][]string {
+	ans := make([][]string, 0)
+	if n < 1 {
+		return ans
+	}
+	columnRecord := make([]bool, n)
+	diagRecord, diagReverseRecord := make([]bool, 2*n-1), make([]bool, 2*n-1)
+	queensColumn := make([]int, n)
+
+	var dfs func(rowIdx int)
+	dfs = func(rowIdx int) {
+		if rowIdx == n {
+			ans = append(ans, generate(queensColumn))
+			return
+		}
+		for column := 0; column < n; column++ {
+			if columnRecord[column] || diagRecord[rowIdx+column] || diagReverseRecord[rowIdx-column+n-1] {
+				continue
+			}
+			columnRecord[column] = true
+			diagRecord[rowIdx+column] = true
+			diagReverseRecord[rowIdx-column+n-1] = true
+			queensColumn[rowIdx] = column
+			dfs(rowIdx+1)
+			columnRecord[column] = false
+			diagRecord[rowIdx+column] = false
+			diagReverseRecord[rowIdx-column+n-1] = false
+			queensColumn[rowIdx] = 0
+		}
+	}
+	dfs(0)
+	return ans
+}
+
+func generate(queens []int) []string {
+	ans := make([]string, 0)
+	for i := 0; i < len(queens); i++ {
+		column := queens[i]
+		buf := bytes.NewBuffer([]byte{})
+		for j := 0; j < len(queens); j++ {
+			if j == column {
+				buf.WriteByte('Q')
+			} else {
+				buf.WriteByte('.')
+			}
+		}
+		ans = append(ans, buf.String())
+	}
+	return ans
+}
