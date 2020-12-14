@@ -84,3 +84,40 @@ func simplifyPath(path string) string {
 		return string(stack)
 	}
 }
+
+func simplifyPathII(path string) string {
+	stack := make([]byte, 0)
+	stack = append(stack, path[0])
+	for i := 1; i < len(path); {
+		if path[i] == '.' && path[i-1] == '/' && (i == len(path)-1 || path[i+1] == '/') {
+			// /./
+			i = i + 2
+			continue
+		}
+
+		if path[i] == '.' && path[i-1] == '/' && path[i+1] == '.' && (i == len(path)-2 || path[i+2] == '/') {
+			// /../
+			// 退到上一级
+			if len(stack) != 1 {
+				stack = stack[:len(stack)-1]
+				for stack[len(stack)-1] != '/' {
+					stack = stack[:len(stack)-1]
+				}
+			}
+			i = i + 3
+			continue
+		}
+
+		if path[i] == '/' && path[i-1] == '/' {
+			i = i + 1
+			continue
+		}
+		stack = append(stack, path[i])
+		i++
+	}
+	if len(stack) > 1 && stack[len(stack)-1] == '/' {
+		return string(stack[:len(stack)-1])
+	} else {
+		return string(stack)
+	}
+}

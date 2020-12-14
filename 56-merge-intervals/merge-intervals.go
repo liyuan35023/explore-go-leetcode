@@ -30,10 +30,7 @@ func (i Intervals) Len() int {
 }
 
 func (i Intervals) Less(m, n int) bool {
-	if i[m][0] < i[n][0] {
-		return true
-	}
-	return false
+	return i[m][0] < i[n][0]
 }
 
 func (i Intervals) Swap(m, n int) {
@@ -48,17 +45,14 @@ func merge(intervals [][]int) [][]int {
 	sort.Sort(Intervals(intervals))
 
 	ans := make([][]int, 0)
-	preInterval := intervals[0]
+	ans = append(ans, intervals[0])
 	for i := 1; i < len(intervals); i++ {
-		tmp := mergeTwo(preInterval, intervals[i])
-		if len(tmp) == 1 {
-			preInterval = tmp[0]
+		if ans[len(ans)-1][1] >= intervals[i][0] {
+			ans[len(ans)-1][1] = max(ans[len(ans)-1][1], intervals[i][1])
 		} else {
-			preInterval = intervals[i]
-			ans = append(ans, tmp[0])
+			ans = append(ans, intervals[i])
 		}
 	}
-	ans = append(ans, preInterval)
 	return ans
 }
 
