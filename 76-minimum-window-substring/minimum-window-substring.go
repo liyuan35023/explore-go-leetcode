@@ -60,3 +60,45 @@ func MinWindow(s string, t string) string {
 	}
 	return ans
 }
+
+func minWindow(s string, t string) string {
+	if len(s) < 1 || len(t) < 1 || len(s) < len(t) {
+		return ""
+	}
+
+	ans := ""
+	n := len(t)
+	countMap := make(map[byte]int)
+	for i := 0; i < n; i++ {
+		countMap[t[i]]++
+	}
+	left, right := 0, 0
+
+	update := func(i, j int) {
+		if ans == "" || j - i + 1 < len(ans) {
+			ans = s[i:j+1]
+		}
+	}
+
+	for ; right < len(s); right++ {
+		if v, ok := countMap[s[right]]; ok {
+			if v > 0 {
+				n--
+			}
+			countMap[s[right]]--
+		}
+		// 移动左指针
+		for n == 0 {
+			update(left, right)
+			if v, ok := countMap[s[left]]; ok {
+				if v == 0 {
+					n++
+				}
+				countMap[s[left]]++
+
+			}
+			left++
+		}
+	}
+	return ans
+}

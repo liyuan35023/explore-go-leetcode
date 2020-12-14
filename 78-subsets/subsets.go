@@ -34,7 +34,6 @@ func backTrace(nums []int, idx int, solution []int, ans *[][]int) {
 		return
 	}
 
-
 	// 不用当前的idx的值
 	backTrace(nums, idx+1, solution, ans)
 
@@ -43,4 +42,16 @@ func backTrace(nums []int, idx int, solution []int, ans *[][]int) {
 	copy(tmp, solution)
 	*ans = append(*ans, tmp)
 	backTrace(nums, idx+1, solution, ans)
+}
+
+func subsetsII(nums []int) [][]int {
+	ans := [][]int{[]int{}}
+
+	for _, v := range nums {
+		n := len(ans)
+		for i := 0; i < n; i++ {
+			ans = append(ans, append([]int{v}, ans[i]...))
+		}
+	}
+	return ans
 }
