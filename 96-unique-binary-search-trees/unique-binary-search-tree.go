@@ -21,8 +21,8 @@ package _6_unique_binary_search_trees
 func numTrees(n int) int {
 	num := make([]int, n+1)
 	num[0] = 1
-	num[1] = 1
-	for i := 2; i < n+1; i++ {
+	//num[1] = 1
+	for i := 1; i < n+1; i++ {
 
 		for j := 1; j <= i; j++ {
 			num[i] += num[j-1] * num[i-j]

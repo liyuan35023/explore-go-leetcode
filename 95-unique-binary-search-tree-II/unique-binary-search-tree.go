@@ -71,5 +71,27 @@ func copyTree(root *TreeNode) *TreeNode {
 }
 
 
-
-
+func generateTreesII(n int) []*TreeNode {
+	if n < 1 {
+		return nil
+	}
+	var dfs func(start, end int) []*TreeNode
+	dfs = func(start, end int) []*TreeNode {
+		ans := make([]*TreeNode, 0)
+		if start > end {
+			return []*TreeNode{nil}
+		}
+		for i := start; i <= end; i++ {
+			left := dfs(start, i-1)
+			right := dfs(i+1, end)
+			for _, l := range left {
+				for _, r := range right {
+					root := &TreeNode{Val: i, Left: l, Right: r}
+					ans = append(ans, root)
+				}
+			}
+		}
+		return ans
+	}
+	return dfs(1, n)
+}
