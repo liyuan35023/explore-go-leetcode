@@ -33,7 +33,7 @@ import "strconv"
 
  */
 
-func RestoreIpAddresses(s string) []string {
+func restoreIpAddresses(s string) []string {
 	if len(s) < 1 || len(s) > 12 {
 		return nil
 	}
@@ -70,4 +70,44 @@ func backTrace(s string, numOfPoint int, startIndex int, ip []byte, ans *[]strin
 	}
 }
 
+func restoreIpAddressesII(s string) []string {
+	ans := make([]string, 0)
+	if len(s) < 4 {
+		return ans
+	}
+	var dfs func(num int, start int)
+	solution := []byte{}
+	dfs = func(num int, start int) {
+		if num == 4 {
+			if start >= len(s) || s[start] == '0' && start < len(s) - 1 {
+				return
+			}
+			remain, _ := strconv.Atoi(s[start:])
+			if remain <= 255 {
+				tmp := append(solution, s[start:]...)
+				ans = append(ans, string(tmp))
+			}
+			return
+		}
+		if s[start] == '0' {
+			solution = append(solution, s[start])
+			solution = append(solution, '.')
+			dfs(num+1, start+1)
+			solution = solution[:len(solution)-2]
+		} else {
+			for i := 1; i <= 3 && start + i <= len(s); i++ {
+				n, _ := strconv.Atoi(s[start:start+i])
+				if n <= 255 {
+					solution = append(solution, s[start:start+i]...)
+					solution = append(solution, '.')
+					dfs(num+1, start+i)
+					solution = solution[:len(solution)-i-1]
+					//solution = solution[:start+num-1]
+				}
+			}
+		}
+	}
+	dfs(1, 0)
+	return ans
+}
 

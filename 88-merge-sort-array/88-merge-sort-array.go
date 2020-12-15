@@ -27,7 +27,7 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 	// 双指针，从后向前
 	i, j := m-1, n-1
 	curIdx := totalLen - 1
-	for ; curIdx >= 0 && i >= 0 && j >= 0; curIdx-- {
+	for ; i >= 0 && j >= 0; curIdx-- {
 		if nums1[i] < nums2[j] {
 			nums1[curIdx] = nums2[j]
 			j--

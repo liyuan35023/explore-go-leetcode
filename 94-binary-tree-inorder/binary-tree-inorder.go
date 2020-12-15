@@ -81,3 +81,32 @@ func InorderTraversalLoopII(root *TreeNode) []int {
     }
 	return ans
 }
+
+func InorderTraversalLoopMorris(root *TreeNode) []int {
+	ans := make([]int, 0)
+	if root == nil {
+	    return ans
+    }
+    x := root
+    for x != nil {
+        if x.Left == nil {
+            ans = append(ans, x.Val)
+            x = x.Right
+        } else {
+            // find pre
+            pre := x.Left
+            for pre.Right != nil && pre.Right != x {
+                pre = pre.Right
+            }
+            if pre.Right == x {
+                pre.Right = nil
+                ans = append(ans, x.Val)
+                x = x.Right
+            } else {
+                pre.Right = x
+                x = x.Left
+            }
+        }
+    }
+    return ans
+}
