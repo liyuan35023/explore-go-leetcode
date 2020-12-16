@@ -49,17 +49,17 @@ func bstHelper(node *TreeNode) (bool, int, int) {
     var leftMin, leftMax, rightMin, rightMax int
     bstLeft, bstRight := true, true
     if node.Left != nil {
-        bstLeft, leftMin, leftMax = bstHelper(node.Left)
+       bstLeft, leftMin, leftMax = bstHelper(node.Left)
     } else {
-        leftMin, leftMax = node.Val, node.Val
+       leftMin, leftMax = node.Val, node.Val
     }
     if node.Right != nil {
-        bstRight, rightMin, rightMax = bstHelper(node.Right)
+       bstRight, rightMin, rightMax = bstHelper(node.Right)
     } else {
-        rightMin, rightMax = node.Val, node.Val
+       rightMin, rightMax = node.Val, node.Val
     }
     if !bstLeft || !bstRight || (node.Left != nil && node.Val <= leftMax) || (node.Right != nil && node.Val >= rightMin) {
-        return false, 0, 0
+       return false, 0, 0
     }
     return true, leftMin, rightMax
 }
