@@ -42,3 +42,31 @@ func maxProfit122(prices []int) int {
 	}
 	return profit
 }
+
+func maxProfit122DP(prices []int) int {
+	if len(prices) < 1 {
+		return 0
+	}
+	// dp[i][0]表示第i天处于空仓状态的最大收益
+	// dp[i][1]表示第i天处于持有股票状态的最大收益
+	dp := make([][2]int, len(prices))
+	for i := 0; i < len(prices); i++ {
+		dp[i] = [2]int{0, 0}
+	}
+	dp[0][0] = 0
+	dp[0][1] = -prices[0]
+	for i := 1; i < len(prices); i++ {
+		dp[i][0] = max(dp[i-1][0], dp[i-1][1]+prices[i])
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0]-prices[i])
+	}
+	return dp[len(prices)-1][0]
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+
+}
+

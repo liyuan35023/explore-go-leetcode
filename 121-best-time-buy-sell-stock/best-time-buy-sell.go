@@ -52,3 +52,15 @@ func min(i, j int) int {
 	}
 	return j
 }
+func maxProfitIINoDp(prices []int) int {
+	if len(prices) < 1 {
+		return 0
+	}
+	ans := 0
+	minPrice := prices[0]
+	for i := 1; i < len(prices); i++ {
+		ans = max(ans, prices[i]-minPrice)
+		minPrice = min(minPrice, prices[i])
+	}
+	return ans
+}
