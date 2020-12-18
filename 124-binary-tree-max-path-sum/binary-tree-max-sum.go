@@ -58,3 +58,21 @@ func max(x, y int) int {
     }
     return y
 }
+
+func maxPathSumII(root *TreeNode) int {
+    ans := math.MinInt32
+    var maxGain func(node *TreeNode) int
+    maxGain = func(node *TreeNode) int {
+        if node == nil {
+            return 0
+        }
+
+        leftGain := maxGain(node.Left)
+        rightGain := maxGain(node.Right)
+        pathSum := leftGain + rightGain + node.Val
+        ans = max(ans, pathSum)
+        return max(max(leftGain, rightGain) + node.Val, 0)
+    }
+    maxGain(root)
+    return ans
+}
