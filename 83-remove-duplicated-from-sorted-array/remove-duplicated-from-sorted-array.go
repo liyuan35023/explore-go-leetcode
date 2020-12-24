@@ -23,9 +23,6 @@ type ListNode struct {
 }
 
 func deleteDuplicates(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
-	}
     cur := head
     for cur != nil && cur.Next != nil {
 		if cur.Val == cur.Next.Val {
@@ -34,5 +31,17 @@ func deleteDuplicates(head *ListNode) *ListNode {
 			cur = cur.Next
 		}
 	}
+	return head
+}
+
+func deleteDuplicatesII(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	next := head.Next
+	for next != nil && head.Val == next.Val {
+		next = next.Next
+	}
+	head.Next = deleteDuplicatesII(next)
 	return head
 }

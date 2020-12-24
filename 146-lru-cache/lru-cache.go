@@ -27,64 +27,61 @@ package _46_lru_cache
 */
 type LRUCache struct {
 	capacity int
-	cache map[int]int  // key -> value
+	// head 表示最新的值  head -> <- node -> <- tail
+	dummyHead, dummyTail *Dequeue
+	cache map[int]*Dequeue
 }
 
 func Constructor(capacity int) LRUCache {
-	return LRUCache{
+	l := LRUCache{
 		capacity: capacity,
-		cache: make(map[int]int),
-		used: make(map[int]int),
-		queue: make([]int, 0),
+		cache: make(map[int]*Dequeue),
+		dummyHead: new(Dequeue),
+		dummyTail: new(Dequeue),
 	}
+	l.dummyTail.pre = l.dummyHead
+	l.dummyHead.next = l.dummyTail
+	return l
 }
 
 func (this *LRUCache) Get(key int) int {
-	if v, ok := this.cache[key]; ok {
-		this.used[key]++
-		return v
+	if node, ok := this.cache[key]; ok {
+		this.moveToHead(node)
+		return node.value
+	} else {
+		return -1
 	}
-	return -1
 }
 
 func (this *LRUCache) Put(key int, value int)  {
-	if _, ok := this.cache[key]; ok {
-		this.cache[key] = value
-		this.used[key] = 0
-		for k, v := range this.queue {
-			if v == key {
-				this.queue = append(this.queue[:k], this.queue[k+1:]...)
-				break
-			}
+	if node, ok := this.cache[key]; ok {
+		this.moveToHead(node)
+		node.value = value
+	} else {
+		node = &Dequeue{key: key, value: value}
+		this.moveToHead(node)
+		this.cache[key] = node
+		if len(this.cache) > this.capacity {
+			// delete tail
+			tail := this.dummyTail.pre
+			delete(this.cache, tail.key)
+			this.dummyTail.pre = tail.pre
+			tail.pre.next = this.dummyTail
 		}
-		this.queue = append(this.queue, key)
-		return
 	}
-
-	if len(this.cache) >= this.capacity {
-		// find last not used（used least）
-		// queue : put queue   value : key
-		leastUsedKey := this.queue[0]
-		leastUsedIndexInQueue := 0
-		for k, v := range this.queue {
-			if count, ok := this.used[v]; ok && count != 0 {
-				if count < this.used[leastUsedKey] {
-					leastUsedKey = v
-					leastUsedIndexInQueue = k
-				}
-			} else {
-				leastUsedKey = v
-				leastUsedIndexInQueue = k
-				break
-			}
-		}
-		delete(this.cache, leastUsedKey)
-		delete(this.used, leastUsedKey)
-		this.queue = append(this.queue[:leastUsedIndexInQueue], this.queue[leastUsedIndexInQueue+1:]...)
-	}
-	this.cache[key] = value
-	this.queue = append(this.queue, key)
 }
+
+func (this *LRUCache) moveToHead(node *Dequeue) {
+	if node.pre != nil {
+		node.pre.next = node.next
+		node.next.pre = node.pre
+	}
+	node.pre = this.dummyHead
+	node.next = this.dummyHead.next
+	this.dummyHead.next.pre = node
+	this.dummyHead.next = node
+}
+
 /**
  * Your LRUCache object will be instantiated and called as such:
  * obj := Constructor(capacity);
@@ -96,4 +93,3 @@ type Dequeue struct {
 	key, value int
 	pre, next *Dequeue
 }
-

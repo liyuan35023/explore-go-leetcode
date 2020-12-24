@@ -64,5 +64,28 @@ func preorderTraversalLoop(root *TreeNode) []int {
 
 
 func preorderTraversalMorrisLoop(root *TreeNode) []int {
-
+    ans := make([]int, 0)
+    x := root
+    for x != nil {
+        ans = append(ans, x.Val)
+        if x.Left == nil {
+            x = x.Right
+        } else {
+            pre := x.Left
+            for pre.Right != nil && pre.Right != x.Right {
+                pre = pre.Right
+            }
+            if pre.Right == nil {
+                pre.Right = x.Right
+                x = x.Left
+                continue
+            }
+            if pre.Right == x.Right {
+                pre.Right = nil
+                x = x.Right
+                continue
+            }
+        }
+    }
+    return ans
 }
