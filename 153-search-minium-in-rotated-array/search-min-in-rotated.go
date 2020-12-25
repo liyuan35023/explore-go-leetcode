@@ -69,3 +69,54 @@ func findMinII(nums []int) int {
 	return nums[left]
 }
 
+func findMinIII(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+
+	left, right := 0, n-1
+	for left < right {
+		if nums[left] < nums[right] {
+			return nums[left]
+		}
+
+		mid := left + (right-left)/2
+		if nums[mid] >= nums[left] {
+			left = mid + 1
+		} else {
+			right = mid
+		}
+
+	}
+	return nums[left]
+}
+
+func findMinIV(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+
+	left, right := 0, n-1
+	for left <= right {
+		mid := left + (right-left)/2
+
+		if nums[mid-1] > nums[mid] {
+			return nums[mid]
+		}
+		if nums[mid] > nums[mid+1] {
+			return nums[mid+1]
+		}
+
+
+		if nums[mid] > nums[0] {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+
+	}
+	return nums[left]
+}
+

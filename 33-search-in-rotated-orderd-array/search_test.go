@@ -6,7 +6,7 @@ import (
 )
 
 func TestRotateSearch(t *testing.T) {
-	fmt.Println(SearchLoop([]int{5,1,3}, 5))
+	fmt.Println(SearchLoop([]int{3, 5}, 7))
 }
 
 

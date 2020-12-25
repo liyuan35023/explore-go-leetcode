@@ -158,6 +158,3 @@ func mergeTwoRetHeadAndTail(l *ListNode, r *ListNode) (*ListNode, *ListNode) {
 
 	return dummyHead.Next, tail
 }
-
-
-
