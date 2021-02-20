@@ -12,7 +12,7 @@ package _48_sort_list
 	Output: -1->0->3->4->5
 
 	题目大意 #
-	链表的排序，要求时间复杂度必须是 O(n log n)，空间复杂度是 O(1)
+	链表的排序，要求时间复杂度必须是 	O(n log n)，空间复杂度是 O(1)
     要满足
  */
 
@@ -75,51 +75,37 @@ func mergeTwo(l *ListNode, r *ListNode) *ListNode {
 }
 
 func SortListLoop(head *ListNode) *ListNode {
-	// 迭代：因为要求空间复杂度为O(1)
-	if head == nil || head.Next == nil {
-		return head
-	}
+	dummyHead := &ListNode{Next: head}
 	n := 0
-	cur := head
-	for cur != nil {
+	for cur := head; cur != nil; cur = cur.Next {
 		n++
-		cur = cur.Next
 	}
-	dummyHead := new(ListNode)
-	pre := dummyHead
-	dummyHead.Next = head
-
-	firstBlockHead, firstBlockTail := head, head
-	secondBlockHead, secondBlockTail := head, head
-	for block := 1; block < n; block *= 2 {
-		firstBlockHead = dummyHead.Next
-		pre = dummyHead
-		for firstBlockHead != nil {
-			// 比较 两个相邻block，进行merge操作
-			// 首先找到两个block的head以及tail
-			firstBlockTail = firstBlockHead
-			secondBlockHead, secondBlockTail = firstBlockHead, firstBlockHead
-			for k := 1; k < block && firstBlockTail != nil; k++ {
-				firstBlockTail = firstBlockTail.Next
+	var head1, head2 *ListNode
+	for block := 1; block < n; block <<= 1 {
+		pre := dummyHead
+		cur := dummyHead.Next
+		for cur != nil {
+			// 先找到到两个的head
+			head1 = cur
+			for i := 1; i < block && cur != nil; i++ {
+				cur = cur.Next
 			}
-			if firstBlockTail == nil || firstBlockTail.Next == nil {
-				pre.Next = firstBlockHead
+			if cur == nil {
+				pre.Next = head1
 				break
 			}
-			secondBlockHead = firstBlockTail.Next
-			secondBlockTail = secondBlockHead
-			for k := 1; k < block && secondBlockTail != nil; k++ {
-				secondBlockTail = secondBlockTail.Next
+			head2 = cur.Next
+			cur.Next = nil
+			cur = head2
+			for i := 1; i < block && cur != nil; i++ {
+				cur = cur.Next
 			}
-			// 断开链表 && 记录下次的firstBlockHead
-			firstBlockTail.Next = nil
-			tmpNextBlockHead := secondBlockTail
-			if secondBlockTail != nil {
-				tmpNextBlockHead = secondBlockTail.Next
-				secondBlockTail.Next = nil
+			if cur != nil {
+				tmp := cur.Next
+				cur.Next = nil
+				cur = tmp
 			}
-			newHead, newTail := mergeTwoRetHeadAndTail(firstBlockHead, secondBlockHead)
-			firstBlockHead = tmpNextBlockHead
+			newHead, newTail := merge(head1, head2)
 			pre.Next = newHead
 			pre = newTail
 		}
@@ -127,34 +113,30 @@ func SortListLoop(head *ListNode) *ListNode {
 	return dummyHead.Next
 }
 
-func mergeTwoRetHeadAndTail(l *ListNode, r *ListNode) (*ListNode, *ListNode) {
-	dummyHead := new(ListNode)
-	tail := dummyHead
-	pre := dummyHead
-	for l != nil && r != nil {
-		if l.Val < r.Val {
-			pre.Next = l
-			l = l.Next
+func merge(head1 *ListNode, head2 *ListNode) (*ListNode, *ListNode) {
+	dummy := new(ListNode)
+	pre := dummy
+	for head1 != nil && head2 != nil {
+		if head1.Val < head2.Val {
+			pre.Next = head1
+			head1 = head1.Next
 		} else {
-			pre.Next = r
-			r = r.Next
+			pre.Next = head2
+			head2 = head2.Next
 		}
 		pre = pre.Next
 	}
-	if l != nil {
-		pre.Next = l
-		for l.Next != nil {
-			l = l.Next
+	if head1 != nil {
+		pre.Next = head1
+		for ; head1 != nil; head1 = head1.Next {
+			pre = pre.Next
 		}
-		tail = l
 	}
-	if r != nil {
-		pre.Next = r
-		for r.Next != nil {
-			r = r.Next
+	if head2 != nil {
+		pre.Next = head2
+		for ; head2 != nil; head2 = head2.Next {
+			pre = pre.Next
 		}
-		tail = r
 	}
-
-	return dummyHead.Next, tail
+	return dummy.Next, pre
 }

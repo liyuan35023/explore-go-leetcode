@@ -111,3 +111,44 @@ func restoreIpAddressesII(s string) []string {
 	return ans
 }
 
+
+func restoreIpAddressesIII(s string) []string {
+	ans := make([]string, 0)
+	if len(s) < 4 {
+		return ans
+	}
+
+	// solution := make([]byte, 0)
+
+	var dfs func(dotIdx int, startIdx int, solution string)
+	dfs = func(dotIdx int, startIdx int, solution string) {
+		if dotIdx == 4 {
+			remainNum, _ := strconv.Atoi(s[startIdx:])
+			if remainNum > 255 || startIdx < len(s) - 1 && s[startIdx] == '0' {
+				return
+			}
+			solution += s[startIdx:]
+			ans = append(ans, solution)
+			return
+		}
+		for i := startIdx; i < len(s) + dotIdx - 4; i++ {
+			num, _ := strconv.Atoi(s[startIdx:i+1])
+			if num <= 255 {
+				// curLen := len(solution)
+				// solution = append(solution, s[startIdx:i+1]...)
+				// solution = append(solution, '.')
+				tmp := solution + s[startIdx:i+1]
+				tmp += "."
+				dfs(dotIdx+1, i+1, tmp)
+				// solution = solution[:curLen+1]
+				if num == 0 {
+					break
+				}
+			} else {
+				break
+			}
+		}
+	}
+	dfs(1, 0, "")
+	return ans
+}

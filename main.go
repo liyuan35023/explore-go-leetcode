@@ -3,17 +3,25 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"reflect"
+	"runtime"
 	"strconv"
 	"sync"
 )
+
 type Person struct {
-	age int
+	age   int
 	child *Person
 }
 
 func (p *Person) modify() {
 	p.age = 10
 	p.child.age++
+}
+
+type Person2 struct {
+	age   int
+	child *Person
 }
 
 type Direction int
@@ -29,13 +37,21 @@ func (d Direction) String() string {
 	return [...]string{"North", "East", "South", "West"}[int(d)]
 }
 
-func TestGenBlockIdSeqId() {
+func TestGenBlockIdSeqId() *Person {
 	objID := uint64(122442667136123138)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
 	//assert.Equal(t, uint32(objID>>32), blockID)
 	//assert.Equal(t, uint32(objID&0xffffffff), seqID)
+	p1 := new(Person)
+	p2 := new(Person)
+	//p1 := &Person{}
+	//p2 := &Person{}
+	println(p1)
+	println(p2)
+	//fmt.Printf(" p2:%p", p2)
+	return p2
 }
 
 func TestGenGroupId() {
@@ -76,7 +92,7 @@ func escapee() {
 	randSize := rand.Int()
 	s := make([]string, 10, 100)
 	//str := "hello"
-	for i:=0;i<randSize;i++ {
+	for i := 0; i < randSize; i++ {
 		s = append(s, strconv.Itoa(randSize))
 
 	}
@@ -96,52 +112,44 @@ func finbina(n int) int {
 			dp[i] = i
 			continue
 		}
-		dp[i] = (dp[i-1] % 1000000007 + dp[i-2] % 1000000007) % 1000000007
+		dp[i] = (dp[i-1]%1000000007 + dp[i-2]%1000000007) % 1000000007
 	}
 	return dp[n]
 }
 
-
 func main() {
-	sli := make([]string, 0)
-	s := "fads"
-	sli = append(sli, s)
-	s = "fda"
-	fmt.Println(sli[0])
+	fmt.Println(runtime.NumCPU())
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	var wg sync.WaitGroup
+	wg.Add(20)
+	for i := 0; i < 10; i++ {
+		go func() {
+			defer wg.Done()
+			fmt.Printf("A: %d\n", i)
+		}()
+	}
 
-	//third := _4_binary_tree_inorder.TreeNode{Val: 3}
-	//second := _4_binary_tree_inorder.TreeNode{Val: 2, Left: &third}
-	//root := _4_binary_tree_inorder.TreeNode{Val: 1, Right: &second}
-	//
-	//ret := _4_binary_tree_inorder.InorderTraversalLoop(&root)
+	for i := 0; i < 10; i++ {
+		go func(i int) {
+			defer wg.Done()
+			fmt.Printf("B: %d\n", i)
+		}(i)
+	}
+	wg.Wait()
 
-	//head := &_48_sort_list.ListNode{Val: -1}
-	//two := &_48_sort_list.ListNode{Val: 5}
-	//tree := &_48_sort_list.ListNode{Val: 3}
-	//four := &_48_sort_list.ListNode{Val: 4}
-	//five := &_48_sort_list.ListNode{Val: 0}
-	//head.Next = two
-	//two.Next = tree
-	//tree.Next = four
-	//four.Next = five
-	//newHead := _48_sort_list.SortListLoop(head)
-	//for newHead != nil {
-	//	fmt.Println(newHead.Val)
-	//	newHead = newHead.Next
-	//}
-
-
-	//[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
-
- 	//ans := finbina(45)
- 	//fmt.Println(ans)
+	//ans := finbina(45)
+	//fmt.Println(ans)
 
 	//TestGenGroupId()
-	TestGenBlockIdSeqId()
+	p := TestGenBlockIdSeqId()
+	fmt.Println(p)
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
 
-
+	var inter *Person
+	fmt.Println(reflect.TypeOf(inter))
+	//var yy *Person2 = nil
+	fmt.Println(inter == nil)
 
 	//s := __Longest_subString.LengthOfLongestSubstringBruteForce(" ")
 	//s := __Longest_subString.LengthOfLongestSubstring("abcabcbb")

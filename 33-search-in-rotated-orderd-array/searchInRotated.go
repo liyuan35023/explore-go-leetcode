@@ -76,7 +76,7 @@ func SearchLoop(nums []int, target int) int {
 		}
 		// 一定是小于等于
 		if nums[left] <= nums[mid] {
-			if target < nums[mid] && target >= nums[left] {
+			if target < nums[mid] && target > nums[left] {
 				right = mid - 1
 			} else {
 				left = mid + 1

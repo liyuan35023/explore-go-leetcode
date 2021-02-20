@@ -50,17 +50,40 @@ func TrapDoublePointer(height []int) int {
 		return 0
 	}
 	ans := 0
-	leftMax, rightMax := height[0], height[len(height)-1]
+	//leftMax, rightMax := height[0], height[len(height)-1]
+	leftMax, rightMax := 0, 0
 	i, j := 0, len(height)-1
-	for i < j {
+	for i <= j {
+		//if leftMax < rightMax {
+		//	if leftMax >= height[i] {
+		//		ans += leftMax - height[i]
+		//	} else {
+		//		leftMax = height[i]
+		//	}
+		//	i++
+		//} else {
+		//	if rightMax >= height[j] {
+		//		ans += rightMax - height[j]
+		//	} else {
+		//		rightMax = height[j]
+		//	}
+		//	j--
+		//}
+
 		if height[i] < height[j] {
-			ans += min(leftMax, rightMax) - height[i]
+			if height[i] >= leftMax {
+				leftMax = height[i]
+			} else {
+				ans += leftMax - height[i]
+			}
 			i++
-			leftMax = max(leftMax, height[i])
 		} else {
-			ans += min(leftMax, rightMax) - height[j]
+			if height[j] >= rightMax {
+				rightMax = height[j]
+			} else {
+				ans += rightMax - height[j]
+			}
 			j--
-			rightMax = max(rightMax, height[j])
 		}
 	}
 	return ans

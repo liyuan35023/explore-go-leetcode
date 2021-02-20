@@ -6,7 +6,7 @@ import (
 )
 
 func TestRestoreIp(t *testing.T) {
-	fmt.Println(restoreIpAddressesII("25525511135"))
+	fmt.Println(restoreIpAddressesIII("25525511135"))
 
 }
 

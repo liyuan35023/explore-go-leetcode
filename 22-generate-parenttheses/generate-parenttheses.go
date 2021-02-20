@@ -41,3 +41,20 @@ func backTrace(s string, c byte, n, left, right int) {
 	backTrace(s+string(c), ')', n, left, right)
 }
 
+func GenerateParenthesisII(n int) []string {
+	ans := make([]string, 0)
+	var dfs func(solution string, left int, right int)
+	dfs = func(solution string, left int, right int) {
+		if left < right || left > n {
+			return
+		}
+		if left == n && right == n {
+			ans = append(ans, solution)
+			return
+		}
+		dfs(solution+"(", left+1, right)
+		dfs(solution+")", left, right+1)
+	}
+	dfs("", 0, 0)
+	return ans
+}

@@ -69,9 +69,9 @@ func findMedianSortedArrays2(nums1 []int, nums2 []int) float64 {
 		}
 	}
 	if totalLen % 2 != 0 {
-		return float64(findMaxKNum(nums1, nums2, totalLen/2 + 1))
+		return float64(findMinK(nums1, nums2, totalLen/2 + 1))
 	} else {
-		return (float64(findMaxKNum(nums1, nums2, totalLen/2)) + float64(findMaxKNum(nums1, nums2, totalLen/2 + 1))) / 2
+		return (float64(findMinK(nums1, nums2, totalLen/2)) + float64(findMinK(nums1, nums2, totalLen/2 + 1))) / 2
 	}
 }
 
@@ -115,4 +115,47 @@ func min(x, y int) int {
 		return x
 	}
 	return y
+}
+
+func findMedianSortedArraysIII(nums1 []int, nums2 []int) float64 {
+	totalLen := len(nums1) + len(nums2)
+	if totalLen % 2 == 0 {
+		return (float64(findMinK(nums1, nums2, totalLen / 2)) + float64(findMinK(nums1, nums2, totalLen/2 + 1))) / 2
+	} else {
+		return float64(findMinK(nums1, nums2, totalLen / 2 + 1))
+	}
+
+}
+
+func findMinK(nums1 []int, nums2 []int, k int) int {
+	m, n := len(nums1), len(nums2)
+	i, j := 0, 0
+	for k > 1 && i < len(nums1) && j < len(nums2) {
+		tmp := k / 2
+		idx1, idx2 := 0, 0
+		if i + tmp - 1 > m - 1 {
+			idx1 = m - 1
+		} else {
+			idx1 = i + tmp - 1
+		}
+		if j + tmp - 1 > n - 1 {
+			idx2 = n - 1
+		} else {
+			idx2 = j + tmp - 1
+		}
+		if nums1[idx1] < nums2[idx2] {
+			k = k - (idx1 - i + 1)
+			i = idx1 + 1
+		} else {
+			k = k - (idx2 - j + 1)
+			j = idx2 + 1
+		}
+	}
+	if i == m {
+		return nums2[j+k-1]
+	}
+	if j == n {
+		return nums1[i+k-1]
+	}
+	return min(nums1[i], nums2[j])
 }
