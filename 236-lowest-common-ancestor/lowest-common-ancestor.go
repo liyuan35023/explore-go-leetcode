@@ -37,9 +37,15 @@ func lowestCommonAncestorRec(root, p, q *TreeNode) *TreeNode {
 	if root == nil {
 		return nil
 	}
-
-	helper(root, p, q)
-	return ans
+	lNode := lowestCommonAncestor(root.Left, p, q)
+	rNode := lowestCommonAncestor(root.Right, p, q)
+	if lNode != nil && rNode != nil || root == p || root == q {
+		return root
+	}
+	if lNode != nil {
+		return lNode
+	}
+	return rNode
 }
 
 func helper(node, p, q *TreeNode) bool {

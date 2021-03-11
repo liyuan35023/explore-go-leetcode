@@ -6,6 +6,6 @@ import (
 )
 
 func TestCoinChange(t *testing.T) {
-	ret := coinChange([]int{2, 5 , 10, 1}, 27)
+	ret := coinChange3([]int{1,2,5}, 11)
 	fmt.Println(ret)
 }

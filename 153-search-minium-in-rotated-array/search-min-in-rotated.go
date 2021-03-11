@@ -24,6 +24,43 @@ package _53_search_minium_in_rotated_array
 	nums 原来是一个升序排序的数组，但在预先未知的某个点上进行了旋转
 
  */
+
+func findMinII(nums []int) int {
+	left, right := 0, len(nums) - 1
+	if nums[left] < nums[right] {
+		return nums[left]
+	}
+
+	for left < right {
+		mid := left + (right-left) / 2
+		if nums[mid] > nums[mid+1] {
+			return nums[mid+1]
+		}
+		if nums[mid] < nums[mid-1] {
+			return nums[mid]
+		}
+		if nums[mid] > nums[0] {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return nums[left]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 func findMin(nums []int) int {
 	left, right := 0, len(nums)-1
 	for left < right {

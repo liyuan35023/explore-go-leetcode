@@ -61,3 +61,26 @@ func rob198Roll(nums []int) int {
 	}
 	return second
 }
+
+
+
+
+
+
+
+
+
+
+
+
+func rob198II(nums []int) int {
+	if len(nums) == 1 {
+		return nums[0]
+	}
+	first, second := nums[0], max(nums[0], nums[1])
+
+	for i := 2; i < len(nums); i++ {
+		first, second = second, max(first+nums[i], second)
+	}
+	return second
+}

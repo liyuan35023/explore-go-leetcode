@@ -3,6 +3,7 @@ package _22_coin_change
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 /*
@@ -19,8 +20,8 @@ import (
 	You may assume that you have an infinite number of each kind of coin.
 
 	题目大意 #
-	给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
-
+	给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
+	如果没有任何一种硬币组合能组成总金额，返回 -1。
  */
 
 func coinChange(coins []int, amount int) int {
@@ -90,3 +91,28 @@ func min(x, y int) int {
 	return y
 }
 
+func coinChange3(coins []int, amount int) int {
+	// dfs
+	ans := math.MaxInt32
+	sort.Ints(coins)
+	n := len(coins)
+	var dfs func(target int, idx int, curCount int)
+	dfs = func(target int, idx int, curCount int) {
+		if idx < 0 || curCount + target / coins[idx] > ans {
+			return
+		}
+		if target % coins[idx] == 0 {
+			ans = min(ans, curCount + target / coins[idx])
+			return
+		}
+		maxCount := target / coins[idx]
+		for i := maxCount; i >= 0; i-- {
+			dfs(target - i * coins[idx], idx - 1, curCount + i)
+		}
+	}
+	dfs(amount, n-1, 0)
+	if ans != math.MaxInt32 {
+		return ans
+	}
+	return -1
+}

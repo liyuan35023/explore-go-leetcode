@@ -66,3 +66,35 @@ func isPalindrome234(head *ListNode) bool {
     }
     return true
 }
+
+func isPalindrome(head *ListNode) bool {
+    if head == nil || head.Next == nil {
+        return true
+    }
+
+    // find mid
+    slow, fast := head, head
+    for fast.Next != nil {
+        slow = slow.Next
+        fast = fast.Next.Next
+    }
+
+    // reverse half
+    var pre *ListNode
+    for slow != nil {
+        tmp := slow.Next
+        slow.Next = pre
+        pre = slow
+        slow = tmp
+    }
+    cur1, cur2 := head, pre
+    for cur1 != cur2 && cur1 != nil && cur2 != nil {
+        if cur1.Val != cur2.Val {
+            return false
+        }
+        cur1 = cur1.Next
+        cur2 = cur2.Next
+    }
+    return true
+}
+

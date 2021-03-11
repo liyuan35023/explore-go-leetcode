@@ -79,3 +79,61 @@ func getMinChildIdx(nums []int, numMap map[int]int, parent int, length int) int 
 	}
 	return ans
 }
+
+func topKFrequent22(nums []int, k int) []int {
+	ans := make([]int, 0)
+	countMap := make(map[int]int)
+	for _, v := range nums {
+		countMap[v]++
+	}
+	for value, count := range countMap {
+		if len(ans) < k {
+			ans = append(ans, value)
+			upAdjust22(ans, countMap, len(ans))
+		} else {
+			if count > countMap[ans[0]] {
+				ans[0] = value
+				downAdjust22(ans, countMap, 0, len(ans)-1)
+			}
+		}
+	}
+	return ans
+}
+
+func upAdjust22(nums []int, countMap map[int]int, length int) {
+	idx := length - 1
+	for idx >= 1 {
+		parent := (idx - 1) / 2
+		if countMap[nums[parent]] <= countMap[nums[idx]] {
+			break
+		}
+		nums[idx], nums[parent] = nums[parent], nums[idx]
+		idx = parent
+	}
+}
+
+func downAdjust22(nums []int, countMap map[int]int, start, end int) {
+	idx := start
+	for idx < (end - start + 1) / 2 {
+		minChild := findMinChild(nums, countMap, idx, end-start+1)
+		if countMap[nums[minChild]] >=  countMap[nums[idx]] {
+			return
+		}
+		nums[idx], nums[minChild] = nums[minChild], nums[idx]
+		idx = minChild
+	}
+}
+
+func findMinChild(nums []int, countMap map[int]int, parent int, length int) int {
+	child1 := 2 * parent + 1
+	child2 := 2 * parent + 2
+	if child2 > length - 1 {
+		return child1
+	}
+
+	if countMap[nums[child1]] < countMap[nums[child2]] {
+		return child1
+	}
+	return child2
+
+}

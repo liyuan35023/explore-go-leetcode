@@ -68,3 +68,20 @@ func rightSideView2(root *TreeNode) []int {
 	}
 	return ans
 }
+
+func rightSideView3(root *TreeNode) []int {
+	ans := make([]int, 0)
+	var dfs func(node *TreeNode, level int)
+	dfs = func(node *TreeNode, level int) {
+		if node == nil {
+			return
+		}
+		if len(ans) < level {
+			ans = append(ans, node.Val)
+		}
+		dfs(node.Right, level+1)
+		dfs(node.Left, level+1)
+	}
+	dfs(root, 1)
+	return ans
+}

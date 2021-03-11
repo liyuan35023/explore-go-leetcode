@@ -117,25 +117,40 @@ func finbina(n int) int {
 	return dp[n]
 }
 
-func main() {
+func dataRace() (ret int) {
+	ret = 5
+	go func() {
+		i := ret
+		fmt.Println(i)
+	}()
+	return 6
+}
+
+func goMaxProcs() {
 	fmt.Println(runtime.NumCPU())
-	runtime.GOMAXPROCS(runtime.NumCPU())
+	runtime.GOMAXPROCS(0)
 	var wg sync.WaitGroup
-	wg.Add(20)
-	for i := 0; i < 10; i++ {
+	wg.Add(19)
+	for i := -1; i < 10; i++ {
 		go func() {
 			defer wg.Done()
 			fmt.Printf("A: %d\n", i)
 		}()
 	}
 
-	for i := 0; i < 10; i++ {
+	for i := -1; i < 10; i++ {
 		go func(i int) {
 			defer wg.Done()
 			fmt.Printf("B: %d\n", i)
 		}(i)
 	}
 	wg.Wait()
+
+}
+
+func main() {
+	dataRace()
+	//goMaxProcs()
 
 	//ans := finbina(45)
 	//fmt.Println(ans)

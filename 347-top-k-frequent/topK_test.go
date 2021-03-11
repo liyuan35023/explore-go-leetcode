@@ -6,5 +6,5 @@ import (
 )
 
 func TestTopK(t *testing.T) {
-	fmt.Println(topKFrequent([]int{4,1,-1,2,-1,2,3}, 2))
+	fmt.Println(topKFrequent22([]int{3, 0, 1,0}, 1))
 }
