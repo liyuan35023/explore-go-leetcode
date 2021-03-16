@@ -15,11 +15,11 @@ package _45_add_two_numbers
 
 	Follow up: What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
 
- */
+*/
 
 type ListNode struct {
-    Val int
-    Next *ListNode
+	Val  int
+	Next *ListNode
 }
 
 func addTwoNumbers445(l1 *ListNode, l2 *ListNode) *ListNode {
@@ -50,9 +50,40 @@ func addTwoNumbers445(l1 *ListNode, l2 *ListNode) *ListNode {
 		} else {
 			cur2 = 0
 		}
-		node := &ListNode{Val: (cur1+cur2+carry)%10, Next: pre}
-		carry = (cur1+cur2+carry) / 10
+		node := &ListNode{Val: (cur1 + cur2 + carry) % 10, Next: pre}
+		carry = (cur1 + cur2 + carry) / 10
 		pre = node
 	}
 	return pre
+}
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	stack1 := make([]int, 0)
+	stack2 := make([]int, 0)
+	for l1 != nil || l2 != nil {
+		if l1 != nil {
+			stack1 = append(stack1, l1.Val)
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			stack2 = append(stack2, l2.Val)
+			l2 = l2.Next
+		}
+	}
+	m, n := len(stack1), len(stack2)
+	var next *ListNode
+	carry := 0
+	for i, j := m-1, n-1; i >= 0 || j >= 0 || carry > 0; i, j = i-1, j-1 {
+		v1, v2 := 0, 0
+		if i >= 0 {
+			v1 = stack1[i]
+		}
+		if j >= 0 {
+			v2 = stack2[j]
+		}
+		cur := &ListNode{Val: (v1 + v2 + carry) % 10, Next: next}
+		carry = (v1 + v2 + carry) / 10
+		next = cur
+	}
+	return next
 }

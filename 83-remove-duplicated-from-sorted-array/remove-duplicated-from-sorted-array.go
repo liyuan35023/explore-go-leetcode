@@ -45,3 +45,22 @@ func deleteDuplicatesII(head *ListNode) *ListNode {
 	head.Next = deleteDuplicatesII(next)
 	return head
 }
+
+func deleteDuplicatesIII(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	pre := head
+	cur := head.Next
+	for cur != nil {
+		if cur.Val != pre.Val {
+			pre.Next = cur
+		} else {
+			pre.Next = nil
+		}
+		cur = cur.Next
+	}
+	return head
+}
+
+

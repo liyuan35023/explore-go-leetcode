@@ -148,8 +148,37 @@ func goMaxProcs() {
 
 }
 
+func structCompare() {
+	type com struct {
+		a int
+		_ string
+		s [3]int
+		sli []int
+	}
+	c1 := com{sli: []int{3,4}}
+	c2 := com{sli: []int{1,2,3}}
+	fmt.Println(reflect.DeepEqual(c1, c2))
+
+	v1 := struct {
+		A int
+		B string
+	} {
+		A: 10,
+		B: "bb",
+	}
+	v2 := struct {
+		A int
+		B string
+	} {
+		A: 10,
+		B: "bbc",
+	}
+	fmt.Println(v1 == v2)
+}
+
 func main() {
-	dataRace()
+	structCompare()
+	//dataRace()
 	//goMaxProcs()
 
 	//ans := finbina(45)

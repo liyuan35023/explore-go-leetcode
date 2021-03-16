@@ -24,35 +24,38 @@ func FindKthNumber(n int, k int) int {
 	//return backTrace(n, 0, k)
 
 	// 十叉树
+	curCount := 1
 	prefix := 1
-	c := 1
-	for c < k {
-		count := getCount(prefix, n)
-		if c + count > k {
+	for curCount < k {
+		count := getPrefixCount(prefix, n)
+		if curCount + count > k {
 			// 在prefix的子节点中寻找
-			c++
+			curCount++
 			prefix *= 10
 		} else {
 			// 在prefix的兄弟节点中寻找
-			c += count
-			prefix += 1
+			curCount += count
+			prefix++
 		}
 	}
+
 	return prefix
 }
 
-func getCount(prefix int, n int) int {
+func getPrefixCount(prefix int, maxNum int) int {
 	// 在十叉树中寻找以prefix开头的数字数目，包括他自己
+
 	first := prefix
-	second := prefix + 1
+	second := first + 1
 	count := 0
-	for first <= n {
-		count += min(second, n + 1) - first
+	for first <= maxNum {
+		count += min(second, maxNum+1) - first
 		first *= 10
 		second *= 10
 	}
 	return count
 }
+
 func min(x, y int) int {
 	if x < y {
 		return x
@@ -82,8 +85,3 @@ func backTrace(n int, cur int, k int) int {
 	 }
 	 return -1
 }
-
-func get()  {
-	
-}
-
