@@ -24,6 +24,28 @@ import (
 
  */
 
+func LengthOfLongestSubstringFinal(s string) int {
+	ans := 0
+	left := 0
+	charMap := make(map[byte]int, 0)
+	for i := 0; i < len(s); i++ {
+		if idx, ok := charMap[s[i]]; ok && idx >= left {
+			left = idx + 1
+		} else {
+			ans = max(ans, i - left + 1)
+		}
+		charMap[s[i]] = i
+	}
+	return ans
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
+
 func LengthOfLongestSubstringBruteForce(s string) int {
 	n := len(s)
 	longest := 0
@@ -55,7 +77,6 @@ func Longest(s string) int {
 	characterMap := make(map[int32]int, 0)
 	longest := 0
 	left := 0
-
 	for k, char := range s {
 		if oldKey, ok := characterMap[char]; ok && oldKey >= left {
 			left = oldKey + 1

@@ -24,8 +24,55 @@ import (
 
  */
 
-// 状态机来解决
+func MyAtoiFinal(s string) int {
+	_map := [][]int{
+		[]int{0, 1, 2, 3},
+		[]int{3, 3, 2, 3},
+		[]int{3, 3, 2, 3},
+		[]int{3, 3, 3, 3},
+	}
+	curState := 0
+	ans := 0
+	signed := 1
+	for i := 0; i < len(s); i++ {
+		column := getColumnFinal(s[i])
+		curState = _map[curState][column]
+		if curState == 3 {
+			break
+		}
+		if curState == 1 {
+			if s[i] == '-' {
+				signed = -1
+			}
+		}
+		if curState == 2 {
+			curNum := int(s[i] - '0')
+			if ans * signed > (1 << 31 - 1 - curNum) / 10 {
+				return 1 << 31 - 1
+			}
+			if ans * signed < (-(1 << 31) - curNum * signed) / 10 {
+				return -1 << 31
+			}
+			ans = ans * 10 + curNum
+		}
+	}
+	return ans * signed
+}
 
+func getColumnFinal(b byte) int {
+	switch {
+	case b == ' ':
+		return 0
+	case b == '+' || b == '-':
+		return 1
+	case b >= '0' && b <= '9':
+		return 2
+	default:
+		return 3
+	}
+}
+
+// 状态机来解决
 var stateMap = map[string][]string{
 	"init":[]string{"init", "signed", "in", "end"},
 	"signed":[]string{"end", "end", "in", "end"},

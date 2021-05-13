@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"math/rand"
 	"reflect"
+	"regexp"
 	"runtime"
 	"strconv"
 	"sync"
+	"time"
 )
 
 type Person struct {
@@ -38,7 +40,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() *Person {
-	objID := uint64(122442667136123138)
+	objID := uint64(341975299086352768)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
@@ -176,8 +178,42 @@ func structCompare() {
 	fmt.Println(v1 == v2)
 }
 
+func gmp() {
+	runtime.GOMAXPROCS(1)
+	go func() {
+		for {
+		}
+	}()
+
+	time.Sleep(time.Millisecond)
+	println("OK")
+}
+
+func regex() {
+	bucketUpper := regexp.MustCompile("^http://(.*?)\\.bjcnc.*?/(.*)")
+	//bucketLower := regexp.MustCompile("http://bjcnc.*?/(.*?)/(.*)")
+	res := bucketUpper.FindStringSubmatch("http://app-content.bjcnc.scs.sohucs.com/article/6784756376276041728")
+	match := bucketUpper.Match([]byte("http://app-content.bjcnc.scs.sohucs.com/article/6784756376276041728"))
+	fmt.Println(match)
+	fmt.Println(len(res))
+	fmt.Println(res)
+	//
+	//res2 := bucketLower.FindAllStringSubmatch("http://bjcnc.scs-internal.sohucs.com/app-content/article/6783718609412685839", -1)
+	//
+	//fmt.Println(res2)
+
+	//numberRegex := regexp.MustCompile("abc([0-9]*)(f)")
+	//res3 := numberRegex.FindAllStringSubmatch("abc44fabc6f", 1)
+	//fmt.Println(res3)
+
+
+}
+
 func main() {
-	structCompare()
+
+	//regex()
+	//gmp()
+	//structCompare()
 	//dataRace()
 	//goMaxProcs()
 

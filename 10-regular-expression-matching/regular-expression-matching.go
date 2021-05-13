@@ -47,6 +47,41 @@ package _0_regular_expression_matching
 	输出: false
  */
 
+func isMatchFinal(s string, p string) bool {
+	match := func(i, j int) bool {
+		return s[i] == p[j] || p[j] == '.'
+	}
+	m, n := len(s), len(p)
+	dp := make([][]bool, m+1)
+	for i := 0; i < m+1; i++ {
+		dp[i] = make([]bool, n+1)
+	}
+	dp[0][0] = true
+	for i := 2; i < n+1; i++ {
+		if p[i-1] == '*' {
+			dp[0][i] = dp[0][i-2]
+		}
+	}
+
+	for i := 1; i < m+1; i++ {
+		for j := 1; j < n+1; j++ {
+			if match(i-1, j-1) {
+				dp[i][j] = dp[i-1][j-1]
+			}
+			if p[j-1] == '*' {
+				if match(i-1, j-2) {
+					dp[i][j] = dp[i][j-2] || dp[i-1][j]
+				} else {
+					dp[i][j] = dp[i][j-2]
+				}
+			}
+		}
+	}
+	return dp[m][n]
+}
+
+
+
 func isMatch(s string, p string) bool {
 	// 动态规划
 	// dp[i][j] 表示 字符串前i个字符可不可以被 pattern的前j个字符所匹配

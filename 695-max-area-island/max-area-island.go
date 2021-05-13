@@ -58,3 +58,31 @@ func max(x, y int) int {
 	}
 	return y
 }
+
+func maxAreaOfIslandII(grid [][]int) int {
+	ans := 0
+	m := len(grid)
+	n := len(grid[0])
+	directions := [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	var dfs func(row, column int) int
+	dfs = func(row, column int) int {
+		if row < 0 || row >= m || column < 0 || column >= n || grid[row][column] == 0 {
+			return 0
+		}
+		grid[row][column] = 0
+		area := 0
+		for _, dir := range directions {
+			area += dfs(row+dir[0], column+dir[1])
+		}
+		ans = max(ans, area + 1)
+		return area + 1
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			dfs(i, j)
+		}
+	}
+	return ans
+}
+
+

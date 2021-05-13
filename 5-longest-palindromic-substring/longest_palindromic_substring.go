@@ -1,10 +1,64 @@
 package __longest_palindromic_substring
 
+/*
+	给你一个字符串 s，找到 s 中最长的回文子串。
+	示例 1：
 
-// 最长回文子串：https://leetcode-cn.com/problems/longest-palindromic-substring/
-// 1.  暴力法，把所有的回文子串找出来
-// 2.  中心扩展算法
-// 3.  dp
+	输入：s = "babad"
+	输出："bab"
+	解释："aba" 同样是符合题意的答案。
+	示例 2：
+
+	输入：s = "cbbd"
+	输出："bb"
+	示例 3：
+
+	输入：s = "a"
+	输出："a"
+	示例 4：
+
+	输入：s = "ac"
+	输出："a"
+
+*/
+
+func longestPalindromeFinal(s string) string {
+	// expand
+	ans := s[:1]
+	for center := 0; center < len(s) ; center++ {
+		left, right := expandCenter(s, center, center)
+		if right - left + 1 > len(ans) {
+			ans = s[left:right+1]
+		}
+		left, right = expandCenter(s, center, center+1)
+		if right - left + 1 > len(ans) {
+			ans = s[left:right+1]
+		}
+	}
+	return ans
+}
+
+func expandCenter(s string, i, j int) (int, int) {
+	for ; i >= 0 && j < len(s) && s[i] == s[j]; i, j = i-1, j+1 {
+	}
+	return i+1, j-1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 func longestPalindrome(s string) string {
 	if len(s) < 2 {

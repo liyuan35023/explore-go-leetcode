@@ -18,6 +18,51 @@ package __median_two_sorted_array
  * 给定两个大小为 m 和 n 的正序（从小到大）数组nums1 和nums2。请你找出并返回这两个正序数组的中位数。
  * 进阶：你能设计一个时间复杂度为 O(log (m+n)) 的算法解决此问题吗？
  */
+func findMedianSortedArraysFinal(nums1 []int, nums2 []int) float64 {
+	totalLen := len(nums1) + len(nums2)
+	if totalLen % 2 == 0 {
+		return (float64(findKthLargestNumInTwoArrays(nums1, nums2, totalLen/2)) + float64(findKthLargestNumInTwoArrays(nums1, nums2, totalLen/2 + 1))) / 2
+	} else {
+		return float64(findKthLargestNumInTwoArrays(nums1, nums2, totalLen / 2 + 1))
+	}
+}
+
+func findKthLargestNumInTwoArrays(nums1 []int, nums2 []int, k int) int {
+	length1, length2 := len(nums1), len(nums2)
+	startIdx1, startIdx2 := 0, 0
+	for k > 1 && startIdx1 < length1 && startIdx2 < length2 {
+		compareIdx1, compareIdx2 := 0, 0
+		if startIdx1 + k / 2 - 1 < length1 {
+			compareIdx1 = startIdx1+k/2-1
+		} else {
+			compareIdx1 = length1-1
+		}
+		if startIdx2 + k / 2 - 1 < length2 {
+			compareIdx2 = startIdx2+k/2-1
+		} else {
+			compareIdx2 = length2-1
+		}
+		if nums1[compareIdx1] < nums2[compareIdx2] {
+			k -= compareIdx1 - startIdx1 + 1
+			startIdx1 = compareIdx1 + 1
+		} else {
+			k -= compareIdx2 - startIdx2 + 1
+			startIdx2 = compareIdx2 + 1
+		}
+	}
+	if startIdx1 >= length1 {
+		return nums2[startIdx2+k-1]
+	}
+	if startIdx2 >= length2 {
+		return nums1[startIdx1+k-1]
+	}
+	if nums1[startIdx1] < nums2[startIdx2] {
+		return nums1[startIdx1]
+	} else {
+		return nums2[startIdx2]
+	}
+}
+
 
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	m := len(nums1)
@@ -57,57 +102,6 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	} else {
 		return float64(sorted[len(sorted)-1])
 	}
-}
-
-func findMedianSortedArrays2(nums1 []int, nums2 []int) float64 {
-	totalLen := len(nums1) + len(nums2)
-	if totalLen == 1 {
-		if len(nums1) != 0 {
-			return float64(nums1[0])
-		} else {
-			return float64(nums2[0])
-		}
-	}
-	if totalLen % 2 != 0 {
-		return float64(findMinK(nums1, nums2, totalLen/2 + 1))
-	} else {
-		return (float64(findMinK(nums1, nums2, totalLen/2)) + float64(findMinK(nums1, nums2, totalLen/2 + 1))) / 2
-	}
-}
-
-func findMaxKNum(nums1 []int, nums2 []int, k int) int {
-	m := len(nums1)
-	n := len(nums2)
-	startIdx1 := 0
-	startIdx2 := 0
-	for k > 1 && startIdx1 < m && startIdx2 < n {
-		mid1 := -1
-		mid2 := -1
-		if startIdx1+(k/2-1) < m {
-			mid1 = startIdx1 + k/2 - 1
-		} else {
-			mid1 = m - 1
-		}
-		if startIdx2+(k/2-1) < n {
-			mid2 = startIdx2 + k/2 - 1
-		} else {
-			mid2 = n - 1
-		}
-		if nums1[mid1] < nums2[mid2] {
-			k = k - (mid1 - startIdx1 + 1)
-			startIdx1 = mid1 + 1
-		} else {
-			k = k - (mid2 - startIdx2 + 1)
-			startIdx2 = mid2 + 1
-		}
-	}
-	if startIdx1 == m {
-		return nums2[startIdx2+k-1]
-	}
-	if startIdx2 == n {
-		return nums1[startIdx1+k-1]
-	}
-	return min(nums1[startIdx1], nums2[startIdx2])
 }
 
 func min(x, y int) int {

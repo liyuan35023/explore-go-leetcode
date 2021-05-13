@@ -23,3 +23,17 @@ func dailyTemperatures(T []int) []int {
 	}
 	return ans
 }
+
+func dailyTemperaturesII(T []int) []int {
+	ans := make([]int, len(T))
+	// 单调递减栈(不增)
+	stack := make([]int, 0)
+	for k, v := range T {
+		for len(stack) > 0 && v > T[stack[len(stack)-1]] {
+			ans[stack[len(stack)-1]] = k - stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+		}
+		stack = append(stack, k)
+	}
+	return ans
+}
