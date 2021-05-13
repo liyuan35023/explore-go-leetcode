@@ -26,6 +26,7 @@ func lcp(strs []string) string {
 		return strs[0]
 	}
 	min, max := strs[0], strs[0]
+
 	for _, s := range strs {
 		if s < min {
 			min = s
