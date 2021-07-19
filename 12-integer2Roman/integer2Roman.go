@@ -26,16 +26,6 @@ C可以放在D(500) 和M(1000) 的左边，来表示400 和900。
 
  */
 
-func intToRomanFinal(num int) string {
-
-
-
-}
-
-
-
-
-
 
 var nums = []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
 var romans = []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}

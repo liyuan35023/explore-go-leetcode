@@ -77,3 +77,28 @@ func ThreeSumII(nums []int) [][]int {
 	}
 	return ans
 }
+
+func threeSum(nums []int) [][]int {
+	// map no!!
+	// 不能用map来寻找
+	ans := make([][]int, 0)
+	if len(nums) < 3 {
+		return ans
+	}
+	sort.Ints(nums)
+	left := 0
+	for ; left < len(nums)-2; left++ {
+		if left > 0 && nums[left-1] == nums[left] {
+			continue
+		}
+		numMap := make(map[int]int)
+		target := -nums[left]
+		for i := left+1; i < len(nums); i++ {
+			if _, ok := numMap[target-nums[i]]; ok {
+				ans = append(ans, []int{nums[left], target-nums[i], nums[i]})
+			}
+			numMap[nums[i]] = i
+		}
+	}
+	return ans
+}

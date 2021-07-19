@@ -3,10 +3,13 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
+	"path/filepath"
 	"reflect"
 	"regexp"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -209,8 +212,54 @@ func regex() {
 
 }
 
+func tt(stack []int) []int {
+	helperStack := make([]int, 0)
+	for len(stack) != 0 {
+		top := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		for len(helperStack) != 0 && top < helperStack[len(helperStack)-1] {
+			stack = append(stack, helperStack[len(helperStack)-1])
+			helperStack = helperStack[:len(helperStack)-1]
+		}
+		helperStack = append(helperStack, top)
+	}
+
+	return helperStack
+}
+
+
+func testLock() {
+	var mutex sync.Mutex
+	mutex.Lock()
+	defer mutex.Unlock()
+}
+
+func walkPath() {
+	filepath.Walk("/data2/p2online/datanode/data/trash", func(path string, info os.FileInfo, err error) error {
+		if info.IsDir() {
+			return nil
+		}
+		cells := strings.Split(info.Name(), ".")
+		if len(cells) != 5 {
+			_ = os.Remove(path)
+			return nil
+		}
+		generateTimeStamp := cells[4]
+		i, _ := strconv.ParseInt(generateTimeStamp, 10, 64)
+		t := time.Unix(i, 0)
+		if time.Now().Sub(t) > 24 * time.Hour {
+			_ = os.Remove(path)
+		}
+		return nil
+	})
+}
+
+
+
 func main() {
 
+	walkPath()
+	//testLock()
 	//regex()
 	//gmp()
 	//structCompare()
