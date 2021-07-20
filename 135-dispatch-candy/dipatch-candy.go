@@ -50,3 +50,30 @@ func Candy(ratings []int) int {
 	}
 	return tmpTotal
 }
+
+func CandyII(ratings []int) int {
+	ans := 1
+	pre := 1
+	inc := 1
+	des := 0
+	for i := 1; i < len(ratings); i++ {
+		if ratings[i] >= ratings[i-1] {
+			des = 0
+			if ratings[i] == ratings[i-1] {
+				pre = 1
+			} else {
+				pre++
+			}
+			ans += pre
+			inc = pre
+		} else {
+			des++
+			if des == inc {
+				des++
+			}
+			ans += des
+			pre = 1
+		}
+	}
+	return ans
+}
