@@ -32,14 +32,12 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxProfit(prices []int) int {
-	// dp
-	// 滚动数组
-	num0, num1 := -prices[0], 0
-	for i := 1; i < len(prices); i++ {
-		num0, num1 = max(num0, num1-prices[i]), max(num1, num0+prices[i])
-	}
-	return num1
+	dp0, dp1 := 0, -prices[0]
 
+	for i := 1; i < len(prices); i++ {
+		dp0, dp1 = max(dp0, dp1+prices[i]), max(dp1, dp0-prices[i])
+	}
+	return dp0
 }
 
 func max(x, y int) int {

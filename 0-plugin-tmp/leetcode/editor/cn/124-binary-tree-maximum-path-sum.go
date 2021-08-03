@@ -37,16 +37,16 @@ import "math"
  * }
  */
 func maxPathSum(root *TreeNode) int {
-	ans := -1<<32
+	ans := -1 << 31
 	var maxGain func(node *TreeNode) int
 	maxGain = func(node *TreeNode) int {
 		if node == nil {
 			return 0
 		}
-		leftGain := maxGain(node.Left)
-		rightGain := maxGain(node.Right)
-		ans = max(ans, leftGain+rightGain+node.Val)
-		return max(0, max(leftGain, rightGain) + node.Val)
+		l := maxGain(node.Left)
+		r := maxGain(node.Right)
+		ans = max(ans, l+r+node.Val)
+		return max(0, max(l, r) + node.Val)
 	}
 	maxGain(root)
 	return ans

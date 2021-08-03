@@ -40,7 +40,7 @@ func upAdjust(nums []int, length int) {
 	idx := length - 1
 	for idx > 0 {
 		parent := (idx - 1) / 2
-		if nums[idx] < nums[parent] {
+		if parent >= 0 && nums[idx] < nums[parent] {
 			nums[idx], nums[parent] = nums[parent], nums[idx]
 			idx = parent
 		} else {

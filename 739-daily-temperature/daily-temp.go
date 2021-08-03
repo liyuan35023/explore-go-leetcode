@@ -9,28 +9,12 @@ package _39_daily_temperature
 
  */
 
-func dailyTemperatures(T []int) []int {
-	// 单调栈
-	// 单调不增栈
-	ans := make([]int, len(T))
+func dailyTemperatures(temperatures []int) []int {
+	ans := make([]int, len(temperatures))
 	stack := make([]int, 0)
-	for i := 0; i < len(T); i++ {
-		for len(stack) > 0 && T[i] > T[stack[len(stack)-1]] {
-			ans[stack[len(stack)-1]] = i - stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-		}
-		stack = append(stack, i)
-	}
-	return ans
-}
-
-func dailyTemperaturesII(T []int) []int {
-	ans := make([]int, len(T))
-	// 单调递减栈(不增)
-	stack := make([]int, 0)
-	for k, v := range T {
-		for len(stack) > 0 && v > T[stack[len(stack)-1]] {
-			ans[stack[len(stack)-1]] = k - stack[len(stack)-1]
+	for k, t := range temperatures {
+		for len(stack) != 0 && temperatures[stack[len(stack)-1]] < t {
+			ans[stack[len(stack)]-1] = k - stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 		}
 		stack = append(stack, k)

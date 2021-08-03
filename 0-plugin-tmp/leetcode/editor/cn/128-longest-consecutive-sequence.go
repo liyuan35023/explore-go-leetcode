@@ -27,22 +27,21 @@ func longestConsecutive(nums []int) int {
 	for _, v := range nums {
 		if _, ok := numMap[v]; ok {
 			continue
+		}
+		seq0, ok0 := numMap[v-1]
+		seq1, ok1 := numMap[v+1]
+		if ok0 && ok1 {
+			numMap[v] = []int{seq0[0], seq1[1]}
+			numMap[seq0[0]][1] = seq1[1]
+			numMap[seq1[1]][0] = seq0[0]
+		} else if ok0 {
+			numMap[v] = []int{seq0[0], v}
+			numMap[seq0[0]][1] = v
+		} else if ok1 {
+			numMap[v] = []int{v, seq1[1]}
+			numMap[seq1[1]][0] = v
 		} else {
-			section1, ok1 := numMap[v-1]
-			section2, ok2 := numMap[v+1]
-			if ok1 && ok2 {
-				numMap[section1[0]][1] = section2[1]
-				numMap[section2[1]][0] = section1[0]
-				numMap[v] = []int{section1[0], section2[1]}
-			} else if ok1 {
-				numMap[section1[0]][1] = v
-				numMap[v] = []int{section1[0], v}
-			} else if ok2 {
-				numMap[section2[1]][0] = v
-				numMap[v] = []int{v, section2[1]}
-			} else {
-				numMap[v] = []int{v, v}
-			}
+			numMap[v] = []int{v, v}
 		}
 		ans = max(ans, numMap[v][1]-numMap[v][0]+1)
 	}

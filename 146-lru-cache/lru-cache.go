@@ -25,61 +25,65 @@ package _46_lru_cache
 *	cache.get(4)       // 返回  4
 *
 */
-type LRUCache struct {
-	capacity int
-	// head 表示最新的值  head -> <- node -> <- tail
-	dummyHead, dummyTail *Dequeue
-	cache map[int]*Dequeue
+type Dequeue struct {
+	key, val int
+	Pre, Next *Dequeue
 }
 
+type LRUCache struct {
+	cache map[int]*Dequeue
+	capacity int
+	dummyHead, dummyTail *Dequeue
+}
+
+
 func Constructor(capacity int) LRUCache {
-	l := LRUCache{
-		capacity: capacity,
-		cache: make(map[int]*Dequeue),
+	lru := LRUCache{
+		cache:     make(map[int]*Dequeue),
+		capacity:  capacity,
 		dummyHead: new(Dequeue),
 		dummyTail: new(Dequeue),
 	}
-	l.dummyTail.pre = l.dummyHead
-	l.dummyHead.next = l.dummyTail
-	return l
+	lru.dummyHead.Next = lru.dummyTail
+	lru.dummyTail.Pre = lru.dummyHead
+	return lru
+}
+
+func (this *LRUCache) moveToHead(d *Dequeue) {
+	if d.Pre != nil {
+		d.Pre.Next = d.Next
+		d.Next.Pre = d.Pre
+	}
+	d.Pre = this.dummyHead
+	d.Next = this.dummyHead.Next
+	this.dummyHead.Next.Pre = d
+	this.dummyHead.Next = d
 }
 
 func (this *LRUCache) Get(key int) int {
-	if node, ok := this.cache[key]; ok {
-		this.moveToHead(node)
-		return node.value
+	if d, ok := this.cache[key]; ok {
+		this.moveToHead(d)
+		return d.val
 	} else {
 		return -1
 	}
 }
 
 func (this *LRUCache) Put(key int, value int)  {
-	if node, ok := this.cache[key]; ok {
-		this.moveToHead(node)
-		node.value = value
+	if d, ok := this.cache[key]; ok {
+		d.val = value
+		this.moveToHead(d)
 	} else {
-		node = &Dequeue{key: key, value: value}
-		this.moveToHead(node)
-		this.cache[key] = node
-		if len(this.cache) > this.capacity {
-			// delete tail
-			tail := this.dummyTail.pre
-			delete(this.cache, tail.key)
-			this.dummyTail.pre = tail.pre
-			tail.pre.next = this.dummyTail
+		if len(this.cache) == this.capacity {
+			// deleteTail
+			delete(this.cache, this.dummyTail.Pre.key)
+			this.dummyTail.Pre.Pre.Next = this.dummyTail
+			this.dummyTail.Pre = this.dummyTail.Pre.Pre
 		}
+		dequeue := &Dequeue{key: key, val: value}
+		this.cache[key] = dequeue
+		this.moveToHead(dequeue)
 	}
-}
-
-func (this *LRUCache) moveToHead(node *Dequeue) {
-	if node.pre != nil {
-		node.pre.next = node.next
-		node.next.pre = node.pre
-	}
-	node.pre = this.dummyHead
-	node.next = this.dummyHead.next
-	this.dummyHead.next.pre = node
-	this.dummyHead.next = node
 }
 
 /**
@@ -88,8 +92,3 @@ func (this *LRUCache) moveToHead(node *Dequeue) {
  * param_1 := obj.Get(key);
  * obj.Put(key,value);
  */
-
-type Dequeue struct {
-	key, value int
-	pre, next *Dequeue
-}

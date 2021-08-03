@@ -44,7 +44,6 @@ func FindKthNumber(n int, k int) int {
 
 func getPrefixCount(prefix int, maxNum int) int {
 	// 在十叉树中寻找以prefix开头的数字数目，包括他自己
-
 	first := prefix
 	second := first + 1
 	count := 0

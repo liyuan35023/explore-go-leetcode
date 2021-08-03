@@ -58,7 +58,6 @@ func upAdjust(nums []int, numMap map[int]int, length int) {
 func downAdjust(nums []int, numMap map[int]int, parent int, length int) {
 	// 小顶堆
 	// 用于替换堆顶后进行下沉
-
 	for parent < length/2 {
 		minChild := getMinChildIdx(nums, numMap, parent, length)
 		if numMap[nums[parent]] > numMap[nums[minChild]] {

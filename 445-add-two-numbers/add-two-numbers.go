@@ -3,7 +3,6 @@ package _45_add_two_numbers
 /*
 	Example:
 
-
 	Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 	Output: 7 -> 8 -> 0 -> 7
 
@@ -86,4 +85,63 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		next = cur
 	}
 	return next
+}
+
+func addTwoNumbersIII(l1 *ListNode, l2 *ListNode) *ListNode {
+	m, n := 0, 0
+	cur1, cur2 := l1, l2
+	for cur1 != nil || cur2 != nil {
+		if cur1 != nil {
+			m++
+			cur1 = cur1.Next
+		}
+		if cur2 != nil {
+			n++
+			cur2 = cur2.Next
+		}
+	}
+	var next *ListNode
+	cur1, cur2 = l1, l2
+	if m > n {
+		dis := m - n
+		for dis > 0 {
+			tmp := &ListNode{Val: cur1.Val, Next: next}
+			next = tmp
+			cur1 = cur1.Next
+			dis--
+		}
+	} else {
+		dis := n - m
+		for dis > 0 {
+			tmp := &ListNode{Val: cur2.Val, Next: next}
+			next = tmp
+			cur2 = cur2.Next
+			dis--
+		}
+	}
+	for cur1 != nil && cur2 != nil {
+		tmp := &ListNode{Val: cur1.Val + cur2.Val, Next: next}
+		next = tmp
+		cur1 = cur1.Next
+		cur2 = cur2.Next
+	}
+	return reverseAndCal(next)
+}
+
+func reverseAndCal(node *ListNode) *ListNode {
+	var pre *ListNode
+	carry := 0
+	for node != nil || carry != 0 {
+		if node == nil {
+			node = &ListNode{Val: carry % 10}
+			carry = carry / 10
+		} else {
+			node.Val, carry = (node.Val + carry) % 10, (node.Val + carry) / 10
+		}
+		tmp := node.Next
+		node.Next = pre
+		pre = node
+		node = tmp
+	}
+	return pre
 }
