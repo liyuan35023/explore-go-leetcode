@@ -1,5 +1,6 @@
 package cn
-//一条包含字母 A-Z 的消息通过以下映射进行了 编码 ： 
+
+//一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
 //
 //'A' -> 1
 //'B' -> 2
@@ -48,21 +49,19 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func numDecodings(s string) int {
-	// dp
 	if s[0] == '0' {
 		return 0
 	}
-	dp := make([]int, len(s) + 1)
+	// dp
+	dp := make([]int, len(s)+1)
 	dp[0], dp[1] = 1, 1
-	for i := 2; i < len(s) + 1; i++ {
+	for i := 2; i < len(s)+1; i++ {
 		if s[i-1] == '0' {
-			if s[i-2] > '2' || s[i-2] <= '0' {
+			if s[i-2] >= '3' || s[i-2] == '0' {
 				return 0
 			}
 			dp[i] = dp[i-2]
-			continue
-		}
-		if s[i-2] == '0' || s[i-2] > '2' || s[i-2] == '2' && s[i-1] > '6' {
+		} else if s[i-2] == '0' || s[i-2] >= '3' || s[i-2] == '2' && s[i-1] > '6' {
 			dp[i] = dp[i-1]
 		} else {
 			dp[i] = dp[i-1] + dp[i-2]
@@ -70,4 +69,27 @@ func numDecodings(s string) int {
 	}
 	return dp[len(s)]
 }
+//func numDecodings(s string) int {
+//	// dp
+//	if s[0] == '0' {
+//		return 0
+//	}
+//	dp := make([]int, len(s) + 1)
+//	dp[0], dp[1] = 1, 1
+//	for i := 2; i < len(s) + 1; i++ {
+//		if s[i-1] == '0' {
+//			if s[i-2] > '2' || s[i-2] <= '0' {
+//				return 0
+//			}
+//			dp[i] = dp[i-2]
+//			continue
+//		}
+//		if s[i-2] == '0' || s[i-2] > '2' || s[i-2] == '2' && s[i-1] > '6' {
+//			dp[i] = dp[i-1]
+//		} else {
+//			dp[i] = dp[i-1] + dp[i-2]
+//		}
+//	}
+//	return dp[len(s)]
+//}
 //leetcode submit region end(Prohibit modification and deletion)

@@ -33,19 +33,42 @@ func levelOrder(root *TreeNode) [][]int {
 		return nil
 	}
 	ans := make([][]int, 0)
-	var helper func(level int, node *TreeNode)
-	helper = func(level int, node *TreeNode) {
-		if node == nil {
-			return
+	queue := []*TreeNode{root}
+	for len(queue) != 0 {
+		n := len(queue)
+		level := make([]int, n)
+		for i := 0; i < n; i++ {
+			level[i] = queue[i].Val
+			if queue[i].Left != nil {
+				queue = append(queue, queue[i].Left)
+			}
+			if queue[i].Right != nil {
+				queue = append(queue, queue[i].Right)
+			}
 		}
-		if level > len(ans) {
-			ans = append(ans, make([]int, 0))
-		}
-		ans[level-1] = append(ans[level-1], node.Val)
-		helper(level+1, node.Left)
-		helper(level+1, node.Right)
+		ans = append(ans, level)
+		queue = queue[n:]
 	}
-	helper(1, root)
 	return ans
 }
+//func levelOrder(root *TreeNode) [][]int {
+//	if root == nil {
+//		return nil
+//	}
+//	ans := make([][]int, 0)
+//	var helper func(level int, node *TreeNode)
+//	helper = func(level int, node *TreeNode) {
+//		if node == nil {
+//			return
+//		}
+//		if level > len(ans) {
+//			ans = append(ans, make([]int, 0))
+//		}
+//		ans[level-1] = append(ans[level-1], node.Val)
+//		helper(level+1, node.Left)
+//		helper(level+1, node.Right)
+//	}
+//	helper(1, root)
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

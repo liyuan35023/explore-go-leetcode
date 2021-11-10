@@ -29,16 +29,23 @@ func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	var dfs func(node *TreeNode) int
-	dfs = func(node *TreeNode) int {
-		if node == nil {
-			return 0
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	ans := 0
+	for len(queue) != 0 {
+		ans++
+		n := len(queue)
+		for i := 0; i < n; i++ {
+			if queue[i].Left != nil {
+				queue = append(queue, queue[i].Left)
+			}
+			if queue[i].Right != nil {
+				queue = append(queue, queue[i].Right)
+			}
 		}
-		l := dfs(node.Left)
-		r := dfs(node.Right)
-		return max(l, r) + 1
+		queue = queue[n:]
 	}
-	return dfs(root)
+	return ans
 }
 
 func max(x, y int) int {

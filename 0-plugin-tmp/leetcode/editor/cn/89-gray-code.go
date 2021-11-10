@@ -41,18 +41,18 @@ func grayCode(n int) []int {
 		if idx > n {
 			return
 		}
-		// mirror
+		// copy
 		size := len(ans)
 		for i := size - 1; i >= 0; i-- {
 			ans = append(ans, ans[i])
 		}
-
-		// add 0
+		// add 0 for front part
 		for i := 0; i < size; i++ {
 			ans[i] *= 2
 		}
-		// add 1
-		for i := size; i < 2*size; i++ {
+
+		// add 1 for second half part
+		for i := size; i < 2 * size; i++ {
 			ans[i] = ans[i] * 2 + 1
 		}
 		dfs(idx+1)

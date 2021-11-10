@@ -29,33 +29,59 @@ package cn
  * }
  */
 func zigzagLevelOrder(root *TreeNode) [][]int {
-	ans := make([][]int, 0)
 	if root == nil {
-		return ans
+		return nil
 	}
-	left := true
-	queue := []*TreeNode{root}
-	for len(queue) != 0 {
-		n := len(queue)
-		level := make([]int, n)
-
-		for i := 0; i < n; i++ {
-			if left {
-				level[i] = queue[i].Val
+	ans := make([][]int, 0)
+	var dfs func(node *TreeNode, level int)
+	dfs = func(node *TreeNode, level int) {
+		if node == nil {
+			return
+		}
+		if len(ans) < level {
+			ans = append(ans, []int{node.Val})
+		} else {
+			if level % 2 == 0 {
+				ans[level-1] = append([]int{node.Val}, ans[level-1]...)
 			} else {
-				level[n-i-1] = queue[i].Val
-			}
-			if queue[i].Left != nil {
-				queue = append(queue, queue[i].Left)
-			}
-			if queue[i].Right != nil {
-				queue = append(queue, queue[i].Right)
+				ans[level-1] = append(ans[level-1], node.Val)
 			}
 		}
-		ans = append(ans, level)
-		queue = queue[n:]
-		left = !left
+		dfs(node.Left, level+1)
+		dfs(node.Right, level+1)
 	}
+	dfs(root, 1)
 	return ans
+
 }
+//func zigzagLevelOrder(root *TreeNode) [][]int {
+//	ans := make([][]int, 0)
+//	if root == nil {
+//		return ans
+//	}
+//	left := true
+//	queue := []*TreeNode{root}
+//	for len(queue) != 0 {
+//		n := len(queue)
+//		level := make([]int, n)
+//
+//		for i := 0; i < n; i++ {
+//			if left {
+//				level[i] = queue[i].Val
+//			} else {
+//				level[n-i-1] = queue[i].Val
+//			}
+//			if queue[i].Left != nil {
+//				queue = append(queue, queue[i].Left)
+//			}
+//			if queue[i].Right != nil {
+//				queue = append(queue, queue[i].Right)
+//			}
+//		}
+//		ans = append(ans, level)
+//		queue = queue[n:]
+//		left = !left
+//	}
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

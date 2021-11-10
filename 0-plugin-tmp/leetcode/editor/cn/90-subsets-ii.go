@@ -24,24 +24,47 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func subsetsWithDup(nums []int) [][]int {
-	ans := make([][]int, 0)
 	sort.Ints(nums)
-	var dfs func(idx int, solve []int)
 	used := make([]bool, len(nums))
-	dfs = func(idx int, solve []int) {
-		if idx == len(nums) {
-			ans = append(ans, append([]int{}, solve...))
+	ans := make([][]int, 0)
+	var dfs func(idx int, solution []int)
+	dfs = func(idx int, solution []int) {
+		if idx >= len(nums) {
+			ans = append(ans, append([]int{}, solution...))
 			return
 		}
-		dfs(idx+1, solve)
-		if idx > 0 && nums[idx] == nums[idx-1] && !used[idx-1] {
+		dfs(idx+1, solution)
+		if idx > 0 && nums[idx-1] == nums[idx] && !used[idx-1] {
 			return
 		}
 		used[idx] = true
-		dfs(idx+1, append(solve, nums[idx]))
+		dfs(idx+1, append(solution, nums[idx]))
 		used[idx] = false
 	}
 	dfs(0, []int{})
 	return ans
+
 }
+
+//func subsetsWithDup(nums []int) [][]int {
+//	ans := make([][]int, 0)
+//	sort.Ints(nums)
+//	var dfs func(idx int, solve []int)
+//	used := make([]bool, len(nums))
+//	dfs = func(idx int, solve []int) {
+//		if idx == len(nums) {
+//			ans = append(ans, append([]int{}, solve...))
+//			return
+//		}
+//		dfs(idx+1, solve)
+//		if idx > 0 && nums[idx] == nums[idx-1] && !used[idx-1] {
+//			return
+//		}
+//		used[idx] = true
+//		dfs(idx+1, append(solve, nums[idx]))
+//		used[idx] = false
+//	}
+//	dfs(0, []int{})
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

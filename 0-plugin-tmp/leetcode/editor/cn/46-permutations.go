@@ -25,27 +25,39 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func permute(nums []int) [][]int {
-	n := len(nums)
-	ans := make([][]int, 0)
-	used := make(map[int]bool)
-	var dfs func(solve []int)
-	dfs = func(solve []int) {
-		if len(solve) == n {
-			ans = append(ans, append([]int{}, solve...))
-			return
-		}
-		for i := 0; i < n; i++ {
-			if used[i] {
-				continue
-			}
-			used[i] = true
-			solve = append(solve, nums[i])
-			dfs(solve)
-			solve = solve[:len(solve)-1]
-			used[i] = false
-		}
-	}
-	dfs([]int{})
-	return ans
+
+
+
+
+
+
+
+
+
+
 }
+//func permute(nums []int) [][]int {
+//	n := len(nums)
+//	ans := make([][]int, 0)
+//	used := make(map[int]bool)
+//	var dfs func(solve []int)
+//	dfs = func(solve []int) {
+//		if len(solve) == n {
+//			ans = append(ans, append([]int{}, solve...))
+//			return
+//		}
+//		for i := 0; i < n; i++ {
+//			if used[i] {
+//				continue
+//			}
+//			used[i] = true
+//			solve = append(solve, nums[i])
+//			dfs(solve)
+//			solve = solve[:len(solve)-1]
+//			used[i] = false
+//		}
+//	}
+//	dfs([]int{})
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

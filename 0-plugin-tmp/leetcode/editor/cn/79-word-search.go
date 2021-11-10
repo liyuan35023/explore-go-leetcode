@@ -33,32 +33,32 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func exist(board [][]byte, word string) bool {
-	//used := make([][]bool, len(board))
-	//for i := 0; i < len(board); i++ {
-	//	used[i] = make([]bool, len(board[0]))
-	//}
-	var dfs func(idx int, row, column int) bool
-	dfs = func(idx int, row, column int) bool {
-		if idx > len(word) - 1 {
+	m, n := len(board), len(board[0])
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	var dfs func(row, column int, idx int) bool
+	dfs = func(row, column int, idx int) bool {
+		if idx >= len(word) {
 			return true
 		}
-		if row < 0 || row > len(board)-1 || column < 0 || column > len(board[0])-1 {
+		if row < 0 || row >= m || column < 0 || column >= n {
 			return false
 		}
-		if board[row][column] == word[idx] {
-			board[row][column] = '0'
-			ret := dfs(idx+1, row-1, column) ||
-				dfs(idx+1, row+1, column) ||
-				dfs(idx+1, row, column-1) ||
-				dfs(idx+1, row, column+1)
-			board[row][column] = word[idx]
-			return ret
+		if board[row][column] != word[idx] {
+			return false
 		}
+		board[row][column] = '0'
+
+		for _, dir := range directions {
+			if dfs(row+dir[0], column+dir[1], idx+1) {
+				return true
+			}
+		}
+		board[row][column] = word[idx]
 		return false
 	}
-	for i := 0; i < len(board); i++ {
-		for j := 0; j < len(board[0]); j++ {
-			if dfs(0, i, j) {
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if dfs(i, j, 0) {
 				return true
 			}
 		}

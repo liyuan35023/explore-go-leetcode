@@ -32,25 +32,6 @@ package cn
  * }
  */
 func buildTree(preorder []int, inorder []int) *TreeNode {
-	inMap := make(map[int]int)
-	for k, v := range inorder {
-		inMap[v] = k
-	}
-	var helper func(pre, in []int, former int) *TreeNode
-	helper = func(pre, in []int, former int) *TreeNode {
-		if len(pre) == 0 || len(in) == 0 {
-			return nil
-		}
-		root := &TreeNode{Val: pre[0]}
-		idxInOriginInorder := inMap[pre[0]]
-		idx := idxInOriginInorder - former
-		root.Left = helper(pre[1:idx+1], in[:idx], former)
-		root.Right = helper(pre[idx+1:], in[idx+1:], former+idx+1)
-		return root
-	}
-	return helper(preorder, inorder, 0)
+
 }
-
-
-
 //leetcode submit region end(Prohibit modification and deletion)

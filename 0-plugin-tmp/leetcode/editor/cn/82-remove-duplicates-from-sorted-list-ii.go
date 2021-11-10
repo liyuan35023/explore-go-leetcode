@@ -29,26 +29,48 @@ package cn
  * }
  */
 func deleteDuplicates(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	dummy := &ListNode{Val: 101}
+	dummy := new(ListNode)
 	pre := dummy
-	cur := head
-	for cur != nil && cur.Next != nil {
-		if cur.Val != pre.Val && cur.Val != cur.Next.Val {
-			pre.Next = cur
-			pre = cur
-			cur = cur.Next
+	for head != nil {
+		curVal := head.Val
+		if head.Next == nil || head.Next.Val != curVal {
+			pre.Next = head
+			pre = head
+			head = head.Next
 		} else {
-			// find first number not equal to pre
-			for cur.Next != nil && cur.Val == cur.Next.Val {
-				cur = cur.Next
+			du := head.Next
+			for du != nil && du.Val == curVal {
+				du = du.Next
 			}
-			cur = cur.Next
+			head = du
+			pre.Next = du
 		}
 	}
-	pre.Next = cur
 	return dummy.Next
+
+
 }
+//func deleteDuplicates(head *ListNode) *ListNode {
+//	if head == nil || head.Next == nil {
+//		return head
+//	}
+//	dummy := &ListNode{Val: 101}
+//	pre := dummy
+//	cur := head
+//	for cur != nil && cur.Next != nil {
+//		if cur.Val != pre.Val && cur.Val != cur.Next.Val {
+//			pre.Next = cur
+//			pre = cur
+//			cur = cur.Next
+//		} else {
+//			// find first number not equal to pre
+//			for cur.Next != nil && cur.Val == cur.Next.Val {
+//				cur = cur.Next
+//			}
+//			cur = cur.Next
+//		}
+//	}
+//	pre.Next = cur
+//	return dummy.Next
+//}
 //leetcode submit region end(Prohibit modification and deletion)

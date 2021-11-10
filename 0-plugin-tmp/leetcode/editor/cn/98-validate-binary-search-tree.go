@@ -1,7 +1,5 @@
 package cn
 
-import "math"
-
 //给定一个二叉树，判断其是否是一个有效的二叉搜索树。
 //
 // 假设一个二叉搜索树具有如下特征： 
@@ -40,22 +38,89 @@ import "math"
  * }
  */
 func isValidBST(root *TreeNode) bool {
-	// inorder
-	stack := make([]*TreeNode, 0)
-	pre := math.MinInt32 - 1
-	for root != nil || len(stack) != 0 {
-		for root != nil {
-			stack = append(stack, root)
-			root = root.Left
+	cur := -1<<31 - 1
+	for root != nil {
+		if root.Left == nil {
+			if cur >= root.Val {
+				return false
+			}
+			cur = root.Val
+			root = root.Right
+		} else {
+			x := root.Left
+			for x.Right != nil && x.Right != root {
+				x = x.Right
+			}
+			if x.Right == nil {
+				x.Right = root
+				root = root.Left
+			} else {
+				x.Right = nil
+				if cur >= root.Val {
+					return false
+				}
+				cur = root.Val
+				root = root.Right
+			}
 		}
-		root = stack[len(stack)-1]
-		if pre >= root.Val {
-			return false
-		}
-		pre = root.Val
-		stack = stack[:len(stack)-1]
-		root = root.Right
 	}
 	return true
+
+
+
+
+
+
+
+
 }
+//func isValidBST(root *TreeNode) bool {
+//	// morris inorder
+//	preVal := -1<<31 - 1
+//	for root != nil {
+//		if root.Left == nil {
+//			if root.Val <= preVal {
+//				return false
+//			}
+//			preVal = root.Val
+//			root = root.Right
+//		} else {
+//			x := root.Left
+//			for x.Right != nil && x.Right != root {
+//				x = x.Right
+//			}
+//			if x.Right == nil {
+//				x.Right = root
+//				root = root.Left
+//			} else {
+//				if root.Val <= preVal {
+//					return false
+//				}
+//				preVal = root.Val
+//				root = root.Right
+//				x.Right = nil
+//			}
+//		}
+//	}
+//	return true
+//}
+//func isValidBST(root *TreeNode) bool {
+//	// inorder
+//	stack := make([]*TreeNode, 0)
+//	pre := math.MinInt32 - 1
+//	for root != nil || len(stack) != 0 {
+//		for root != nil {
+//			stack = append(stack, root)
+//			root = root.Left
+//		}
+//		root = stack[len(stack)-1]
+//		if pre >= root.Val {
+//			return false
+//		}
+//		pre = root.Val
+//		stack = stack[:len(stack)-1]
+//		root = root.Right
+//	}
+//	return true
+//}
 //leetcode submit region end(Prohibit modification and deletion)

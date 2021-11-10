@@ -38,7 +38,9 @@ func nextPermutation(nums []int) {
 	for ; i >= 0; i-- {
 		if nums[i] < nums[i+1] {
 			// find next bigger
-			k := i+1
+			//k := i+1
+			k := binarySearchFirstBigger(nums[i+1:], nums[i]) + i + 1
+
 			for ; k < len(nums)-1; k++ {
 				if nums[k] > nums[i] && nums[k+1] <= nums[i] {
 					break
@@ -52,4 +54,22 @@ func nextPermutation(nums []int) {
 	for left, right := i+1, len(nums)-1; left < right; left, right = left+1, right-1 {
 		nums[left], nums[right] = nums[right], nums[left]
 	}
+}
+
+func binarySearchFirstBigger(nums []int, target int) int {
+	left, right := 0, len(nums) - 1
+	for left < right {
+		mid := left + (right - left) / 2
+		if nums[mid] == target {
+			right = mid - 1
+		} else if nums[mid] > target {
+			if mid == len(nums) - 1 || nums[mid+1] <= target {
+				return mid
+			}
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return left
 }

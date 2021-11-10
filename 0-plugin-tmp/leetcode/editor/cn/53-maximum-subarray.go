@@ -1,7 +1,5 @@
 package cn
 
-import "golang.org/x/net/html/atom"
-
 //给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
 //
 // 示例 1： 
@@ -39,24 +37,26 @@ import "golang.org/x/net/html/atom"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSubArray(nums []int) int {
-	var sumHelper func(l, r int) (lSum, rSum, maxSub, totalSum int)
-	sumHelper = func(l, r int) (lSum, rSum, maxSub, totalSum int) {
-		if l == r {
-			return nums[l], nums[l], nums[l], nums[l]
+	var helper func(left, right int) (int, int, int, int)
+	helper = func(left, right int) (int, int, int, int) {
+		if left == right {
+			return nums[left], nums[left], nums[left], nums[left]
 		}
-		mid := l + (r - l) / 2
-		lSum1, rSum1, maxSub1, totalSum1 := sumHelper(l, mid)
-		lSum2, rSum2, maxSub2, totalSum2 := sumHelper(mid+1, r)
-		return max(lSum1, totalSum1+lSum2), max(rSum2, totalSum2+rSum1), max(rSum1+lSum2, max(maxSub1, maxSub2)), totalSum1+totalSum2
+		mid := left + (right - left) / 2
+		lMax1, rMax1, max1, total1 := helper(left, mid)
+		lMax2, rMax2, max2, total2 := helper(mid+1, right)
+		return max(lMax1, total1+lMax2), max(rMax2, total2+rMax1), max(max1, max(max2, rMax1 + lMax2)), total1 + total2
 	}
-	_, _, ans, _ := sumHelper(0, len(nums)-1)
+	_, _, ans, _ := helper(0, len(nums)-1)
 	return ans
-}
 
+
+}
 func max(x, y int) int {
 	if x > y {
 		return x
 	}
 	return y
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

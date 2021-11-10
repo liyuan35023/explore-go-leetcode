@@ -29,31 +29,70 @@ package cn
  *     Right *TreeNode
  * }
  */
-func recoverTree(root *TreeNode)  {
-	stack := make([]*TreeNode, 0)
-	inorder := make([]*TreeNode, 0)
-	for root != nil || len(stack) != 0 {
-		for root != nil {
-			stack = append(stack, root)
-			root = root.Left
-		}
-		root = stack[len(stack)-1]
-		inorder = append(inorder, root)
-		stack = stack[:len(stack)-1]
-		root = root.Right
-	}
-	for i := len(inorder) - 1; i > 0; i-- {
-		if inorder[i].Val <= inorder[i-1].Val {
-			// find wrong
-			j := i - 1
-			for ; j > 0; j-- {
-				if inorder[j-1].Val < inorder[i].Val {
-					break
+func recoverTree(root *TreeNode) {
+	// 中序遍历
+	// morris
+	var preNode *TreeNode
+	var firstSwap, secondSwap *TreeNode
+	for root != nil {
+		if root.Left == nil {
+			if preNode != nil && root.Val < preNode.Val {
+				if firstSwap == nil {
+					firstSwap = preNode
 				}
+				secondSwap = root
 			}
-			inorder[i].Val, inorder[j].Val = inorder[j].Val, inorder[i].Val
-			return
+			preNode = root
+			root = root.Right
+		} else {
+			x := root.Left
+			for x.Right != nil && x.Right != root {
+				x = x.Right
+			}
+			if x.Right == nil {
+				x.Right = root
+				root = root.Left
+			} else {
+				x.Right = nil
+				if preNode != nil && root.Val < preNode.Val {
+					if firstSwap == nil {
+						firstSwap = preNode
+					}
+					secondSwap = root
+				}
+				preNode = root
+				root = root.Right
+			}
+
 		}
 	}
+	firstSwap.Val, secondSwap.Val = secondSwap.Val, firstSwap.Val
 }
+//func recoverTree(root *TreeNode)  {
+//	stack := make([]*TreeNode, 0)
+//	inorder := make([]*TreeNode, 0)
+//	for root != nil || len(stack) != 0 {
+//		for root != nil {
+//			stack = append(stack, root)
+//			root = root.Left
+//		}
+//		root = stack[len(stack)-1]
+//		inorder = append(inorder, root)
+//		stack = stack[:len(stack)-1]
+//		root = root.Right
+//	}
+//	for i := len(inorder) - 1; i > 0; i-- {
+//		if inorder[i].Val <= inorder[i-1].Val {
+//			// find wrong
+//			j := i - 1
+//			for ; j > 0; j-- {
+//				if inorder[j-1].Val < inorder[i].Val {
+//					break
+//				}
+//			}
+//			inorder[i].Val, inorder[j].Val = inorder[j].Val, inorder[i].Val
+//			return
+//		}
+//	}
+//}
 //leetcode submit region end(Prohibit modification and deletion)

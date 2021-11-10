@@ -32,23 +32,45 @@ package cn
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	dummy := new(ListNode)
 	dummy.Next = head
-	beforeReverse := dummy
+	pre := dummy
 	cur := head
-	n := 1
-	for ; n < left; n++ {
-		beforeReverse = cur
+	i := 1
+	for ; i < left; i++ {
+		pre = pre.Next
 		cur = cur.Next
 	}
-	reverseTail := cur
-	var pre *ListNode
-	for ; n <= right; n++ {
+	beforeLeft, leftNode := pre, cur
+	for ; i <= right; i++ {
 		tmp := cur.Next
 		cur.Next = pre
 		pre = cur
 		cur = tmp
 	}
-	beforeReverse.Next = pre
-	reverseTail.Next = cur
+	rightNode, afterRight := pre, cur
+	beforeLeft.Next = rightNode
+	leftNode.Next = afterRight
 	return dummy.Next
 }
+//func reverseBetween(head *ListNode, left int, right int) *ListNode {
+//	dummy := new(ListNode)
+//	dummy.Next = head
+//	beforeReverse := dummy
+//	cur := head
+//	n := 1
+//	for ; n < left; n++ {
+//		beforeReverse = cur
+//		cur = cur.Next
+//	}
+//	reverseTail := cur
+//	var pre *ListNode
+//	for ; n <= right; n++ {
+//		tmp := cur.Next
+//		cur.Next = pre
+//		pre = cur
+//		cur = tmp
+//	}
+//	beforeReverse.Next = pre
+//	reverseTail.Next = cur
+//	return dummy.Next
+//}
 //leetcode submit region end(Prohibit modification and deletion)

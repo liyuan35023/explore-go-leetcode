@@ -25,29 +25,18 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func merge(nums1 []int, m int, nums2 []int, n int)  {
 	i, j := m-1, n-1
-	curIdx := m + n - 1
-	for i >= 0 || j >= 0 {
-		if i >= 0 && j >= 0 {
-			if nums1[i] < nums2[j] {
-				nums1[curIdx] = nums2[j]
-				curIdx--
-				j--
-			} else {
-				nums1[curIdx] = nums1[i]
-				curIdx--
-				i--
-			}
+	for i >= 0 && j >= 0 {
+		if nums1[i] < nums2[j] {
+			nums1[i+j+1] = nums2[j]
+			j--
 		} else {
-			if i >= 0 {
-				nums1[curIdx] = nums1[i]
-				curIdx--
-				i--
-			} else if j >= 0 {
-				nums1[curIdx] = nums2[j]
-				curIdx--
-				j--
-			}
+			nums1[i+j+1] = nums1[i]
+			i--
 		}
+	}
+	for j >= 0 {
+		nums1[j] = nums2[j]
+		j--
 	}
 }
 //leetcode submit region end(Prohibit modification and deletion)

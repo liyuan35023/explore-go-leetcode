@@ -35,24 +35,24 @@ package cn
 // 1 <= m, n <= 100 
 // 题目数据保证答案小于等于 2 * 109 
 
-
 //leetcode submit region begin(Prohibit modification and deletion)
 func uniquePaths(m int, n int) int {
-	dp := make([][]int, m)
-	for i := 0; i < m; i++ {
-		dp[i] = make([]int, n)
+	if m < n {
+		m, n = n, m
 	}
-	for i := 0; i < n; i++ {
-		dp[0][i] = 1
-	}
-	for j := 0; j < m; j++ {
-		dp[j][0] = 1
+	dp0 := make([]int, n)
+	for i := 0 ; i < n; i++ {
+		dp0[i] = 1
 	}
 	for i := 1; i < m; i++ {
-		for j := 1; j < n; j++ {
-			dp[i][j] = dp[i-1][j] + dp[i][j-1]
+		for j := 0; j < n; j++ {
+			if j == 0 {
+				dp0[j] = 1
+			} else {
+				dp0[j] = dp0[j] + dp0[j-1]
+			}
 		}
 	}
-	return dp[m-1][n-1]
+	return dp0[n-1]
 }
 //leetcode submit region end(Prohibit modification and deletion)

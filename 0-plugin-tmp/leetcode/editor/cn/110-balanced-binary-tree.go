@@ -35,20 +35,22 @@ package cn
  * }
  */
 func isBalanced(root *TreeNode) bool {
-	_, balance := getLevel(root)
-	return balance
-}
-
-func getLevel(root *TreeNode) (int, bool) {
-	if root == nil {
-		return 0, true
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		l := dfs(node.Left)
+		r := dfs(node.Right)
+		if l == -1 || r == -1 {
+			return -1
+		}
+		if l - r > 1 || r - l > 1 {
+			return -1
+		}
+		return max(l, r) + 1
 	}
-	l, lBalance := getLevel(root.Left)
-	r, rBalance := getLevel(root.Right)
-	if !lBalance || !rBalance || l - r > 1 || r - l > 1 {
-		return 0, false
-	}
-	return max(l, r) + 1, true
+	return dfs(root) != -1
 }
 
 func max(x, y int) int {

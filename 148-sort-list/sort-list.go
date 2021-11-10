@@ -75,42 +75,47 @@ func mergeTwo(l *ListNode, r *ListNode) *ListNode {
 }
 
 func SortListLoop(head *ListNode) *ListNode {
-	dummyHead := &ListNode{Next: head}
-	n := 0
-	for cur := head; cur != nil; cur = cur.Next {
-		n++
+	total := 0
+	cur := head
+	for cur != nil {
+		cur = cur.Next
+		total++
 	}
-	var head1, head2 *ListNode
-	for block := 1; block < n; block <<= 1 {
-		pre := dummyHead
-		cur := dummyHead.Next
+	dummy := new(ListNode)
+	dummy.Next = head
+	for block := 1; block < total; block *= 2 {
+		pre := dummy
+		cur := dummy.Next
 		for cur != nil {
-			// 先找到到两个的head
-			head1 = cur
+			var firstHead, secondHead *ListNode
+			var firstTail, secondTail *ListNode
+			firstHead = cur
 			for i := 1; i < block && cur != nil; i++ {
 				cur = cur.Next
 			}
-			if cur == nil {
-				pre.Next = head1
+			if cur == nil || cur.Next == nil {
+				pre.Next = firstHead
 				break
 			}
-			head2 = cur.Next
-			cur.Next = nil
-			cur = head2
+			firstTail = cur
+			secondHead = cur.Next
+
+			cur = cur.Next
+			firstTail.Next = nil
 			for i := 1; i < block && cur != nil; i++ {
 				cur = cur.Next
 			}
+			secondTail = cur
 			if cur != nil {
-				tmp := cur.Next
-				cur.Next = nil
-				cur = tmp
+				cur = cur.Next
+				secondTail.Next = nil
 			}
-			newHead, newTail := merge(head1, head2)
+			newHead, newTail := merge(firstHead, secondHead)
 			pre.Next = newHead
 			pre = newTail
 		}
 	}
-	return dummyHead.Next
+	return dummy.Next
 }
 
 func merge(head1 *ListNode, head2 *ListNode) (*ListNode, *ListNode) {

@@ -16,20 +16,20 @@ package cn
 // 提示： 
 //
 // 1 <= nums.length <= 10 
-// -10 <= nums[i] <= 10 
-// nums 中的所有元素 互不相同 
+// -10 <= nums[i] <= 10
+// nums 中的所有元素 互不相同
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func subsets(nums []int) [][]int {
 	ans := make([][]int, 0)
-	var dfs func(idx int, sub []int)
-	dfs = func(idx int, sub []int) {
-		if idx > len(nums) - 1 {
-			ans = append(ans, append([]int{}, sub...))
+	var dfs func(idx int, solution []int)
+	dfs = func(idx int, solution []int) {
+		if idx >= len(nums) {
+			ans = append(ans, append([]int{}, solution...))
 			return
 		}
-		dfs(idx+1, sub)
-		dfs(idx+1, append(sub, nums[idx]))
+		dfs(idx+1, solution)
+		dfs(idx+1, append(solution, nums[idx]))
 	}
 	dfs(0, []int{})
 	return ans

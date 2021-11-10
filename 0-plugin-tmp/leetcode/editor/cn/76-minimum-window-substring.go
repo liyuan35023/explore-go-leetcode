@@ -23,35 +23,68 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minWindow(s string, t string) string {
-	left, right := 0, 0
-	charMap := make(map[byte]int)
-	for i := 0; i < len(t); i++ {
-		charMap[t[i]]++
-	}
-	exist := 0
 	ans := ""
+	left, right := 0, 0
+	exist := 0
+	charMap := make(map[byte]int)
+	for _, v := range t {
+		charMap[byte(v)]++
+	}
 	for ; right < len(s); right++ {
-		if num, ok := charMap[s[right]]; ok {
-			if num > 0 {
+		if v, ok := charMap[s[right]]; !ok {
+			continue
+		} else {
+			if v > 0 {
 				exist++
 			}
-			charMap[s[right]] = num - 1
+			charMap[s[right]]--
 		}
 		for exist == len(t) {
 			// move left
-			if len(ans) == 0 || right - left + 1 < len(ans) {
+			if ans == "" || right - left + 1 < len(ans) {
 				ans = s[left:right+1]
 			}
-			if num, ok := charMap[s[left]]; ok {
-				if num == 0 {
+			if v, ok := charMap[s[left]]; ok {
+				if v == 0 {
 					exist--
 				}
-				charMap[s[left]] = num + 1
+				charMap[s[left]]++
 			}
 			left++
 		}
 	}
 	return ans
 }
+//func minWindow(s string, t string) string {
+//	left, right := 0, 0
+//	charMap := make(map[byte]int)
+//	for i := 0; i < len(t); i++ {
+//		charMap[t[i]]++
+//	}
+//	exist := 0
+//	ans := ""
+//	for ; right < len(s); right++ {
+//		if num, ok := charMap[s[right]]; ok {
+//			if num > 0 {
+//				exist++
+//			}
+//			charMap[s[right]] = num - 1
+//		}
+//		for exist == len(t) {
+//			// move left
+//			if len(ans) == 0 || right - left + 1 < len(ans) {
+//				ans = s[left:right+1]
+//			}
+//			if num, ok := charMap[s[left]]; ok {
+//				if num == 0 {
+//					exist--
+//				}
+//				charMap[s[left]] = num + 1
+//			}
+//			left++
+//		}
+//	}
+//	return ans
+//}
 
 //leetcode submit region end(Prohibit modification and deletion)

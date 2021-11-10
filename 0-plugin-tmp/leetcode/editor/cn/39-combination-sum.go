@@ -1,6 +1,8 @@
 package cn
 
-import "sort"
+import (
+	"sort"
+)
 
 //给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 //
@@ -10,7 +12,6 @@ import "sort"
 // 
 // 所有数字（包括 target）都是正整数。 
 // 解集不能包含重复的组合。 
-// 
 //
 // 示例 1： 
 //
@@ -20,16 +21,15 @@ import "sort"
 //  [7],
 //  [2,2,3]
 //]
-// 
 //
 // 示例 2： 
 //
 // 输入：candidates = [2,3,5], target = 8,
 //所求解集为：
 //[
-//  [2,2,2,2],
-//  [2,3,3],
-//  [3,5]
+// [2,2,2,2],
+// [2,3,3],
+// [3,5]
 //]
 // 提示： 
 //
@@ -42,28 +42,27 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combinationSum(candidates []int, target int) [][]int {
-	ans := make([][]int, 0)
-	sort.Ints(candidates)
-	var dfs func(idx int, solve []int, target int)
-	dfs = func(idx int, solve []int, target int) {
-		if target == 0 {
-			ans = append(ans, append([]int{}, solve...))
-			return
-		}
 
-		for i := idx; i < len(candidates); i++ {
-			if i > idx && candidates[i] == candidates[i-1] {
-				continue
-			}
-			if candidates[i] > target {
-				break
-			}
-			solve = append(solve, candidates[i])
-			dfs(i, solve, target-candidates[i])
-			solve = solve[:len(solve)-1]
-		}
-	}
-	dfs(0, []int{}, target)
-	return ans
+
+
 }
+//func combinationSum(candidates []int, target int) [][]int {
+//	sort.Ints(candidates)
+//	ans := make([][]int, 0)
+//
+//	var dfs func(idx int, curSum int, solution []int)
+//	dfs = func(idx int, curSum int, solution []int) {
+//		if curSum == target {
+//			ans = append(ans, append([]int{}, solution...))
+//			return
+//		}
+//		if idx >= len(candidates) || target - curSum < candidates[idx] {
+//			return
+//		}
+//		dfs(idx, curSum+candidates[idx], append(solution, candidates[idx]))
+//		dfs(idx+1, curSum, solution)
+//	}
+//	dfs(0, 0, []int{})
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

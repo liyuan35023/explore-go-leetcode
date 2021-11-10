@@ -36,27 +36,50 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combinationSum2(candidates []int, target int) [][]int {
-	ans := make([][]int, 0)
 	sort.Ints(candidates)
-	var dfs func(startIdx int, solve []int, target int)
-	dfs = func(startIdx int, solve []int, target int) {
-		if target == 0 {
+	ans := make([][]int, 0)
+	var dfs func(idx int, curSum int, solve []int)
+	dfs = func(idx int, curSum int, solve []int) {
+		if curSum == target {
 			ans = append(ans, append([]int{}, solve...))
 			return
 		}
-		for i := startIdx; i < len(candidates); i++ {
-			if candidates[i] > target {
-				break
-			}
-			if i > startIdx && candidates[i] == candidates[i-1] {
+		for i := idx; i < len(candidates); i++ {
+			if i > idx && candidates[i] == candidates[i-1] {
 				continue
 			}
-			solve = append(solve, candidates[i])
-			dfs(i+1, solve, target-candidates[i])
-			solve = solve[:len(solve)-1]
+			if candidates[i] > target - curSum {
+				return
+			}
+			dfs(i + 1, curSum + candidates[i], append(solve, candidates[i]))
 		}
 	}
-	dfs(0, []int{}, target)
+	dfs(0, 0, []int{})
 	return ans
+
+
+
 }
+//func combinationSum2(candidates []int, target int) [][]int {
+//	sort.Ints(candidates)
+//	ans := make([][]int, 0)
+//	var dfs func(idx int, solution []int, sum int)
+//	dfs = func(idx int, solution []int, sum int) {
+//		if sum == target {
+//			ans = append(ans, append([]int{}, solution...))
+//			return
+//		}
+//		if idx >= len(candidates) || target - sum < candidates[idx] {
+//			return
+//		}
+//		for i := idx; i < len(candidates); i++ {
+//			if i > idx && candidates[i-1] == candidates[i] {
+//				continue
+//			}
+//			dfs(i+1, append(solution, candidates[i]), sum+candidates[i])
+//		}
+//	}
+//	dfs(0, []int{}, 0)
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

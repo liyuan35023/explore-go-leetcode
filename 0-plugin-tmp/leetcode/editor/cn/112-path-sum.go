@@ -34,13 +34,39 @@ package cn
  *     Right *TreeNode
  * }
  */
-func hasPathSum(root *TreeNode, targetSum int) bool {
-	if root == nil {
-		return false
-	}
-	if root.Left == nil && root.Right == nil {
-		return root.Val == targetSum
-	}
-	return hasPathSum(root.Left, targetSum-root.Val) || hasPathSum(root.Right, targetSum-root.Val)
-}
+//func hasPathSum(root *TreeNode, targetSum int) bool {
+//	if root == nil {
+//		return false
+//	}
+//	queue := []*TreeNode{root}
+//	target := []int{targetSum}
+//	for len(queue) != 0 {
+//		n := len(queue)
+//		for i := 0; i < n; i++ {
+//			if queue[i].Left == nil && queue[i].Right == nil && queue[i].Val == target[i] {
+//				return true
+//			}
+//			if queue[i].Left != nil {
+//				queue = append(queue, queue[i].Left)
+//				target = append(target, target[i]-queue[i].Val)
+//			}
+//			if queue[i].Right != nil {
+//				queue = append(queue, queue[i].Right)
+//				target = append(target, target[i]-queue[i].Val)
+//			}
+//		}
+//		queue = queue[n:]
+//		target = target[n:]
+//	}
+//	return false
+//}
+//func hasPathSum(root *TreeNode, targetSum int) bool {
+//	if root == nil {
+//		return false
+//	}
+//	if root.Left == nil && root.Right == nil {
+//		return root.Val == targetSum
+//	}
+//	return hasPathSum(root.Left, targetSum-root.Val) || hasPathSum(root.Right, targetSum-root.Val)
+//}
 //leetcode submit region end(Prohibit modification and deletion)

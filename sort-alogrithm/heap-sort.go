@@ -1,6 +1,8 @@
 package sort_alogrithm
 
 func HeapSort(nums []int, length int) []int {
+	// 升序-》大顶堆
+	// 降序-》小顶堆
 	nums = constructHeap(nums, length)
 	for i := length - 1; i > 0; i-- {
 		nums[0], nums[i] = nums[i], nums[0]

@@ -17,21 +17,20 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func generateParenthesis(n int) []string {
-	// dfs
 	ans := make([]string, 0)
-	var dfs func(left int, right int, cur string)
-	dfs = func(left int, right int, cur string) {
-		if left < right || left > n || right > n {
+	var dfs func(solve string, left, right int)
+	dfs = func(solve string, left, right int) {
+		if left == n && right == n {
+			ans = append(ans, solve)
 			return
 		}
-		if left == right && left == n {
-			ans = append(ans, cur)
+		if left > n || right > n || left < right {
 			return
 		}
-		dfs(left+1, right, cur+"(")
-		dfs(left, right+1, cur+")")
+		dfs(solve+"(", left+1, right)
+		dfs(solve+")", left, right+1)
 	}
-	dfs(0, 0, "")
+	dfs("", 0, 0)
 	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

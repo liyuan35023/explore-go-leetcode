@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"math/rand"
 	"os"
@@ -14,14 +15,23 @@ import (
 	"time"
 )
 
+type Animal interface {
+	modify()
+	defercall()
+}
+
 type Person struct {
 	age   int
 	child *Person
+	m map[uint32]int
 }
 
 func (p *Person) modify() {
+	if p == nil {
+		return
+	}
 	p.age = 10
-	p.child.age++
+	//p.child.age++
 }
 
 type Person2 struct {
@@ -43,7 +53,7 @@ func (d Direction) String() string {
 }
 
 func TestGenBlockIdSeqId() *Person {
-	objID := uint64(341975299086352768)
+	objID := uint64(341499936400999360)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
@@ -254,11 +264,78 @@ func walkPath() {
 	})
 }
 
+type ctxStr string
+
+func ctxKV() {
+	ctx := context.WithValue(context.Background(), "liyuan", "123")
+	ctx = context.WithValue(ctx, "liyuan", "456")
+	v := ctx.Value("liyuan")
+	fmt.Printf("%v\n", v)
+}
+
+
+func TestMapAssign() {
+	// Map 整体替换会不会race
+	mut := sync.Mutex{}
+	p := &Person{
+		age:   0,
+		child: nil,
+		m:     nil,
+	}
+	p.m = make(map[uint32]int)
+	p.m[3] = 3
+
+	go func() {
+		mut.Lock()
+		age := p.age
+		m := p.m
+		fmt.Println(m)
+		fmt.Println(age)
+		mut.Unlock()
+	}()
+	tmp := make(map[uint32]int)
+	mut.Lock()
+	p.m = tmp
+	p.age = 4
+	mut.Unlock()
+}
+
+func (p *Person) defercall() {
+	if p == nil {
+		return
+	}
+	p.age--
+}
+
+func TestRangeDefer(s []int) []Animal {
+	ans := make([]Animal, 0)
+	f := func() {
+		for _, v := range s {
+			var a Animal
+			a = &Person{age: v}
+			ans = append(ans, a)
+			defer a.defercall()
+		}
+	}
+	f()
+	fmt.Println(ans)
+	return ans
+}
 
 
 func main() {
+	var a *Person
+	a.defercall()
+	a.modify()
+	fmt.Println(a)
 
-	walkPath()
+
+
+	//TestMapAssign()
+	//time.Sleep(5 * time.Second)
+	//sort_alogrithm.QuickSort([]int{3, 7, 3, 4, 3, 2, 1, 8, 6}, 0, 8)
+	//ctxKV()
+	//walkPath()
 	//testLock()
 	//regex()
 	//gmp()
@@ -270,15 +347,15 @@ func main() {
 	//fmt.Println(ans)
 
 	//TestGenGroupId()
-	p := TestGenBlockIdSeqId()
-	fmt.Println(p)
+	//p := TestGenBlockIdSeqId()
+	//fmt.Println(p)
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
 
-	var inter *Person
-	fmt.Println(reflect.TypeOf(inter))
+	//var inter *Person
+	//fmt.Println(reflect.TypeOf(inter))
 	//var yy *Person2 = nil
-	fmt.Println(inter == nil)
+	//fmt.Println(inter == nil)
 
 	//s := __Longest_subString.LengthOfLongestSubstringBruteForce(" ")
 	//s := __Longest_subString.LengthOfLongestSubstring("abcabcbb")

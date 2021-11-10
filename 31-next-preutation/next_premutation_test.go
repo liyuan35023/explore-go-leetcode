@@ -6,7 +6,7 @@ import (
 )
 
 func TestNextPermutation(t *testing.T) {
-	nums := []int{1,3,2}
+	nums := []int{1,2,3}
 	nextPermutation(nums)
 	fmt.Println(nums)
 }

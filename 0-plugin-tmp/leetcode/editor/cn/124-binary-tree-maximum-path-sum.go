@@ -1,7 +1,5 @@
 package cn
 
-import "math"
-
 //路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不
 //一定经过根节点。 
 //
@@ -37,21 +35,62 @@ import "math"
  * }
  */
 func maxPathSum(root *TreeNode) int {
-	ans := -1 << 31
+	ans := -1<<31
+	if root == nil {
+		return 0
+	}
 	var maxGain func(node *TreeNode) int
 	maxGain = func(node *TreeNode) int {
 		if node == nil {
 			return 0
 		}
-		l := maxGain(node.Left)
-		r := maxGain(node.Right)
-		ans = max(ans, l+r+node.Val)
-		return max(0, max(l, r) + node.Val)
+		lg := maxGain(node.Left)
+		rg := maxGain(node.Right)
+		ans = max(ans, lg + rg + node.Val)
+		return max(0, max(lg, rg)+node.Val)
 	}
 	maxGain(root)
 	return ans
-}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+//func maxPathSum(root *TreeNode) int {
+//	ans := -1 << 31
+//	var maxGain func(node *TreeNode) int
+//	maxGain = func(node *TreeNode) int {
+//		if node == nil {
+//			return 0
+//		}
+//		l := maxGain(node.Left)
+//		r := maxGain(node.Right)
+//		ans = max(ans, l+r+node.Val)
+//		return max(0, max(l, r) + node.Val)
+//	}
+//	maxGain(root)
+//	return ans
+//}
+//
 func max(x, y int) int {
 	if x > y {
 		return x

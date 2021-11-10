@@ -25,27 +25,49 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func permuteUnique(nums []int) [][]int {
-	ans := make([][]int, 0)
 	sort.Ints(nums)
-	used := make(map[int]bool)
-	var dfs func(solve []int)
-	dfs = func(solve []int) {
-		if len(solve) == len(nums) {
+	used := make([]bool, len(nums))
+	ans := make([][]int, 0)
+	var dfs func(idx int, solve []int)
+	dfs = func(idx int, solve []int) {
+		if idx == len(nums) {
 			ans = append(ans, append([]int{}, solve...))
 			return
 		}
 		for i := 0; i < len(nums); i++ {
-			if used[i] || i > 0 && !used[i-1] && nums[i] == nums[i-1] {
+			if used[i] || i > 0 && nums[i] == nums[i-1] && !used[i-1] {
 				continue
 			}
-			solve = append(solve, nums[i])
 			used[i] = true
-			dfs(solve)
+			dfs(idx+1, append(solve, nums[i]))
 			used[i] = false
-			solve = solve[:len(solve)-1]
 		}
 	}
-	dfs([]int{})
+	dfs(0, []int{})
 	return ans
 }
+//func permuteUnique(nums []int) [][]int {
+//	ans := make([][]int, 0)
+//	sort.Ints(nums)
+//	used := make(map[int]bool)
+//	var dfs func(solve []int)
+//	dfs = func(solve []int) {
+//		if len(solve) == len(nums) {
+//			ans = append(ans, append([]int{}, solve...))
+//			return
+//		}
+//		for i := 0; i < len(nums); i++ {
+//			if used[i] || i > 0 && !used[i-1] && nums[i] == nums[i-1] {
+//				continue
+//			}
+//			solve = append(solve, nums[i])
+//			used[i] = true
+//			dfs(solve)
+//			used[i] = false
+//			solve = solve[:len(solve)-1]
+//		}
+//	}
+//	dfs([]int{})
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

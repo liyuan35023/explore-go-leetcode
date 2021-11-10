@@ -32,15 +32,15 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func rotate(matrix [][]int)  {
-	// 先转置， 在反转
-	for i := 0; i < len(matrix); i++ {
-		for j := i+1; j < len(matrix[0]); j++ {
+	m, n := len(matrix), len(matrix[0])
+	for i := 0; i < m; i++ {
+		for j := i+1; j < n; j++ {
 			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 		}
 	}
-	for i := 0; i < len(matrix); i++ {
-		for left, right := 0, len(matrix)-1; left < right; left, right = left + 1, right - 1 {
-			matrix[i][left], matrix[i][right] = matrix[i][right], matrix[i][left]
+	for i := 0; i < m; i++ {
+		for j := 0; j < n/2; j++ {
+			matrix[i][j], matrix[i][n-j-1] = matrix[i][n-j-1], matrix[i][j]
 		}
 	}
 }

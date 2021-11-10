@@ -1,5 +1,8 @@
 package cn
-//给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。 
+
+import "fmt"
+
+//给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
 //
 // 说明：每次只能向下或者向右移动一步。 
 //
@@ -23,24 +26,42 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minPathSum(grid [][]int) int {
-	m := len(grid)
-	n := len(grid[0])
+	m, n := len(grid), len(grid[0])
 	dp := make([][]int, m)
+	path := make([][]int, m)
 	for i := 0; i < m; i++ {
 		dp[i] = make([]int, n)
+		path[i] = make([]int, n)
 	}
 	dp[0][0] = grid[0][0]
-	for i := 1; i < n; i++ {
-		dp[0][i] = dp[0][i-1] + grid[0][i]
+	for i := 1; i < m; i++ {
+		dp[i][0] = grid[i][0] + dp[i-1][0]
+		path[i][0] = -1
 	}
-	for j := 1; j < m; j++ {
-		dp[j][0] = dp[j-1][0] + grid[j][0]
+	for i := 1; i < n; i++ {
+		dp[0][i] = grid[0][i] + dp[0][i-1]
+		path[0][i] = 1
 	}
 	for i := 1; i < m; i++ {
 		for j := 1; j < n; j++ {
+			if dp[i-1][j] < dp[i][j-1] {
+				path[i][j] = -1
+			} else{
+				path[i][j] = 1
+			}
 			dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
 		}
 	}
+	i, j := m-1, n-1
+	for path[i][j] != 0 {
+		fmt.Println(i, j)
+		if path[i][j] == 1 {
+			j = j-1
+		} else {
+			i = i-1
+		}
+	}
+	fmt.Println(i, j)
 	return dp[m-1][n-1]
 }
 

@@ -40,33 +40,70 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func restoreIpAddresses(s string) []string {
-	// dfs
 	ans := make([]string, 0)
-	if len(s) < 4 {
-		return ans
-	}
-	var dfs func(num int, pos int, solution []byte)
-	dfs = func(num int, pos int, solution []byte) {
-		if num > 3 {
-			value, _ := strconv.Atoi(s[pos:])
-			if value > 255 || s[pos] == '0' && pos < len(s)-1 {
+	var dfs func(numOfPoint int, idx int, buf []byte)
+	dfs = func(numOfPoint int, idx int, buf []byte) {
+		if numOfPoint == 4 {
+			if idx >= len(s) || idx < len(s)-1 && s[idx] == '0' {
 				return
 			}
-			ans = append(ans, string(append(solution, s[pos:]...)))
+			num, _ := strconv.Atoi(s[idx:])
+			if num >= 0 && num <= 255 {
+				buf = append(buf, s[idx:]...)
+				ans = append(ans, string(buf))
+			}
 			return
 		}
-		for i := pos+1; i < len(s); i++ {
-			value, _ := strconv.Atoi(s[pos:i])
-			if value > 255 || s[pos] == '0' && i > pos+1 {
+		for i := idx; i < idx + 3 && i < len(s); i++ {
+			if i == idx && s[i] == '0' {
+				buf = append(buf, s[i])
+				buf = append(buf, '.')
+				dfs(numOfPoint+1, idx+1, buf)
+				buf = buf[:len(buf)-2]
 				break
 			}
-			solution = append(solution, s[pos:i]...)
-			solution = append(solution, '.')
-			dfs(num+1, i, solution)
-			solution = solution[:len(solution)-i+pos-1]
+			num, _ := strconv.Atoi(s[idx:i+1])
+			if num >= 0 && num <= 255 {
+				buf = append(buf, s[idx:i+1]...)
+				buf = append(buf, '.')
+				dfs(numOfPoint+1, i+1, buf)
+				buf = buf[:len(buf)-i+idx-2]
+			}
 		}
 	}
 	dfs(1, 0, []byte{})
 	return ans
+
+
 }
+//func restoreIpAddresses(s string) []string {
+//	// dfs
+//	ans := make([]string, 0)
+//	if len(s) < 4 {
+//		return ans
+//	}
+//	var dfs func(num int, pos int, solution []byte)
+//	dfs = func(num int, pos int, solution []byte) {
+//		if num > 3 {
+//			value, _ := strconv.Atoi(s[pos:])
+//			if value > 255 || s[pos] == '0' && pos < len(s)-1 {
+//				return
+//			}
+//			ans = append(ans, string(append(solution, s[pos:]...)))
+//			return
+//		}
+//		for i := pos+1; i < len(s); i++ {
+//			value, _ := strconv.Atoi(s[pos:i])
+//			if value > 255 || s[pos] == '0' && i > pos+1 {
+//				break
+//			}
+//			solution = append(solution, s[pos:i]...)
+//			solution = append(solution, '.')
+//			dfs(num+1, i, solution)
+//			solution = solution[:len(solution)-i+pos-1]
+//		}
+//	}
+//	dfs(1, 0, []byte{})
+//	return ans
+//}
 //leetcode submit region end(Prohibit modification and deletion)

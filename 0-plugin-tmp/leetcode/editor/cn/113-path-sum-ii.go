@@ -35,47 +35,84 @@ package cn
  */
 func pathSum(root *TreeNode, targetSum int) [][]int {
 	ans := make([][]int, 0)
-	if root == nil {
-		return ans
-	}
-	queue := []*TreeNode{root}
-	target := []int{targetSum}
-	parent := make(map[*TreeNode]*TreeNode)
-	parent[root] = nil
-	generatePath := func(node *TreeNode) []int {
-		path := make([]int, 0)
-		for node != nil {
-			path = append([]int{node.Val}, path...)
-			node = parent[node]
+	var dfs func(node *TreeNode, solve []int, target int)
+	dfs = func(node *TreeNode, solve []int, target int) {
+		if node == nil {
+			return
 		}
-		return path
-	}
-
-	for len(queue) != 0 {
-		n := len(queue)
-		for i := 0; i < n; i++ {
-			if queue[i].Left == nil && queue[i].Right == nil {
-				if queue[i].Val == target[i] {
-					path := generatePath(queue[i])
-					ans = append(ans, path)
-				}
-				continue
-			}
-			if queue[i].Left != nil {
-				parent[queue[i].Left] = queue[i]
-				target = append(target, target[i]-queue[i].Val)
-				queue = append(queue, queue[i].Left)
-			}
-			if queue[i].Right != nil {
-				parent[queue[i].Right] = queue[i]
-				target = append(target, target[i]-queue[i].Val)
-				queue = append(queue, queue[i].Right)
-			}
+		if node.Left == nil && node.Right == nil && node.Val == target {
+			solve = append(solve, node.Val)
+			ans = append(ans, append([]int{}, solve...))
 		}
-		queue = queue[n:]
-		target = target[n:]
+		dfs(node.Left, append(solve, node.Val), target-node.Val)
+		dfs(node.Right, append(solve, node.Val), target-node.Val)
 	}
+	dfs(root, []int{}, targetSum)
 	return ans
 }
+//func pathSum(root *TreeNode, targetSum int) [][]int {
+//	ans := make([][]int, 0)
+//	var dfs func(node *TreeNode, target int, solution []int)
+//	dfs = func(node *TreeNode, target int, solution []int) {
+//		if node == nil {
+//			return
+//		}
+//		if node.Left == nil && node.Right == nil {
+//			if node.Val == target {
+//				solution = append(solution, node.Val)
+//				ans = append(ans, append([]int{}, solution...))
+//			}
+//			return
+//		}
+//		dfs(node.Left, target - node.Val, append(solution, node.Val))
+//		dfs(node.Right, target - node.Val, append(solution, node.Val))
+//	}
+//	dfs(root, targetSum, []int{})
+//	return ans
+//}
+//func pathSum(root *TreeNode, targetSum int) [][]int {
+//	ans := make([][]int, 0)
+//	if root == nil {
+//		return ans
+//	}
+//	queue := []*TreeNode{root}
+//	target := []int{targetSum}
+//	parent := make(map[*TreeNode]*TreeNode)
+//	parent[root] = nil
+//	generatePath := func(node *TreeNode) []int {
+//		path := make([]int, 0)
+//		for node != nil {
+//			path = append([]int{node.Val}, path...)
+//			node = parent[node]
+//		}
+//		return path
+//	}
+//
+//	for len(queue) != 0 {
+//		n := len(queue)
+//		for i := 0; i < n; i++ {
+//			if queue[i].Left == nil && queue[i].Right == nil {
+//				if queue[i].Val == target[i] {
+//					path := generatePath(queue[i])
+//					ans = append(ans, path)
+//				}
+//				continue
+//			}
+//			if queue[i].Left != nil {
+//				parent[queue[i].Left] = queue[i]
+//				target = append(target, target[i]-queue[i].Val)
+//				queue = append(queue, queue[i].Left)
+//			}
+//			if queue[i].Right != nil {
+//				parent[queue[i].Right] = queue[i]
+//				target = append(target, target[i]-queue[i].Val)
+//				queue = append(queue, queue[i].Right)
+//			}
+//		}
+//		queue = queue[n:]
+//		target = target[n:]
+//	}
+//	return ans
+//}
 
 //leetcode submit region end(Prohibit modification and deletion)

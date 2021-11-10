@@ -38,8 +38,6 @@ package cn
 // 1 <= s.length <= 104 
 // s 仅由括号 '()[]{}' 组成 
 // 
-// Related Topics 栈 字符串 
-// 👍 2453 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
