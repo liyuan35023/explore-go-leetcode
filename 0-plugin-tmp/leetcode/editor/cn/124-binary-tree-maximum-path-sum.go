@@ -35,29 +35,8 @@ package cn
  * }
  */
 func maxPathSum(root *TreeNode) int {
-	ans := -1<<31
-	if root == nil {
-		return 0
-	}
+	ans := -1 << 31
 	var maxGain func(node *TreeNode) int
-	maxGain = func(node *TreeNode) int {
-		if node == nil {
-			return 0
-		}
-		lg := maxGain(node.Left)
-		rg := maxGain(node.Right)
-		ans = max(ans, lg + rg + node.Val)
-		return max(0, max(lg, rg)+node.Val)
-	}
-	maxGain(root)
-	return ans
-
-
-
-
-
-
-
 
 
 

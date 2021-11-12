@@ -20,37 +20,33 @@ package cn
 //
 //进阶：你能设计一个在 o(n) 时间内解决此问题的算法吗？
 
-
 //leetcode submit region begin(Prohibit modification and deletion)
 func minWindow(s string, t string) string {
 	ans := ""
-	left, right := 0, 0
-	exist := 0
 	charMap := make(map[byte]int)
-	for _, v := range t {
-		charMap[byte(v)]++
+	for i := 0; i < len(t); i++ {
+		charMap[t[i]]++
 	}
+	left, right := 0, 0
+	existNum := 0
 	for ; right < len(s); right++ {
-		if v, ok := charMap[s[right]]; !ok {
-			continue
-		} else {
-			if v > 0 {
-				exist++
-			}
+		if v, ok := charMap[s[right]]; ok {
 			charMap[s[right]]--
+			if v > 0 {
+				existNum++
+			}
 		}
-		for exist == len(t) {
-			// move left
+		for ; existNum == len(t); left++ {
 			if ans == "" || right - left + 1 < len(ans) {
 				ans = s[left:right+1]
 			}
+
 			if v, ok := charMap[s[left]]; ok {
 				if v == 0 {
-					exist--
+					existNum--
 				}
 				charMap[s[left]]++
 			}
-			left++
 		}
 	}
 	return ans
