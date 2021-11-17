@@ -1,5 +1,5 @@
 package cn
-//给定一个二叉树，判断它是否是高度平衡的二叉树。 
+//给定一个二叉树，判断它是否是高度平衡的二叉树。
 //
 // 本题中，一棵高度平衡二叉树定义为： 
 //
@@ -40,17 +40,9 @@ func isBalanced(root *TreeNode) bool {
 		if node == nil {
 			return 0
 		}
-		l := dfs(node.Left)
-		r := dfs(node.Right)
-		if l == -1 || r == -1 {
-			return -1
-		}
-		if l - r > 1 || r - l > 1 {
-			return -1
-		}
-		return max(l, r) + 1
 	}
-	return dfs(root) != -1
+
+
 }
 
 func max(x, y int) int {

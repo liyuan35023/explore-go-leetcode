@@ -37,22 +37,18 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func uniquePaths(m int, n int) int {
-	if m < n {
+	if m > n {
 		m, n = n, m
 	}
-	dp0 := make([]int, n)
-	for i := 0 ; i < n; i++ {
-		dp0[i] = 1
+	dp := make([]int, m)
+	for i := 0; i < m; i++ {
+		dp[i] = 1
 	}
-	for i := 1; i < m; i++ {
-		for j := 0; j < n; j++ {
-			if j == 0 {
-				dp0[j] = 1
-			} else {
-				dp0[j] = dp0[j] + dp0[j-1]
-			}
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			dp[j] = dp[j-1] + dp[j]
 		}
 	}
-	return dp0[n-1]
+	return dp[m-1]
 }
 //leetcode submit region end(Prohibit modification and deletion)
