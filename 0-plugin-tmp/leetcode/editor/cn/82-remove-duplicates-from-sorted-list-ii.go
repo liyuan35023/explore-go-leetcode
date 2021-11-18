@@ -29,25 +29,6 @@ package cn
  * }
  */
 func deleteDuplicates(head *ListNode) *ListNode {
-	dummy := new(ListNode)
-	pre := dummy
-	for head != nil {
-		curVal := head.Val
-		if head.Next == nil || head.Next.Val != curVal {
-			pre.Next = head
-			pre = head
-			head = head.Next
-		} else {
-			du := head.Next
-			for du != nil && du.Val == curVal {
-				du = du.Next
-			}
-			head = du
-			pre.Next = du
-		}
-	}
-	return dummy.Next
-
 
 }
 //func deleteDuplicates(head *ListNode) *ListNode {

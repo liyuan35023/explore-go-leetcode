@@ -29,19 +29,5 @@ package cn
  * }
  */
 func deleteDuplicates(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	pre := head
-	cur := head.Next
-	for cur != nil {
-		if cur.Val != pre.Val {
-			pre.Next = cur
-			pre = cur
-		}
-		cur = cur.Next
-	}
-	pre.Next = nil
-	return head
 }
 //leetcode submit region end(Prohibit modification and deletion)
