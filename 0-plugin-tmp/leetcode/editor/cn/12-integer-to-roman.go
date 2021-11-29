@@ -4,7 +4,6 @@ import "bytes"
 
 //罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 //
-// 
 //字符          数值
 //I             1
 //V             5
@@ -28,29 +27,28 @@ import "bytes"
 //
 // 给你一个整数，将其转为罗马数字。 
 //
-//
 // 示例 1: 
 //
 // 
-//输入: num = 3
+//输入:num = 3
 //输出: "III" 
 //
 // 示例 2: 
 //
 // 
-//输入: num = 4
+//输入:num = 4
 //输出: "IV" 
 //
 // 示例 3: 
 //
 // 
-//输入: num = 9
+//输入:num = 9
 //输出: "IX" 
 //
 // 示例 4: 
 //
 // 
-//输入: num = 58
+//输入:num = 58
 //输出: "LVIII"
 //解释: L = 50, V = 5, III = 3.
 // 
@@ -58,35 +56,16 @@ import "bytes"
 // 示例 5: 
 //
 // 
-//输入: num = 1994
+//输入:num = 1994
 //输出: "MCMXCIV"
 //解释: M = 1000, CM = 900, XC = 90, IV = 4. 
 //
-// 
+// 提示：
 //
-// 提示： 
-//
-// 
 // 1 <= num <= 3999 
 // 
-// Related Topics 数学 字符串 
-// 👍 637 👎 0
-
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func intToRoman(num int) string {
-	nums := []int{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1}
-	romans := []string{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"}
-
-	ans := bytes.NewBuffer([]byte{})
-	idx := 0
-	for num > 0 {
-		for num >= nums[idx] {
-			ans.WriteString(romans[idx])
-			num -= nums[idx]
-		}
-		idx++
-	}
-	return ans.String()
 }
 //leetcode submit region end(Prohibit modification and deletion)

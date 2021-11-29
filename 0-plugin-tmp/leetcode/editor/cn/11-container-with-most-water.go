@@ -33,12 +33,9 @@ package cn
 // 2 <= n <= 3 * 104
 // 0 <= height[i] <= 3 * 104
 //
-// Related Topics 数组 双指针
-// 👍 2528 👎 0
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxArea(height []int) int {
-
 }
 
 
