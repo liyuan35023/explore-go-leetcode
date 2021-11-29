@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func diameterOfBinaryTree(root *TreeNode) int {
+	ans := 0
+	var helper func(node *TreeNode) int
+    helper = func(node *TreeNode) int {
+        if node == nil {
+            return 0
+        }
+        left := helper(node.Left)
+        right := helper(node.Right)
+        ans = max(ans, left+right)
+        return max(left, right) + 1
+    }
+    helper(root)
+    return ans
+}
+
+func max(x, y int) int {
+    if x > y {
+        return x
+    }
+    return y
+}
+//runtime:8 ms
+//memory:4.7 MB

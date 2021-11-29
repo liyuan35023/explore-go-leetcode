@@ -1,0 +1,32 @@
+func longestPalindrome(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	// dp
+	// dp[i][j] 表示第i个字符到第j个字符是否是回文字符串 i <= j
+	ans := s[0:1]
+	dp := make([][]bool, len(s))
+	for i := 0; i < len(s); i++ {
+		dp[i] = make([]bool, len(s))
+	}
+
+	for i := 0; i < len(s); i++ {
+		dp[i][i] = true
+	}
+	for column := 1 ; column < len(s); column++ {
+		for row := 0; row < column; row++ {
+			if column - row == 1 {
+				dp[row][column] = s[row] == s[column]
+			} else {
+				dp[row][column] = s[row] == s[column] && dp[row+1][column-1]
+			}
+			if dp[row][column] && column - row + 1 > len(ans) {
+				ans = s[row:column+1]
+			}
+		}
+	}
+	return ans
+}
+
+//runtime:140 ms
+//memory:7.2 MB

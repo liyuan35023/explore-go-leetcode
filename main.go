@@ -324,6 +324,7 @@ func TestRangeDefer(s []int) []Animal {
 
 
 func main() {
+	fmt.Println(-14%10)
 	var a *Person
 	a.defercall()
 	a.modify()

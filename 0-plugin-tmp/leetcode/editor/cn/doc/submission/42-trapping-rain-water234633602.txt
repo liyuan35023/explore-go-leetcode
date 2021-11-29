@@ -1,0 +1,30 @@
+func trap(height []int) int {
+	leftMax, rightMax := height[0], height[len(height)-1]
+	i, j := 0, len(height)-1
+	ans := 0
+	for i <= j {
+		if leftMax < rightMax {
+			if leftMax > height[i] {
+				ans += leftMax - height[i]
+			}
+			leftMax = max(leftMax, height[i])
+			i++
+		} else {
+			if rightMax > height[j] {
+				ans += rightMax - height[j]
+			}
+			rightMax = max(rightMax, height[j])
+			j--
+		}
+	}
+	return ans
+}
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
+
+//runtime:4 ms
+//memory:3.6 MB

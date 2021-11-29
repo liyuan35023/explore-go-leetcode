@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func isCompleteTree(root *TreeNode) bool {
+queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	lastNode := false
+	for len(queue) != 0 {
+		if lastNode && queue[0] != nil {
+			return false
+		}
+		if queue[0] == nil {
+			lastNode = true
+		} else {
+			queue = append(queue, queue[0].Left)
+			queue = append(queue, queue[0].Right)
+		}
+		queue = queue[1:]
+	}
+	return true
+
+}
+//runtime:0 ms
+//memory:3.2 MB

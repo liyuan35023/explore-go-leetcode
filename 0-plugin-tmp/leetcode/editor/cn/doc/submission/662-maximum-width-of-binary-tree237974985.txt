@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func widthOfBinaryTree(root *TreeNode) int {
+	ans := 1
+	left := make(map[int]int)
+	var dfs func(node *TreeNode, depth int, pos int)
+	dfs = func(node *TreeNode, depth int, pos int) {
+		if node == nil {
+			return
+		}
+		if v, ok := left[depth]; ok {
+			ans = max(ans, pos - v + 1)
+		} else {
+			left[depth] = pos
+		}
+		dfs(node.Left, depth+1, pos * 2 - 1)
+		dfs(node.Right, depth+1, pos * 2)
+	}
+	dfs(root, 1, 1)
+	return ans
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+
+}
+
+//runtime:4 ms
+//memory:5.3 MB
