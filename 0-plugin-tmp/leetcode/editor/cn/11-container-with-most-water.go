@@ -38,26 +38,7 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxArea(height []int) int {
-	ans := 0
-	leftMax, rightMax := 0, len(height)-1
 
-	for leftMax < rightMax {
-		if height[leftMax] < height[rightMax] {
-			ans = max(ans, height[leftMax] * (rightMax-leftMax))
-			leftMax++
-		} else {
-			ans = max(ans, height[rightMax] * (rightMax-leftMax))
-			rightMax--
-		}
-	}
-	return ans
-}
-
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
 }
 
 

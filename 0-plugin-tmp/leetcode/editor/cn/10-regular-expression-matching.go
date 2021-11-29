@@ -48,15 +48,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func isMatch(s string, p string) bool {
-	m, n := len(s), len(p)
-	dp := make([][]int, m+1)
-	for i := 0; i < m; i++ {
-		dp[i] = make([]int, n+1)
-	}
-
-
-
-	return dp[m][n]
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
