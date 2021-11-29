@@ -28,33 +28,21 @@ package cn
  * }
  */
 func partition(head *ListNode, x int) *ListNode {
-	dummy := new(ListNode)
-	lessTail := dummy
-	var biggerHead, biggerTail *ListNode
-	cur := head
-	for cur != nil {
-		if cur.Val >= x {
-			if biggerHead == nil {
-				biggerHead = cur
-			}
-			if biggerTail == nil {
-				biggerTail = cur
-			} else {
-				biggerTail.Next = cur
-				biggerTail = cur
-			}
-			cur = cur.Next
-			biggerTail.Next = nil
+	dummyLess := new(ListNode)
+	dummyMore := new(ListNode)
+	preLess, preMore := dummyLess, dummyMore
+	for head != nil {
+		if head.Val >= x {
+			preMore.Next = head
+			preMore = head
 		} else {
-			tmp := cur.Next
-			lessTail.Next = cur
-			lessTail = cur
-			cur.Next = nil
-			cur = tmp
+			preLess.Next = head
+			preLess = head
 		}
+		head = head.Next
 	}
-	lessTail.Next = biggerHead
-	return dummy.Next
-
+	preLess.Next = dummyMore.Next
+	preMore.Next = nil
+	return dummyLess.Next
 }
 //leetcode submit region end(Prohibit modification and deletion)
