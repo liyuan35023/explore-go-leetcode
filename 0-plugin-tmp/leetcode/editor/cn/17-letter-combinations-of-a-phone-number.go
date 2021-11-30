@@ -42,17 +42,17 @@ func letterCombinations(digits string) []string {
 		return nil
 	}
 	ans := make([]string, 0)
-	var dfs func(i int, cur string)
-	dfs = func(i int, cur string) {
-		if i == len(digits) {
-			ans = append(ans, cur)
+	var dfs func(idx int, buffer []byte)
+	dfs = func(idx int, buffer []byte) {
+		if idx == len(digits) {
+			ans = append(ans, string(buffer))
 			return
 		}
-		for _, r := range _map[digits[i]] {
-			dfs(i+1, cur+string(r))
+		for _, b := range _map[digits[idx]] {
+			dfs(idx+1, append(buffer, byte(b)))
 		}
 	}
-	dfs(0, "")
+	dfs(0, []byte{})
 	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -16,7 +16,6 @@ import "sort"
 //
 // 示例 2： 
 //
-// 
 //输入：nums = [], target = 0
 //输出：[]
 //
@@ -26,35 +25,30 @@ import "sort"
 // -109 <= nums[i] <= 109 
 // -109 <= target <= 109 
 // 
-// Related Topics 数组 哈希表 双指针 
-// 👍 875 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func fourSum(nums []int, target int) [][]int {
 	ans := make([][]int, 0)
-	if len(nums) < 4 {
-		return ans
-	}
 	sort.Ints(nums)
-	for first := 0; first < len(nums)-3; first++ {
-		if first > 0 && nums[first-1] == nums[first] {
+	for first := 0; first < len(nums); first++ {
+		if first > 0 && nums[first] == nums[first-1] {
 			continue
 		}
-		for second := first+1; second < len(nums)-2; second++ {
-			if second > first+1 && nums[second-1] == nums[second] {
+		for second := first+1; second < len(nums); second++ {
+			if second > first+1 && nums[second] == nums[second-1] {
 				continue
 			}
 			third, fourth := second+1, len(nums)-1
 			for third < fourth {
-				remain := target - nums[first] - nums[second]
-				if remain == nums[third] + nums[fourth] {
+				sum := nums[first] + nums[second] + nums[third] + nums[fourth]
+				if sum == target {
 					ans = append(ans, []int{nums[first], nums[second], nums[third], nums[fourth]})
 					third++
-					for third < fourth && nums[third-1] == nums[third] {
+					for third < fourth && nums[third] == nums[third-1] {
 						third++
 					}
-				} else if remain > nums[third] + nums[fourth] {
+				} else if sum < target {
 					third++
 				} else {
 					fourth--

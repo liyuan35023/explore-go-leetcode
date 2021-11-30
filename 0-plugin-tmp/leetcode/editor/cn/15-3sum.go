@@ -1,5 +1,7 @@
 package cn
 
+import "sort"
+
 //给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重
 //复的三元组。 
 //
@@ -37,5 +39,29 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func threeSum(nums []int) [][]int {
+	ans := make([][]int, 0)
+	sort.Ints(nums)
+	for i := 0; i < len(nums); i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		target := -nums[i]
+		l, r := i+1, len(nums)-1
+		for l < r {
+			sum := nums[l] + nums[r]
+			if sum == target {
+				ans = append(ans, []int{nums[i], nums[l], nums[r]})
+				l++
+				for l < r && nums[l] == nums[l-1] {
+					l++
+				}
+			} else if sum < target {
+				l++
+			} else {
+				r--
+			}
+		}
+	}
+	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

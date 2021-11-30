@@ -36,18 +36,6 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-   // 双指针
-   dummy := new(ListNode)
-   dummy.Next = head
-   slow, fast := dummy, dummy
-   for i := 0; i < n; i++ {
-       fast = fast.Next
-   }
-   for fast.Next != nil {
-       slow = slow.Next
-       fast = fast.Next
-   }
-   slow.Next = slow.Next.Next
-   return dummy.Next
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
