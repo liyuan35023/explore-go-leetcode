@@ -46,71 +46,8 @@ package cn
  * }
  */
 func mergeKLists(lists []*ListNode) *ListNode {
-	if len(lists) < 1 {
-		return nil
-	}
-	dummy := new(ListNode)
-	pre := dummy
-	total := len(lists)
-	for _, n := range lists {
-		if n != nil {
-			lists = append(lists, n)
-		}
-	}
-	lists = lists[total:]
-	constructPriorQueue(lists, len(lists))
-	for len(lists) != 0 {
-		next := lists[0]
-		pre.Next = next
-		pre = next
-		lists[0] = lists[0].Next
-		if lists[0] == nil {
-			if len(lists) == 1 {
-				break
-			}
-			lists[0] = lists[len(lists)-1]
-			lists = lists[:len(lists)-1]
-			downAdjust(lists, 0, len(lists))
-		} else {
-			downAdjust(lists, 0, len(lists))
-		}
-	}
-	return dummy.Next
-}
-
-func constructPriorQueue(nodes []*ListNode, length int) {
-	lastIdx := length / 2 - 1
-	for ; lastIdx >= 0; lastIdx-- {
-		downAdjust(nodes, lastIdx, length)
-	}
-}
-
-func downAdjust(nodes []*ListNode, parent, length int) {
-	for parent < length / 2 {
-		minChild := getMinChild(nodes, parent, length)
-		if nodes[parent].Val > nodes[minChild].Val {
-			nodes[parent], nodes[minChild] = nodes[minChild], nodes[parent]
-			parent = minChild
-		} else {
-			break
-		}
-	}
-}
-
-func getMinChild(nodes []*ListNode, parent int, length int) int {
-	child1 := 2 * parent + 1
-	child2 := 2 * parent + 2
-	if child2 >= length {
-		return child1
-	}
-	if nodes[child1].Val < nodes[child2].Val {
-		return child1
-	} else {
-		return child2
-	}
 
 }
-
 
 //func mergeKLists(lists []*ListNode) *ListNode {
 //	// 分治

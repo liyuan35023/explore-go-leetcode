@@ -5,7 +5,6 @@ package cn
 //
 //输入：l1 = [1,2,4], l2 = [1,3,4]
 //输出：[1,1,2,3,4,4]
-// 
 //
 // 示例 2： 
 //
@@ -41,22 +40,23 @@ package cn
  */
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	dummy := new(ListNode)
-	cur := dummy
+	pre := dummy
 	for l1 != nil && l2 != nil {
 		if l1.Val < l2.Val {
-			cur.Next = l1
+			pre.Next = l1
+			pre = l1
 			l1 = l1.Next
 		} else {
-			cur.Next = l2
+			pre.Next = l2
+			pre = l2
 			l2 = l2.Next
 		}
-		cur = cur.Next
 	}
 	if l1 != nil {
-		cur.Next = l1
+		pre.Next = l1
 	}
 	if l2 != nil {
-		cur.Next = l2
+		pre.Next = l2
 	}
 	return dummy.Next
 }
