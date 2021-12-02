@@ -322,14 +322,41 @@ func TestRangeDefer(s []int) []Animal {
 	return ans
 }
 
+func defer_call()  {
+	defer func(){
+		fmt.Println("11111")
+	}()
+	defer func(){
+		fmt.Println("22222")
+	}()
+
+
+	defer func(){
+		fmt.Println("33333")
+	}()
+
+	fmt.Println("111 Helloworld")
+
+	panic("Panic 1!")
+
+	panic("Panic 2!")
+
+	fmt.Println("222 Helloworld")
+}
+func callDefer() {
+	defer func() {
+		if r := recover(); r!= nil {
+			fmt.Println("Recover from r : ",r)
+		}
+	}()
+	defer_call()
+
+	fmt.Println("call defer world")
+}
 
 func main() {
-	fmt.Println(-14%10)
-	var a *Person
-	a.defercall()
-	a.modify()
-	fmt.Println(a)
-
+	callDefer()
+	fmt.Println("333 Hello world")
 
 
 	//TestMapAssign()

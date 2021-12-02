@@ -46,6 +46,60 @@ package cn
  * }
  */
 func mergeKLists(lists []*ListNode) *ListNode {
+	if len(lists) == 0 {
+		return nil
+	}
+	total := len(lists)
+	for _, n := range lists {
+		if n != nil {
+			lists = append(lists, n)
+		}
+	}
+	lists = lists[total:]
+
+	constructPriorQueue(lists)
+	dummy := new(ListNode)
+	pre := dummy
+	for len(lists) > 0 {
+		ans := lists[0]
+		lists[0] = lists[0].Next
+		if lists[0] == nil {
+			lists[0] = lists[len(lists)-1]
+			lists = lists[:len(lists)-1]
+		}
+		downAdjustQueue(lists, 0, len(lists))
+		pre.Next = ans
+		pre = pre.Next
+	}
+	return dummy.Next
+}
+
+func constructPriorQueue(lists []*ListNode) {
+	for i := len(lists) / 2 - 1; i >= 0; i-- {
+		downAdjustQueue(lists, i, len(lists))
+	}
+}
+
+func downAdjustQueue(lists []*ListNode, parent int, length int) {
+	for parent <= length / 2 - 1 {
+		minChild := getMinChild(lists, parent, length)
+		if lists[parent].Val > lists[minChild].Val {
+			lists[parent], lists[minChild] = lists[minChild], lists[parent]
+			parent = minChild
+		} else {
+			break
+		}
+	}
+}
+
+func getMinChild(lists []*ListNode, parent int, length int) int {
+	child1 := parent * 2 + 1
+	child2 := parent * 2 + 2
+	if child2 > length - 1 || lists[child1].Val < lists[child2].Val {
+		return child1
+	} else {
+		return child2
+	}
 
 }
 

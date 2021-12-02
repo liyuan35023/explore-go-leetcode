@@ -36,15 +36,15 @@ package cn
  */
 func swapPairs(head *ListNode) *ListNode {
 	dummy := new(ListNode)
-	dummy.Next = head
 	pre := dummy
+	dummy.Next = head
 	for head != nil && head.Next != nil {
-		tmp := head.Next.Next
-		pre.Next = head.Next
+		next := head.Next.Next
 		head.Next.Next = head
-		head.Next = tmp
+		pre.Next = head.Next
+		head.Next = next
 		pre = head
-		head = tmp
+		head = next
 	}
 	return dummy.Next
 }

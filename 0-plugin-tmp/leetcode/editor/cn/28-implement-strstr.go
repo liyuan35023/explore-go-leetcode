@@ -34,22 +34,7 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func strStr(haystack string, needle string) int {
-	if needle == "" {
-		return 0
-	}
-	n := len(needle)
-	for i := 0 ; i < len(haystack) - n + 1; i++ {
-		match := true
-		for cur := 0; cur < n; cur++ {
-			if haystack[i+cur] != needle[cur] {
-				match = false
-				break
-			}
-		}
-		if match {
-			return i
-		}
-	}
-	return -1
+//https://www.zhihu.com/question/21923021
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -33,36 +33,34 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func divide(dividend int, divisor int) int {
-	signed := -1
-	if dividend > 0 && divisor > 0 || dividend < 0 && divisor < 0 {
-		signed = 1
-	}
 	absDividend := abs(dividend)
 	absDivisor := abs(divisor)
+	signed := 1
 	ans := 0
-	curMulti := 1
-	curDivisor := absDivisor
+	if dividend < 0 && divisor > 0 || dividend > 0 && divisor < 0 {
+		signed = -1
+	}
 	for absDividend >= absDivisor {
-		for absDividend >= curDivisor {
-			absDividend -= curDivisor
-			curDivisor += curDivisor
-			if signed == 1 && ans > 1 << 31 - 1 - curMulti || signed == -1 && ans > 1 << 31 - curMulti {
+		count := 1
+		contributor := absDivisor
+		for absDividend >= contributor {
+			absDividend -= contributor
+			contributor += contributor
+			if signed == -1 && ans > 1 << 31 - count || signed == 1 && ans > 1 << 31 - count -1 {
 				return 1 << 31 - 1
 			}
-			ans += curMulti
-			curMulti += curMulti
+			ans += count
+			count += count
 		}
-		curDivisor = absDivisor
-		curMulti = 1
 	}
 	return signed * ans
 }
 
-//func abs(x int) int {
-//	if x < 0 {
-//		x = -x
-//	}
-//	return x
-//}
+func abs(x int) int {
+	if x < 0 {
+		x = -x
+	}
+	return x
+}
 
 //leetcode submit region end(Prohibit modification and deletion)

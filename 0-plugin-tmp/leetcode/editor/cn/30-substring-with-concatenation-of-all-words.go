@@ -34,38 +34,8 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func findSubstring(s string, words []string) []int {
 	ans := make([]int, 0)
-	n := len(words[0])
-	if len(s) < n * len(words) {
-		return ans
-	}
 
-	wordsMap := make(map[string]int)
-	for _, v := range words {
-		wordsMap[v]++
-	}
 
-	for i := 0; i < len(s)-n*len(words)+1; i++ {
-		curIdx := i
-		existWordNum := 0
-		for {
-			if v, ok := wordsMap[s[curIdx:curIdx+n]]; ok && v > 0 {
-				wordsMap[s[curIdx:curIdx+n]] = v - 1
-				curIdx += n
-				existWordNum++
-				if existWordNum == len(words) {
-					ans = append(ans, i)
-					break
-				}
-			} else {
-				break
-			}
-		}
-		// 还原map
-		for curIdx > i {
-			wordsMap[s[curIdx-n:curIdx]]++
-			curIdx -= n
-		}
-	}
-	return ans
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
