@@ -1,7 +1,5 @@
 package cn
 
-import "strconv"
-
 //编写一个程序，通过填充空格来解决数独问题。
 //
 // 数独的解法需 遵循如下规则： 
@@ -39,62 +37,7 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func solveSudoku(board [][]byte) {
-	rowMap, columnMap, blockMap, spaces := generateMapAndSpace(board)
-	var dfs func(idx int) bool
-	dfs = func(idx int) bool {
-		if idx == len(spaces) {
-			return true
-		}
-		row, column := spaces[idx][0], spaces[idx][1]
-		blockId := row / 3 * 3 + column / 3
-		for i := 1; i <= 9; i++ {
-			if rowMap[row][i] || columnMap[column][i] || blockMap[blockId][i] {
-				continue
-			}
-			byteNum := strconv.Itoa(i)
-			board[row][column] = byteNum[0]
-			rowMap[row][i] = true
-			columnMap[column][i] = true
-			blockMap[blockId][i] = true
-			if dfs(idx+1) {
-				return true
-			}
-			board[row][column] = '.'
-			rowMap[row][i] = false
-			columnMap[column][i] = false
-			blockMap[blockId][i] = false
-		}
-		return false
-	}
-	dfs(0)
-}
 
-func generateMapAndSpace(board [][]byte) (rowMap []map[int]bool, columnMap []map[int]bool, blockMap []map[int]bool,
-	spaces [][2]int) {
-	rowMap = make([]map[int]bool, 9)
-	columnMap = make([]map[int]bool, 9)
-	blockMap = make([]map[int]bool, 9)
-	for i := 0; i < 9; i++ {
-		rowMap[i] = make(map[int]bool)
-		columnMap[i] = make(map[int]bool)
-		blockMap[i] = make(map[int]bool)
-	}
-
-	for i := 0; i < 9; i++ {
-		for j := 0; j < 9; j++ {
-			if board[i][j] == '.' {
-				spaces = append(spaces, [2]int{i, j})
-			} else {
-				num := int(board[i][j] - '0')
-				blockId := i / 3 * 3 + j / 3
-				rowMap[i][num] = true
-				columnMap[j][num] = true
-				blockMap[blockId][num] = true
-
-			}
-		}
-	}
-	return
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

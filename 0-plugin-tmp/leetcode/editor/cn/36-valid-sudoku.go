@@ -53,29 +53,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func isValidSudoku(board [][]byte) bool {
-	rowMap := make([]map[int]bool, 9)
-	columnMap := make([]map[int]bool, 9)
-	blockMap := make([]map[int]bool, 9)
-	for i := 0; i < 9; i++ {
-		rowMap[i] = make(map[int]bool)
-		columnMap[i] = make(map[int]bool)
-		blockMap[i] = make(map[int]bool)
-	}
-	for row := 0; row < 9; row++ {
-		for column := 0; column < 9; column++ {
-			if board[row][column] == '.' {
-				continue
-			}
-			blockId := row / 3 * 3 + column / 3
-			num := int(board[row][column] - '0')
-			if rowMap[row][num] || columnMap[column][num] || blockMap[blockId][num] {
-				return false
-			}
-			rowMap[row][num] = true
-			columnMap[column][num] = true
-			blockMap[blockId][num] = true
-		}
-	}
 	return true
 }
 //leetcode submit region end(Prohibit modification and deletion)

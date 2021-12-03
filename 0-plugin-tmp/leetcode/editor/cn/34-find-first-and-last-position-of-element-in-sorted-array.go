@@ -33,15 +33,43 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func searchRange(nums []int, target int) []int {
-
+	if len(nums) < 1 {
+		return []int{-1, -1}
+	}
+	return []int{searchFirst(nums, target), searchLast(nums, target)}
 }
 
 func searchFirst(nums []int, target int) int {
 	left, right := 0, len(nums) - 1
 	for left <= right {
 		mid := left + (right - left) / 2
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if left < len(nums) && nums[left] == target {
+		return left
+	} else {
+		return -1
+	}
+}
 
-
+func searchLast(nums []int, target int) int {
+	left, right := 0, len(nums) - 1
+	for left <= right {
+		mid := left + (right - left) / 2
+		if nums[mid] <= target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	if right >= 0 && nums[right] == target {
+		return right
+	} else {
+		return -1
 	}
 
 }
