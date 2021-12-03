@@ -34,35 +34,39 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func nextPermutation(nums []int) {
-	if len(nums) < 2 {
-		return
+	// 找最后一个升序对
+	lastBiggerIdx := -1
+	for i := len(nums)-1; i > 0; i-- {
+		if nums[i] > nums[i-1] {
+			lastBiggerIdx = i - 1
+			idx := findFirstBiggerIdx(nums[lastBiggerIdx], nums[lastBiggerIdx+1:])
+			realIdx := lastBiggerIdx + idx + 1
+			nums[lastBiggerIdx], nums[realIdx] = nums[realIdx], nums[lastBiggerIdx]
+			break
+		}
 	}
-	lastAsc := len(nums) - 2
-	for ; lastAsc >= 0 && nums[lastAsc] >= nums[lastAsc+1]; lastAsc-- {
+	//reverse
+
+	l, r := lastBiggerIdx+1, len(nums)-1
+	for l < r {
+		nums[l], nums[r] = nums[r], nums[l]
+		l, r = l+1, r-1
 	}
-	if lastAsc >= 0 {
-		tmpIdx := findFirstBigger(nums[lastAsc+1:], nums[lastAsc])
-		realIdx := lastAsc + tmpIdx + 1
-		nums[lastAsc], nums[realIdx] = nums[realIdx], nums[lastAsc]
-	}
-	// reverse
-	for left, right := lastAsc+1, len(nums)-1; left < right; left, right = left+1, right-1 {
-		nums[left], nums[right] = nums[right], nums[left]
-	}
+
 }
 
-func findFirstBigger(nums []int, target int) int {
+func findFirstBiggerIdx(target int, nums []int) int {
+	// 降序的nums
 	left, right := 0, len(nums) - 1
 	for left <= right {
 		mid := left + (right - left) / 2
 		if nums[mid] <= target {
 			right = mid - 1
-		} else if nums[mid] > target {
+		} else {
 			left = mid + 1
 		}
 	}
 	return right
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

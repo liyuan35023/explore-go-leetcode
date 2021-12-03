@@ -34,8 +34,36 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func findSubstring(s string, words []string) []int {
 	ans := make([]int, 0)
-
-
-
+	wordLen := len(words[0])
+	num := len(words)
+	wordMap := make(map[string]int)
+	for _, s := range words {
+		wordMap[s]++
+	}
+	count := 0
+	for i := 0; i < len(s) - wordLen*num + 1; i++ {
+		if _, ok := wordMap[s[i:i+wordLen]]; ok {
+			tmp := i
+			for count < num {
+				if k, ok := wordMap[s[tmp:tmp+wordLen]]; ok && k > 0 {
+					wordMap[s[tmp:tmp+wordLen]] = k - 1
+					count++
+					tmp += wordLen
+				} else {
+					break
+				}
+			}
+			if count == num {
+				ans = append(ans, i)
+			}
+			tmp = tmp - wordLen
+			for count > 0 {
+				wordMap[s[tmp:tmp+wordLen]]++
+				tmp -= wordLen
+				count--
+			}
+		}
+	}
+	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -27,23 +27,17 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func longestValidParentheses(s string) int {
-	ans := 0
-	dp := make([]int, len(s)+1)
-	for i := 2; i < len(s)+1; i++ {
-		if s[i-1] == ')' {
-			if s[i-2] == '(' {
-				dp[i] = dp[i-2] + 2
-			} else {
-				leftParentIdx := i - 2 - dp[i-1]
-				if leftParentIdx >= 0 && s[leftParentIdx] == '(' {
-					dp[i] = dp[leftParentIdx] + dp[i-1] + 2
-				}
-			}
-		}
-		ans = max(ans, dp[i])
-	}
 
-	return ans
+
+
+
+
+
+
+
+
+
+
 
 }
 //func longestValidParentheses(s string) int {
