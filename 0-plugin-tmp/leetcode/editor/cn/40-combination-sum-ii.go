@@ -36,26 +36,6 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combinationSum2(candidates []int, target int) [][]int {
-	sort.Ints(candidates)
-	ans := make([][]int, 0)
-	var dfs func(idx int, curSum int, solve []int)
-	dfs = func(idx int, curSum int, solve []int) {
-		if curSum == target {
-			ans = append(ans, append([]int{}, solve...))
-			return
-		}
-		for i := idx; i < len(candidates); i++ {
-			if i > idx && candidates[i] == candidates[i-1] {
-				continue
-			}
-			if candidates[i] > target - curSum {
-				return
-			}
-			dfs(i + 1, curSum + candidates[i], append(solve, candidates[i]))
-		}
-	}
-	dfs(0, 0, []int{})
-	return ans
 
 
 

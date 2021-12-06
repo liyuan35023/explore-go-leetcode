@@ -42,9 +42,26 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combinationSum(candidates []int, target int) [][]int {
-
-
-
+	ans := make([][]int, 0)
+	sort.Ints(candidates)
+	var dfs func(idx int, remain int, solve []int)
+	dfs = func(idx int, remain int, solve []int) {
+		if idx >= len(candidates) || remain < 0 {
+			return
+		}
+		if remain == 0 {
+			ans = append(ans, append([]int{}, solve...))
+			return
+		}
+		for i := idx; i < len(candidates); i++ {
+			if candidates[i] > remain {
+				return
+			}
+			dfs(i, remain-candidates[i], append(solve, candidates[i]))
+		}
+	}
+	dfs(0, target, []int{})
+	return ans
 }
 //func combinationSum(candidates []int, target int) [][]int {
 //	sort.Ints(candidates)

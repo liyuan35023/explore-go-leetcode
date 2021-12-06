@@ -37,7 +37,56 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func solveSudoku(board [][]byte) {
+	rowRecord, columnRecord, blockRecord, space := generateMap(board)
+	var dfs func(idx int) bool
+	dfs = func(idx int) bool {
+		if idx >= len(space) {
+			return true
+		}
+		row, column := space[idx][0], space[idx][1]
+		blockId := (row / 3) * 3 + column / 3
+		for i := 0; i < 9; i++ {
+			if rowRecord[row][i] || columnRecord[column][i] || blockRecord[blockId][i] {
+				continue
+			}
+			board[row][column] = '1' + byte(i)
+			rowRecord[row][i] = true
+			columnRecord[column][i] = true
+			blockRecord[blockId][i] = true
+			if dfs(idx + 1) {
+				return true
+			}
+			board[row][column] = '.'
+			rowRecord[row][i] = false
+			columnRecord[column][i] = false
+			blockRecord[blockId][i] = false
+		}
+		return false
+	}
+	dfs(0)
+}
 
+func generateMap(board [][]byte) ([][]bool, [][]bool, [][]bool, [][]int) {
+	rowRecord, columnRecord, blockRecord := make([][]bool, 9), make([][]bool, 9), make([][]bool, 9)
+	spaces := make([][]int, 0)
+	for i := 0; i < 9; i++ {
+		rowRecord[i] = make([]bool, 9)
+		columnRecord[i] = make([]bool, 9)
+		blockRecord[i] = make([]bool, 9)
+	}
+	for i := 0; i < len(board); i++ {
+		for j := 0; j < len(board[0]); j++ {
+			if board[i][j] == '.' {
+				spaces = append(spaces, []int{i, j})
+			} else {
+				num := int(board[i][j] - '0') - 1
+				rowRecord[i][num] = true
+				columnRecord[j][num] = true
+				blockRecord[(i/3)*3 + j/3][num] = true
+			}
+		}
+	}
+	return rowRecord, columnRecord, blockRecord, spaces
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

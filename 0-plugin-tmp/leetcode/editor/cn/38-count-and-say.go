@@ -56,24 +56,22 @@ import "fmt"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func countAndSay(n int) string {
-	if n == 1 {
-		return "1"
-	}
-	preStr := countAndSay(n-1)
-	ans := ""
-	var curNum, count int
-	for i := 0; i < len(preStr); i++ {
-		if i > 0 && preStr[i] != preStr[i-1] {
-			tmp := fmt.Sprintf("%d%d", count, curNum)
-			ans += tmp
-			count = 1
-		} else {
-			count++
+	ans := "1"
+	for i := 1; i < n; i++ {
+		count := 1
+		tmp := ""
+		for j := 1; j < len(ans); j++ {
+			if ans[j] != ans[j-1] {
+				tmp += fmt.Sprintf("%d%d", count, int(ans[j-1]-'0'))
+				count = 1
+			} else {
+				count++
+			}
 		}
-		curNum = int(preStr[i] - '0')
+		tmp += fmt.Sprintf("%d%d", count, int(ans[len(ans)-1]-'0'))
+		ans = tmp
 	}
-	tmp := fmt.Sprintf("%d%d", count, curNum)
-	ans += tmp
+
 	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)
