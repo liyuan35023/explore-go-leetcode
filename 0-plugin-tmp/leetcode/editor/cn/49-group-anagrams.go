@@ -21,34 +21,7 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-type strrrrr []byte
-
-func (s strrrrr) Len() int {
-	return len(s)
-}
-
-func (s strrrrr) Less(i, j int) bool {
-	return s[i] < s[j]
-}
-
-func (s strrrrr) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
 
 func groupAnagrams(strs []string) [][]string {
-	ans := make([][]string, 0)
-	wordsMap := make(map[string]int)
-	for k, v := range strs {
-		alias := strrrrr(v)
-		sort.Sort(alias)
-		newStr := string(alias)
-		if idx, ok := wordsMap[newStr]; !ok {
-			ans = append(ans, append([]string{}, strs[k]))
-			wordsMap[newStr] = len(ans)-1
-		} else {
-			ans[idx] = append(ans[idx], strs[k])
-		}
-	}
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

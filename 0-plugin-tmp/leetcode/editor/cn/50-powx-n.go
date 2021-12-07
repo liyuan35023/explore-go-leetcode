@@ -26,30 +26,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func myPow(x float64, n int) float64 {
-	// 快速幂
-	if n == 0 {
-		return 1.0
-	}
-	reverse := false
-	if n < 0 {
-		reverse = true
-		n = -n
-	}
-	ans := float64(1)
-	con := x
-	for n > 1 {
-		if n % 2 == 1 {
-			ans *= con
-		}
-		con *= con
-		n = n / 2
-	}
-	ans = ans * con
-	if reverse {
-		return 1 / ans
-	} else {
-		return ans
-	}
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

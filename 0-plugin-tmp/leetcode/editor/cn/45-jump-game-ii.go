@@ -7,7 +7,6 @@ package cn
 //
 // 假设你总是可以到达数组的最后一个位置。 
 //
-// 
 //
 // 示例 1: 
 //
@@ -16,7 +15,6 @@ package cn
 //输出: 2
 //解释: 跳到最后一个位置的最小跳跃数是 2。
 //     从下标为 0 跳到下标为 1 的位置，跳 1 步，然后跳 3 步到达数组的最后一个位置。
-// 
 //
 // 示例 2: 
 //
@@ -33,30 +31,11 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func jump(nums []int) int {
-	if len(nums) < 2 {
-		return 0
-	}
 	step := 0
-	maxLoc := 0
-	farthest := 0
-	for k, v := range nums {
-		maxLoc = max(maxLoc, k+v)
-		if maxLoc >= len(nums) - 1 {
-			return step+1
-		}
-		if k == farthest {
-			farthest = maxLoc
-			step++
-		}
-	}
-	return step
-}
 
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
+
+
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
