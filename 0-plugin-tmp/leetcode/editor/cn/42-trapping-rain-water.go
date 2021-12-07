@@ -21,25 +21,10 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func trap(height []int) int {
-	ans := 0
-	left, right := 0, len(height) - 1
-	leftMax, rightMax := height[left], height[right]
-	for left < right {
-		if height[left] < height[right] {
-			if leftMax > height[left] {
-				ans += leftMax - height[left]
-			}
-			leftMax = max(leftMax, height[left])
-			left++
-		} else {
-			if rightMax > height[right] {
-				ans += rightMax - height[right]
-			}
-			rightMax = max(rightMax, height[right])
-			right--
-		}
-	}
-	return ans
+
+
+
+
 }
 func max(x, y int) int {
 	if x > y {
