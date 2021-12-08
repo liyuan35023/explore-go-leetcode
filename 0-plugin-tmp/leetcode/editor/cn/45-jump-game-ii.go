@@ -31,11 +31,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func jump(nums []int) int {
-	step := 0
-
-
-
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

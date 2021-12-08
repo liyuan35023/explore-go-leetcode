@@ -37,30 +37,6 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func getPermutation(n int, k int) string {
-	seq := make([]int, n)
-	for i := 0; i < n; i++ {
-		seq[i] = i + 1
-	}
-
-	ans := ""
-	for n > 1 {
-		perNum := jiecheng(n-1)
-		curSeqIdx := (k - 1) / perNum
-		ans += strconv.Itoa(seq[curSeqIdx])
-		seq = append(seq[:curSeqIdx], seq[curSeqIdx+1:]...)
-		k = k - curSeqIdx * perNum
-		n--
-	}
-	ans += strconv.Itoa(seq[0])
-	return ans
-}
-
-func jiecheng(n int) int {
-	ans := 1
-	for i := 1; i <= n; i++ {
-		ans *= i
-	}
-	return ans
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

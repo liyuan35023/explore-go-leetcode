@@ -25,24 +25,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func merge(intervals [][]int) [][]int {
-	if len(intervals) <= 1 {
-		return intervals
-	}
-	sortIntervals(intervals, 0, len(intervals)-1)
-
-	ans := make([][]int, 0)
-	for i := 0; i < len(intervals); i++ {
-		if len(ans) == 0 {
-			ans = append(ans, intervals[i])
-		} else {
-			if canMerge(ans[len(ans)-1], intervals[i]) {
-				ans[len(ans)-1] = mergeTwoInterval(ans[len(ans)-1], intervals[i])
-			} else {
-				ans = append(ans, intervals[i])
-			}
-		}
-	}
-	return ans
 }
 
 func canMerge(i1, i2 []int) bool {

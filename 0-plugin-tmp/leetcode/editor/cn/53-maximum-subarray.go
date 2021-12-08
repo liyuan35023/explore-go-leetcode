@@ -37,26 +37,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSubArray(nums []int) int {
-	var helper func(left, right int) (int, int, int, int)
-	helper = func(left, right int) (int, int, int, int) {
-		if left == right {
-			return nums[left], nums[left], nums[left], nums[left]
-		}
-		mid := left + (right - left) / 2
-		lMax1, rMax1, max1, total1 := helper(left, mid)
-		lMax2, rMax2, max2, total2 := helper(mid+1, right)
-		return max(lMax1, total1+lMax2), max(rMax2, total2+rMax1), max(max1, max(max2, rMax1 + lMax2)), total1 + total2
-	}
-	_, _, ans, _ := helper(0, len(nums)-1)
-	return ans
-
-
-}
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

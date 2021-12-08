@@ -20,18 +20,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func lengthOfLastWord(s string) int {
-	ans := 0
-	find := false
-	for i := len(s) - 1; i >= 0; i-- {
-		if s[i] != ' ' {
-			if !find {
-				find = true
-			}
-			ans++
-		} else if find {
-			break
-		}
-	}
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

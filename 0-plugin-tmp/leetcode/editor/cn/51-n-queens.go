@@ -23,52 +23,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func solveNQueens(n int) [][]string {
-	ans := make([][]string, 0)
-	columnMap := make(map[int]bool)
-	diag1 := make(map[int]bool)  // row + column
-	diag2 := make(map[int]bool)  // row - column
-	loc := make([]int, n)
-	var dfs func(idx int)
-	dfs = func(idx int) {
-		if idx == n {
-			ans = append(ans, generateSolve(loc))
-			return
-		}
-		// idx means row number
-		for column := 0; column < n; column++ {
-			if columnMap[column] || diag1[idx+column] || diag2[idx-column] {
-				continue
-			}
-			columnMap[column] = true
-			diag1[idx+column] = true
-			diag2[idx-column] = true
-			loc[idx] = column
-			dfs(idx+1)
-			loc[idx] = -1
-			columnMap[column] = false
-			diag1[idx+column] = false
-			diag2[idx-column] = false
-		}
-	}
-	dfs(0)
-	return ans
 }
-
-func generateSolve(loc []int) []string {
-	ans := make([]string, len(loc))
-	for i := 0; i < len(loc); i++ {
-		b := make([]byte, len(loc))
-		for j := 0; j < len(loc); j++ {
-			if j == loc[i] {
-				b[j] = 'Q'
-			} else {
-				b[j] = '.'
-			}
-		}
-		ans[i] = string(b)
-	}
-	return ans
-}
-
 
 //leetcode submit region end(Prohibit modification and deletion)

@@ -26,15 +26,6 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func permute(nums []int) [][]int {
 
-
-
-
-
-
-
-
-
-
 }
 //func permute(nums []int) [][]int {
 //	n := len(nums)
