@@ -21,5 +21,31 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func totalNQueens(n int) int {
+	ans := 0
+	columnRecord := make(map[int]bool)
+	diag1Record := make(map[int]bool)
+	diag2Record := make(map[int]bool)
+	var dfs func(row int)
+	dfs = func(row int) {
+		if row == n {
+			ans++
+			return
+		}
+		for i := 0; i < n; i++ {
+			if columnRecord[i] || diag1Record[row+i] || diag2Record[row-i] {
+				continue
+			}
+			columnRecord[i] = true
+			diag1Record[row+i] = true
+			diag2Record[row-i] = true
+			dfs(row+1)
+			columnRecord[i] = false
+			diag1Record[row+i] = false
+			diag2Record[row-i] = false
+		}
+	}
+	dfs(0)
+	return ans
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
