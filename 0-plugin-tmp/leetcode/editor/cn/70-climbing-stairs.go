@@ -25,15 +25,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func climbStairs(n int) int {
-	if n < 3 {
-		return n
-	}
-	p, q := 1, 2
-	for i := 2; i < n; i++ {
-		p, q = q, p + q
-	}
-	return q
-
 }
 //func climbStairs(n int) int {
 //	if n < 3 {

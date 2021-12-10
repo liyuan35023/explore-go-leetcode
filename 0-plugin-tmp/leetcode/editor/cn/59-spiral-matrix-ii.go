@@ -18,5 +18,44 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func generateMatrix(n int) [][]int {
+	matrix := make([][]int, n)
+	for i := 0; i < n; i++ {
+		matrix[i] = make([]int, n)
+	}
+	num := 1
+	top, bottom := 0, n - 1
+	left, right := 0, n - 1
+	for top < bottom && left < right {
+		for column := left; column < right; column++ {
+			matrix[top][column] = num
+			num++
+		}
+		for row := top; row < bottom; row++ {
+			matrix[row][right] = num
+			num++
+		}
+		for column := right; column > left; column-- {
+			matrix[bottom][column] = num
+			num++
+		}
+		for row := bottom; row > top; row-- {
+			matrix[row][left] = num
+			num++
+		}
+		top, bottom = top+1, bottom-1
+		left, right = left+1, right-1
+	}
+	if top == bottom {
+		for column := left; column <= right; column++ {
+			matrix[top][column] = num
+			num++
+		}
+	} else if left == right {
+		for row := top; row <= bottom; row++ {
+			matrix[row][left] = num
+			num++
+		}
+	}
+	return matrix
 }
 //leetcode submit region end(Prohibit modification and deletion)

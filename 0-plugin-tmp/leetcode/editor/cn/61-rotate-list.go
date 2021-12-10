@@ -26,22 +26,5 @@ package cn
  * }
  */
 func rotateRight(head *ListNode, k int) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	n := 1
-	cur := head
-	for ; cur.Next != nil; cur = cur.Next {
-		n++
-	}
-	cur.Next = head
-	idx := n - k % n
-	for i := 1; i < idx; i++ {
-		head = head.Next
-	}
-	newHead := head.Next
-	head.Next = nil
-	return newHead
-
 }
 //leetcode submit region end(Prohibit modification and deletion)

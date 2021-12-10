@@ -22,32 +22,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func addBinary(a string, b string) string {
-	i, j := len(a) - 1, len(b) - 1
-	carry := 0
-	ans := ""
-	for ; i >= 0 || j >= 0 || carry > 0; i, j = i-1, j-1 {
-		varA, varB := 0, 0
-		if i >= 0 {
-			varA = int(a[i]-'0')
-		}
-		if j >= 0 {
-			varB = int(b[j]-'0')
-		}
-		switch varA + varB + carry {
-		case 0:
-			ans = "0" + ans
-			carry = 0
-		case 1:
-			ans = "1" + ans
-			carry = 0
-		case 2:
-			ans = "0" + ans
-			carry = 1
-		case 3:
-			ans = "1" + ans
-			carry = 1
-		}
-	}
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

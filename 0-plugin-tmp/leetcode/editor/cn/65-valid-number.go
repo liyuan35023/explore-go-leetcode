@@ -56,54 +56,8 @@ package cn
 // s 仅含英文字母（大写和小写），数字（0-9），加号 '+' ，减号 '-' ，或者点 '.' 。 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-type state int
-type input int
-
-const (
-	Init state = iota
-	Signed
-	Integer
-	NoLeftNumDot
-	LeftNumDot
-	Decimal
-	EState
-	ESigned
-	EInteger
-	End
-)
-
-const (
-	Num input = iota
-	Sign
-	E
-	Dot
-	other
-)
 
 func isNumber(s string) bool {
-	stateMap := []map[input]state{
-		{Num:Integer, Sign:Signed, E:End, Dot: NoLeftNumDot, other:End},
-		{Num:Integer, Sign:End, E:End, Dot: NoLeftNumDot, other:End},
-		{Num:Integer, Sign:End, E:EState, Dot: LeftNumDot, other:End},
-		{Num:Decimal, Sign:End, E:End, Dot: End, other:End},
-		{Num:Decimal, Sign:End, E:EState, Dot: End, other:End},
-		{Num:Decimal, Sign:End, E:EState, Dot: End, other:End},
-		{Num:EInteger, Sign:ESigned, E:End, Dot: End, other:End},
-		{Num:EInteger, Sign:End, E:End, Dot: End, other:End},
-		{Num:EInteger, Sign:End, E:End, Dot: End, other:End},
-	}
-	curState := Init
-	for i := 0; i < len(s); i++ {
-		in := getInput(s[i])
-		curState = stateMap[curState][in]
-		if curState == End {
-			return false
-		}
-	}
-	if curState == Integer || curState == LeftNumDot || curState == Decimal || curState == EInteger {
-		return true
-	}
-	return false
 }
 
 func getInput(b byte) input {

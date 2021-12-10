@@ -26,50 +26,6 @@ import "fmt"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minPathSum(grid [][]int) int {
-	m, n := len(grid), len(grid[0])
-	dp := make([][]int, m)
-	path := make([][]int, m)
-	for i := 0; i < m; i++ {
-		dp[i] = make([]int, n)
-		path[i] = make([]int, n)
-	}
-	dp[0][0] = grid[0][0]
-	for i := 1; i < m; i++ {
-		dp[i][0] = grid[i][0] + dp[i-1][0]
-		path[i][0] = -1
-	}
-	for i := 1; i < n; i++ {
-		dp[0][i] = grid[0][i] + dp[0][i-1]
-		path[0][i] = 1
-	}
-	for i := 1; i < m; i++ {
-		for j := 1; j < n; j++ {
-			if dp[i-1][j] < dp[i][j-1] {
-				path[i][j] = -1
-			} else{
-				path[i][j] = 1
-			}
-			dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
-		}
-	}
-	i, j := m-1, n-1
-	for path[i][j] != 0 {
-		fmt.Println(i, j)
-		if path[i][j] == 1 {
-			j = j-1
-		} else {
-			i = i-1
-		}
-	}
-	fmt.Println(i, j)
-	return dp[m-1][n-1]
-}
-
-func min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

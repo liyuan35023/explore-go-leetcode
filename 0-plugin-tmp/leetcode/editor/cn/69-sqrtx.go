@@ -24,17 +24,6 @@ import "math"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func mySqrt(x int) int {
-	x0 := float64(x)
-	for x0 > 0 {
-		x1 := 0.5 * (x0 + float64(x) / x0)
-		if math.Abs(x0-x1) < 1e-7 {
-			return int(x1)
-		}
-		x0 = x1
-	}
-	return int(x0)
-
-
 }
 //func mySqrt(x int) int {
 //	x0 := float64(x)

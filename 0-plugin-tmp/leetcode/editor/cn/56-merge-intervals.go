@@ -1,5 +1,7 @@
 package cn
 
+import "sort"
+
 //以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返
 //回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
 //
@@ -24,15 +26,51 @@ package cn
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-func merge(intervals [][]int) [][]int {
+type Intervals [][]int
+
+func (in Intervals) Len() int {
+	return len(in)
 }
 
-func canMerge(i1, i2 []int) bool {
+func (in Intervals) Swap(i, j int) {
+	in[i], in[j] = in[j], in[i]
+}
+
+func (in Intervals) Less(i, j int) bool {
+	return in[i][0] < in[j][0]
+
+}
+func merge(intervals [][]int) [][]int {
+
+	sort.Sort(Intervals(intervals))
+	mergedLastIdx := 0
+	for i := 1; i < len(intervals); i++ {
+		if canMerge(intervals[mergedLastIdx], intervals[i]) {
+			merged := mergeTwoInterval(intervals[mergedLastIdx], intervals[i])
+			intervals[mergedLastIdx] = merged
+		} else {
+			intervals[mergedLastIdx+1] = intervals[i]
+			mergedLastIdx++
+		}
+	}
+	return intervals[:mergedLastIdx+1]
+}
+
+func canMerge(i1 []int, i2 []int) bool {
 	return i1[1] >= i2[0]
 }
-func mergeTwoInterval(i1, i2 []int) []int {
-	return []int{i1[0], max(i1[1], i2[1])}
+
+func mergeTwoInterval(i1 []int, i2 []int) []int {
+	return []int{min(i1[0], i2[0]), max(i1[1], i2[1])}
 }
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
 func max(x, y int) int {
 	if x > y {
 		return x
@@ -40,36 +78,4 @@ func max(x, y int) int {
 	return y
 
 }
-
-func sortIntervals(intervals [][]int, l, r int) {
-	// 三路快排
-	if l >= r {
-		return
-	}
-	p0, p2 := partition3(intervals, l, r)
-	sortIntervals(intervals, l, p0 - 1)
-	sortIntervals(intervals, p2 + 1, r)
-}
-
-func partition3(intervals [][]int, left, right int) (int, int) {
-	pivot := intervals[left][0]
-	p0 := left
-	i := left + 1
-	p2 := right
-	for i <= p2 {
-		if intervals[i][0] == pivot {
-			i++
-		} else if intervals[i][0] < pivot {
-			intervals[i], intervals[p0] = intervals[p0], intervals[i]
-			p0++
-			i++
-		} else {
-			intervals[i], intervals[p2] = intervals[p2], intervals[i]
-			p2--
-		}
-	}
-	return p0, p2
-}
-
-
 //leetcode submit region end(Prohibit modification and deletion)

@@ -20,5 +20,16 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func lengthOfLastWord(s string) int {
+	ans := 0
+	for i := len(s) - 1; i >=0 ; i-- {
+		if s[i] != ' ' {
+			ans++
+		} else {
+			if ans != 0 {
+				break
+			}
+		}
+	}
+	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)
