@@ -24,20 +24,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func searchMatrix(matrix [][]int, target int) bool {
-	m, n := len(matrix), len(matrix[0])
-	// 一次二分
-	// 坐标转化
-	i, j := 0, m * n - 1
-	for i <= j {
-		mid := i + (j - i) / 2
-		if matrix[mid/n][mid%n] == target {
-			return true
-		} else if matrix[mid/n][mid%n] < target {
-			i = mid + 1
-		} else {
-			j = mid - 1
-		}
-	}
-	return false
 }
 //leetcode submit region end(Prohibit modification and deletion)

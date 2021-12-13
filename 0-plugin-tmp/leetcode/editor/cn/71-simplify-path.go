@@ -45,39 +45,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func simplifyPath(path string) string {
-	ans := make([]byte, 0)
-	ans = append(ans, '/')
-	n := len(path)
-	for i := 1; i < n; {
-		if path[i] == '.' && path[i-1] == '/' && (i == n - 1 || path[i+1] == '/') {
-			i = i + 2
-			continue
-		}
-
-		if path[i] == '.' && path[i-1] == '/' && path[i+1] == '.' && (i == n-2 || path[i+2] == '/') {
-			// 回退
-			if len(ans) != 1 {
-				k := len(ans) - 2
-				for k > 0 && ans[k] != '/' {
-					k--
-				}
-				ans = ans[:k+1]
-			}
-			i = i + 3
-			continue
-		}
-		if path[i] == '/' && ans[len(ans)-1] == '/' {
-			i++
-			continue
-		}
-		ans = append(ans, path[i])
-		i++
-	}
-	if len(ans) > 1 && ans[len(ans)-1] == '/' {
-		return string(ans[:len(ans)-1])
-	} else {
-		return string(ans)
-	}
-
 }
 //leetcode submit region end(Prohibit modification and deletion)

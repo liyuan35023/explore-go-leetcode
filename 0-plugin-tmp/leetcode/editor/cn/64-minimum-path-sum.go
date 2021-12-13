@@ -1,7 +1,5 @@
 package cn
 
-import "fmt"
-
 //给定一个包含非负整数的 m x n 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
 //
 // 说明：每次只能向下或者向右移动一步。 
@@ -26,6 +24,31 @@ import "fmt"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minPathSum(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
+	dp := make([]int, n)
+	dp[0] = grid[0][0]
+	for i := 1; i < n; i++ {
+		dp[i] = grid[0][i] + dp[i-1]
+	}
+	for i := 1; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if j == 0 {
+				dp[j] = grid[i-1][0] + grid[i][0]
+				grid[i][0] = dp[j]
+			} else {
+				dp[j] = min(dp[j-1], dp[j]) + grid[i][j]
+			}
+		}
+	}
+	return dp[n-1]
+
+}
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

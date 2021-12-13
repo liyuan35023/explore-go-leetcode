@@ -29,44 +29,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func setZeroes(matrix [][]int)  {
-
-	row0, column0 := false, false
-	for i := 0; i < len(matrix); i++ {
-		if matrix[i][0] == 0 {
-			column0 = true
-			break
-		}
-	}
-	for i := 0; i < len(matrix[0]); i++ {
-		if matrix[0][i] == 0 {
-			row0 = true
-			break
-		}
-	}
-	for i := 1; i < len(matrix); i++ {
-		for j := 1; j < len(matrix[0]); j++ {
-			if matrix[i][j] == 0 {
-				matrix[0][j] = 0
-				matrix[i][0] = 0
-			}
-		}
-	}
-	for i := 1; i < len(matrix); i++ {
-		for j := 1; j < len(matrix[0]); j++ {
-			if matrix[i][0] == 0 || matrix[0][j] == 0 {
-				matrix[i][j] = 0
-			}
-		}
-	}
-	if row0 {
-		for k := range matrix[0] {
-			matrix[0][k] = 0
-		}
-	}
-	if column0 {
-		for i := 0; i < len(matrix); i++ {
-			matrix[i][0] = 0
-		}
-	}
 }
 //leetcode submit region end(Prohibit modification and deletion)

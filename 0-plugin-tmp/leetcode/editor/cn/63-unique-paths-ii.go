@@ -33,5 +33,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
