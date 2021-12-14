@@ -43,16 +43,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func removeDuplicates(nums []int) int {
-	if len(nums) < 3 {
-		return len(nums)
-	}
-	slow, fast := 2, 2
-	for ; fast < len(nums); fast++ {
-		if nums[slow-2] != nums[fast] {
-			nums[slow] = nums[fast]
-			slow++
-		}
-	}
-	return slow
 }
 //leetcode submit region end(Prohibit modification and deletion)

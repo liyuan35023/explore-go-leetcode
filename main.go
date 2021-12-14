@@ -353,10 +353,48 @@ func callDefer() {
 
 	fmt.Println("call defer world")
 }
+func simplifyPath(path string) string {
+	stack := make([]string, 0)
+	var str string
+	for i := 0; i < len(path); i++ {
+		if path[i] == '/' {
+			if len(str) != 0 {
+				stack = append(stack, str)
+				str = ""
+			}
+			continue
+		}
+		fmt.Println(string(path[i]))
+		if path[i] == '.' && (i == len(path)-1 || path[i+1] == '/') {
+			continue
+		}
+		if path[i] == '.' && path[i+1] == '.' && (i == len(path)-2 || path[i+2] == '/') {
+			if len(stack) > 0 {
+
+				stack = stack[:len(stack)-1]
+			}
+			continue
+		}
+		str += string(path[i])
+	}
+	if len(str) != 0 {
+		stack = append(stack, str)
+	}
+	ans := "/"
+	for k, s := range stack {
+		ans += s
+		if k < len(stack) - 1 {
+			ans += "/"
+		}
+	}
+	return ans
+}
 
 func main() {
 	callDefer()
 	fmt.Println("333 Hello world")
+
+	fmt.Println(simplifyPath("/home/"))
 
 
 	//TestMapAssign()

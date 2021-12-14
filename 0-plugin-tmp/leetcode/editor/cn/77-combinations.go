@@ -16,20 +16,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combine(n int, k int) [][]int {
-	ans := make([][]int, 0)
-	var dfs func(idx int, solve []int)
-	dfs = func(idx int, solve []int) {
-		if len(solve) == k {
-			ans = append(ans, append([]int{}, solve...))
-			return
-		}
-		for i := idx; i <= n && k - len(solve) <= n - i + 1; i++ {
-			solve = append(solve, i)
-			dfs(i+1, solve)
-			solve = solve[:len(solve)-1]
-		}
-	}
-	dfs(1, []int{})
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

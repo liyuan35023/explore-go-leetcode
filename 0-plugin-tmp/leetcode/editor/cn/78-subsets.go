@@ -21,17 +21,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func subsets(nums []int) [][]int {
-	ans := make([][]int, 0)
-	var dfs func(idx int, solution []int)
-	dfs = func(idx int, solution []int) {
-		if idx >= len(nums) {
-			ans = append(ans, append([]int{}, solution...))
-			return
-		}
-		dfs(idx+1, solution)
-		dfs(idx+1, append(solution, nums[idx]))
-	}
-	dfs(0, []int{})
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)
