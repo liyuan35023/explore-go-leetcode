@@ -21,5 +21,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func subsets(nums []int) [][]int {
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

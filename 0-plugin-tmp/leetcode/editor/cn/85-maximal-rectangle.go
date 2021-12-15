@@ -38,31 +38,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maximalRectangle(matrix [][]byte) int {
-	if len(matrix) < 1 {
-		return 0
-	}
-	heights := make([][]int, len(matrix))
-	for i := 0; i < len(matrix); i++ {
-		heights[i] = make([]int, len(matrix[0]))
-	}
-	for i := 0; i < len(matrix[0]); i++ {
-		if matrix[0][i] == '1' {
-			heights[0][i] = 1
-		}
-	}
-
-	for i := 1; i < len(matrix); i++ {
-		for j := 0; j < len(matrix[0]); j++ {
-			if matrix[i][j] == '1' {
-				heights[i][j] = heights[i-1][j] + 1
-			}
-		}
-	}
-	ans := 0
-	for i := 0; i < len(matrix); i++ {
-		ans = max(ans, maxArea(heights[i]))
-	}
-	return ans
 }
 
 func maxArea(heights []int) int {

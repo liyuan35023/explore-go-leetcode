@@ -33,5 +33,37 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func exist(board [][]byte, word string) bool {
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	m, n := len(board), len(board[0])
+	var dfs func(row, column int, idx int) bool
+	dfs = func(row, column int, idx int) bool {
+		if idx == len(word) {
+			return true
+		}
+		if row < 0 || row >= m || column < 0 || column >= n {
+			return false
+		}
+		if board[row][column] == word[idx] {
+			tmp := board[row][column]
+			board[row][column] = '0'
+			for _, dir := range directions {
+				if dfs(row+dir[0], column+dir[1], idx+1) {
+					return true
+				}
+			}
+			board[row][column] = tmp
+		}
+		return false
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if dfs(i, j, 0) {
+				return true
+			}
+		}
+	}
+	return false
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
