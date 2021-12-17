@@ -40,39 +40,6 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func restoreIpAddresses(s string) []string {
-	ans := make([]string, 0)
-	var dfs func(numOfPoint int, idx int, buf []byte)
-	dfs = func(numOfPoint int, idx int, buf []byte) {
-		if numOfPoint == 4 {
-			if idx >= len(s) || idx < len(s)-1 && s[idx] == '0' {
-				return
-			}
-			num, _ := strconv.Atoi(s[idx:])
-			if num >= 0 && num <= 255 {
-				buf = append(buf, s[idx:]...)
-				ans = append(ans, string(buf))
-			}
-			return
-		}
-		for i := idx; i < idx + 3 && i < len(s); i++ {
-			if i == idx && s[i] == '0' {
-				buf = append(buf, s[i])
-				buf = append(buf, '.')
-				dfs(numOfPoint+1, idx+1, buf)
-				buf = buf[:len(buf)-2]
-				break
-			}
-			num, _ := strconv.Atoi(s[idx:i+1])
-			if num >= 0 && num <= 255 {
-				buf = append(buf, s[idx:i+1]...)
-				buf = append(buf, '.')
-				dfs(numOfPoint+1, i+1, buf)
-				buf = buf[:len(buf)-i+idx-2]
-			}
-		}
-	}
-	dfs(1, 0, []byte{})
-	return ans
 
 
 }

@@ -30,43 +30,8 @@ package cn
  * }
  */
 func recoverTree(root *TreeNode) {
-	// 中序遍历
-	// morris
-	var preNode *TreeNode
-	var firstSwap, secondSwap *TreeNode
-	for root != nil {
-		if root.Left == nil {
-			if preNode != nil && root.Val < preNode.Val {
-				if firstSwap == nil {
-					firstSwap = preNode
-				}
-				secondSwap = root
-			}
-			preNode = root
-			root = root.Right
-		} else {
-			x := root.Left
-			for x.Right != nil && x.Right != root {
-				x = x.Right
-			}
-			if x.Right == nil {
-				x.Right = root
-				root = root.Left
-			} else {
-				x.Right = nil
-				if preNode != nil && root.Val < preNode.Val {
-					if firstSwap == nil {
-						firstSwap = preNode
-					}
-					secondSwap = root
-				}
-				preNode = root
-				root = root.Right
-			}
 
-		}
-	}
-	firstSwap.Val, secondSwap.Val = secondSwap.Val, firstSwap.Val
+
 }
 //func recoverTree(root *TreeNode)  {
 //	stack := make([]*TreeNode, 0)
