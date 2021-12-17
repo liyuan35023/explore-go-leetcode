@@ -38,19 +38,44 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maximalRectangle(matrix [][]byte) int {
+	ans := 0
+	m, n := len(matrix), len(matrix[0])
+	heightsArr := make([][]int, m)
+	for i := 0; i < m; i++ {
+		heightsArr[i] = make([]int, n)
+	}
+	for i := 0; i < n; i++ {
+		if matrix[0][i] == '1' {
+			heightsArr[0][i] = 1
+		}
+	}
+	for i := 1; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0]); j++ {
+			if matrix[i][j] == '0' {
+				heightsArr[i][j] = 0
+			} else {
+				heightsArr[i][j] = heightsArr[i-1][j] + 1
+			}
+		}
+	}
+	for _, heights := range heightsArr {
+		ans = max(ans, maxArea(heights))
+	}
+	return ans
 }
 
 func maxArea(heights []int) int {
-	stack := []int{-1}
+	stack := make([]int, 0)
+	stack = append(stack, -1)
 	heights = append(heights, 0)
 	ans := 0
-	for i := 0; i < len(heights); i++ {
-		for len(stack) > 1 && heights[i] < heights[stack[len(stack)-1]] {
-			area := heights[stack[len(stack)-1]] * (i - stack[len(stack)-2] - 1)
+	for k, h := range heights {
+		for len(stack) > 1 && heights[stack[len(stack)-1]] > h {
+			area := (k - stack[len(stack)-2] - 1) * heights[stack[len(stack)-1]]
 			ans = max(ans, area)
 			stack = stack[:len(stack)-1]
 		}
-		stack = append(stack, i)
+		stack = append(stack, k)
 	}
 	return ans
 }

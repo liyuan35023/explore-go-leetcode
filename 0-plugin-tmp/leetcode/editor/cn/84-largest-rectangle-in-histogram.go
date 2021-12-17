@@ -14,6 +14,29 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func largestRectangleArea(heights []int) int {
+	ans := 0
+	stack := make([]int, 0)
+	stack = append(stack, -1)
+	heights = append(heights, 0)
+	for k, h := range heights {
+		for len(stack) > 1 && heights[stack[len(stack)-1]] > h {
+			dis := k - stack[len(stack)-2] - 1
+			curHeight := heights[stack[len(stack)-1]]
+			ans = max(ans, dis * curHeight)
+			stack = stack[:len(stack)-1]
+		}
+		stack = append(stack, k)
+	}
+	return ans
+
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

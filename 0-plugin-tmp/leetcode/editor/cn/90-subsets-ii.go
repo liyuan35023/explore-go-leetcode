@@ -24,25 +24,6 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func subsetsWithDup(nums []int) [][]int {
-	sort.Ints(nums)
-	used := make([]bool, len(nums))
-	ans := make([][]int, 0)
-	var dfs func(idx int, solution []int)
-	dfs = func(idx int, solution []int) {
-		if idx >= len(nums) {
-			ans = append(ans, append([]int{}, solution...))
-			return
-		}
-		dfs(idx+1, solution)
-		if idx > 0 && nums[idx-1] == nums[idx] && !used[idx-1] {
-			return
-		}
-		used[idx] = true
-		dfs(idx+1, append(solution, nums[idx]))
-		used[idx] = false
-	}
-	dfs(0, []int{})
-	return ans
 
 }
 
