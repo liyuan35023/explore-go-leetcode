@@ -32,6 +32,22 @@ package cn
 func recoverTree(root *TreeNode) {
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 //func recoverTree(root *TreeNode)  {
 //	stack := make([]*TreeNode, 0)

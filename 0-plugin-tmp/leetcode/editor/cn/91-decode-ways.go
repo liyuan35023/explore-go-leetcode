@@ -1,5 +1,7 @@
 package cn
 
+import "strconv"
+
 //一条包含字母 A-Z 的消息通过以下映射进行了 编码 ：
 //
 //'A' -> 1
@@ -49,6 +51,35 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func numDecodings(s string) int {
+	if s[0] == '0' {
+		return 0
+	}
+	dp0, dp1 := 1, 1
+	for i := 1; i < len(s); i++ {
+		if s[i] == '0' {
+			if s[i-1] > '0' && s[i-1] < '3' {
+				dp0, dp1 = dp1, dp0
+			} else {
+				dp1 = 0
+				break
+			}
+		} else {
+			if s[i-1] == '0' {
+				dp0, dp1 = dp1, dp1
+			} else {
+				num, _ := strconv.Atoi(s[i-1:i+1])
+				if num > 0 && num <= 26 {
+					dp0, dp1 = dp1, dp0 + dp1
+				} else {
+					dp0, dp1 = dp1, dp1
+				}
+			}
+		}
+	}
+	return dp1
+
+
+
 
 
 

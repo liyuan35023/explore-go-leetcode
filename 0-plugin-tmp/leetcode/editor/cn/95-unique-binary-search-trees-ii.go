@@ -24,5 +24,25 @@ package cn
  * }
  */
 func generateTrees(n int) []*TreeNode {
+	var dfs func(left, right int) []*TreeNode
+	dfs = func(left, right int) []*TreeNode {
+		if left > right {
+			return []*TreeNode{nil}
+		}
+		ans := make([]*TreeNode, 0)
+		for i := left; i <= right; i++ {
+			l, r := dfs(left, i-1), dfs(i+1, right)
+			for _, lNode := range l {
+				for _, rNode := range r {
+					node := &TreeNode{Val: i, Left: lNode, Right: rNode}
+					ans = append(ans, node)
+				}
+			}
+
+		}
+		return ans
+	}
+	return dfs(1, n)
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

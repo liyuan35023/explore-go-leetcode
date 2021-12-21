@@ -29,27 +29,9 @@ package cn
  * }
  */
 func levelOrder(root *TreeNode) [][]int {
-	if root == nil {
-		return nil
-	}
-	ans := make([][]int, 0)
-	queue := []*TreeNode{root}
-	for len(queue) != 0 {
-		n := len(queue)
-		level := make([]int, n)
-		for i := 0; i < n; i++ {
-			level[i] = queue[i].Val
-			if queue[i].Left != nil {
-				queue = append(queue, queue[i].Left)
-			}
-			if queue[i].Right != nil {
-				queue = append(queue, queue[i].Right)
-			}
-		}
-		ans = append(ans, level)
-		queue = queue[n:]
-	}
-	return ans
+
+
+
 }
 //func levelOrder(root *TreeNode) [][]int {
 //	if root == nil {

@@ -38,6 +38,38 @@ package cn
  * }
  */
 func isValidBST(root *TreeNode) bool {
+	preVal := -1 << 31 - 1
+	for root != nil {
+		if root.Left == nil {
+			if preVal >= root.Val {
+				return false
+			}
+			preVal = root.Val
+			root = root.Right
+		} else {
+			x := root.Left
+			for x.Right != nil && x.Right != root {
+				x = x.Right
+			}
+			if x.Right == nil {
+				x.Right = root
+				root = root.Left
+			} else {
+				if preVal >= root.Val {
+					return false
+				}
+				preVal = root.Val
+				x.Right = nil
+				root = root.Right
+			}
+		}
+	}
+	return true
+
+
+
+
+	return true
 
 
 

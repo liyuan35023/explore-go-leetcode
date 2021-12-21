@@ -29,29 +29,6 @@ package cn
  * }
  */
 func zigzagLevelOrder(root *TreeNode) [][]int {
-	if root == nil {
-		return nil
-	}
-	ans := make([][]int, 0)
-	var dfs func(node *TreeNode, level int)
-	dfs = func(node *TreeNode, level int) {
-		if node == nil {
-			return
-		}
-		if len(ans) < level {
-			ans = append(ans, []int{node.Val})
-		} else {
-			if level % 2 == 0 {
-				ans[level-1] = append([]int{node.Val}, ans[level-1]...)
-			} else {
-				ans[level-1] = append(ans[level-1], node.Val)
-			}
-		}
-		dfs(node.Left, level+1)
-		dfs(node.Right, level+1)
-	}
-	dfs(root, 1)
-	return ans
 
 }
 //func zigzagLevelOrder(root *TreeNode) [][]int {

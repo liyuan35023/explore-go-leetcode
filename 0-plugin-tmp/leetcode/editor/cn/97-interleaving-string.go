@@ -34,7 +34,41 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func isInterleave(s1 string, s2 string, s3 string) bool {
-
+	m, n := len(s1), len(s2)
+	if m + n != len(s3) {
+		return false
+	}
+	dp := make([][]bool, m+1)
+	for i := 0; i < m+1; i++ {
+		dp[i] = make([]bool, n+1)
+	}
+	dp[0][0] = true
+	for i := 1; i < m+1; i++ {
+		if dp[i-1][0] && s1[i-1] == s3[i-1] {
+			dp[i][0] = true
+		} else {
+			break
+		}
+	}
+	for j := 1; j < n+1; j++ {
+		if dp[0][j-1] && s2[j-1] == s3[j-1] {
+			dp[0][j] = true
+		} else {
+			break
+		}
+	}
+	for i := 1; i < m+1; i++ {
+		for j := 1; j < n+1; j++ {
+			s3Idx := i + j - 1
+			if s3[s3Idx] == s1[i-1] {
+				dp[i][j] = dp[i-1][j]
+			}
+			if s3[s3Idx] == s2[j-1] {
+				dp[i][j] = dp[i][j] || dp[i][j-1]
+			}
+		}
+	}
+	return dp[m][n]
 
 
 
