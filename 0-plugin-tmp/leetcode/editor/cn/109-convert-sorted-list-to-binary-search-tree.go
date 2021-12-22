@@ -34,28 +34,6 @@ package cn
  * }
  */
 func sortedListToBST(head *ListNode) *TreeNode {
-	n := 0
-	for node := head; node != nil; node = node.Next {
-		n++
-	}
-	var dfsPre func(left, right int) *TreeNode
-	dfsPre = func(left, right int) *TreeNode {
-		if left > right {
-			return nil
-		}
-		mid := left + (right - left) / 2
-		l := dfsPre(left, mid-1)
-		cur := &TreeNode{Val: head.Val}
-		head = head.Next
-		r := dfsPre(mid+1, right)
-		cur.Left = l
-		cur.Right = r
-		return cur
-	}
-	return dfsPre(0, n-1)
-
-
-
 
 
 

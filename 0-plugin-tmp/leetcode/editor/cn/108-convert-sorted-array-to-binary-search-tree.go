@@ -33,16 +33,11 @@ package cn
  */
 
 func sortedArrayToBST(nums []int) *TreeNode {
-	if len(nums) == 0 {
-		return nil
-	}
-	left, right := 0, len(nums) - 1
-	mid := left + (right - left) / 2
-	node := &TreeNode{Val: nums[mid]}
-	l := sortedArrayToBST(nums[left:mid])
-	r := sortedArrayToBST(nums[mid+1:right+1])
-	node.Left, node.Right = l, r
-	return node
+
+
+
+
+
 }
 //func sortedArrayToBST(nums []int) *TreeNode {
 //	if len(nums) <= 0 {

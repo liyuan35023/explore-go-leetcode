@@ -32,29 +32,6 @@ package cn
  * }
  */
 func minDepth(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-	queue := make([]*TreeNode, 0)
-	queue = append(queue, root)
-	depth := 0
-	for len(queue) != 0 {
-		n := len(queue)
-		depth++
-		for i := 0; i < n; i++ {
-			if queue[i].Left == nil && queue[i].Right == nil {
-				return depth
-			}
-			if queue[i].Left != nil {
-				queue = append(queue, queue[i].Left)
-			}
-			if queue[i].Right != nil {
-				queue = append(queue, queue[i].Right)
-			}
-		}
-		queue = queue[n:]
-	}
-	return depth
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

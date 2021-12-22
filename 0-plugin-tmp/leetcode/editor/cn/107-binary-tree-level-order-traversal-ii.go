@@ -31,26 +31,5 @@ package cn
  */
 
 func levelOrderBottom(root *TreeNode) [][]int {
-	ans := make([][]int, 0)
-	if root == nil {
-		return ans
-	}
-	queue := []*TreeNode{root}
-	for len(queue) != 0 {
-		n := len(queue)
-		level := make([]int, n)
-		for i := 0; i < n; i++ {
-			level[i] = queue[i].Val
-			if queue[i].Left != nil {
-				queue = append(queue, queue[i].Left)
-			}
-			if queue[i].Right != nil {
-				queue = append(queue, queue[i].Right)
-			}
-		}
-		ans = append([][]int{level}, ans...)
-		queue = queue[n:]
-	}
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

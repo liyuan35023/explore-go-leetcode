@@ -18,8 +18,6 @@ package cn
 //    /  \
 //   15   7
 // 
-// Related Topics 树 数组 哈希表 分治 二叉树 
-// 👍 531 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -32,24 +30,19 @@ package cn
  * }
  */
 func buildTree(inorder []int, postorder []int) *TreeNode {
-	inMap := make(map[int]int)
+	inOrderMap := make(map[int]int)
 	for k, v := range inorder {
-		inMap[v] = k
+		inOrderMap[v] = k
 	}
-	var buildHelper func(leftIn, rightIn int) *TreeNode
-	buildHelper = func(leftIn, rightIn int) *TreeNode {
-		if leftIn > rightIn {
-			return nil
-		}
-		node := &TreeNode{Val: postorder[len(postorder)-1]}
-		postorder = postorder[:len(postorder)-1]
-		idx := inMap[node.Val]
-		node.Right = buildHelper(idx+1, rightIn)
-		node.Left = buildHelper(leftIn, idx-1)
-		return node
-	}
+	var dfs func(left, right int) *TreeNode
 
-	return buildHelper(0, len(inorder)-1)
+
+
+
+
+
+
+
 }
 //func buildTree(inorder []int, postorder []int) *TreeNode {
 //	inMap := make(map[int]int)

@@ -34,21 +34,9 @@ package cn
  * }
  */
 func pathSum(root *TreeNode, targetSum int) [][]int {
-	ans := make([][]int, 0)
-	var dfs func(node *TreeNode, solve []int, target int)
-	dfs = func(node *TreeNode, solve []int, target int) {
-		if node == nil {
-			return
-		}
-		if node.Left == nil && node.Right == nil && node.Val == target {
-			solve = append(solve, node.Val)
-			ans = append(ans, append([]int{}, solve...))
-		}
-		dfs(node.Left, append(solve, node.Val), target-node.Val)
-		dfs(node.Right, append(solve, node.Val), target-node.Val)
-	}
-	dfs(root, []int{}, targetSum)
-	return ans
+
+
+
 }
 //func pathSum(root *TreeNode, targetSum int) [][]int {
 //	ans := make([][]int, 0)

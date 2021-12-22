@@ -29,6 +29,40 @@ package cn
  * }
  */
 func zigzagLevelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+	ans := make([][]int, 0)
+	goRight := true
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	for len(queue) != 0 {
+		n := len(queue)
+		level := make([]int, n)
+		for i := 0; i < n; i++ {
+			if goRight {
+				level[i] = queue[i].Val
+			} else {
+				level[n-i-1] = queue[i].Val
+			}
+			if queue[i].Left != nil {
+				queue = append(queue, queue[i].Left)
+			}
+			if queue[i].Right != nil {
+				queue = append(queue, queue[i].Right)
+			}
+		}
+		ans = append(ans, level)
+		queue = queue[n:]
+		goRight = !goRight
+
+
+	}
+
+	return ans
+
+
+
 
 }
 //func zigzagLevelOrder(root *TreeNode) [][]int {

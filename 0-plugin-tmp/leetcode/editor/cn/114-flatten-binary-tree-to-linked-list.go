@@ -36,22 +36,5 @@ package cn
  * }
  */
 func flatten(root *TreeNode)  {
-	node := root
-	for node != nil {
-		if node.Left == nil {
-			node = node.Right
-		} else {
-			// find pre for node.right
-			x := node.Left
-			for x.Right != nil {
-				x = x.Right
-			}
-			x.Right = node.Right
-			node.Right = node.Left
-			node.Left = nil
-			node = node.Right
-
-		}
-	}
 }
 //leetcode submit region end(Prohibit modification and deletion)
