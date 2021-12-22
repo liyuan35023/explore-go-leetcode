@@ -18,10 +18,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func singleNumber(nums []int) int {
-	ans := nums[0]
-	for i := 1; i < len(nums); i++ {
-		ans ^= nums[i]
-	}
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

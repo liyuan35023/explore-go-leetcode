@@ -30,16 +30,6 @@ package cn
  * }
  */
 func buildTree(inorder []int, postorder []int) *TreeNode {
-	inOrderMap := make(map[int]int)
-	for k, v := range inorder {
-		inOrderMap[v] = k
-	}
-	var dfs func(left, right int) *TreeNode
-
-
-
-
-
 
 
 

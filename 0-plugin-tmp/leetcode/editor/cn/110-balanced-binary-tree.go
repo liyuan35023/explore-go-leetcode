@@ -38,6 +38,27 @@ import "math"
  * }
  */
 func isBalanced(root *TreeNode) bool {
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		l := dfs(node.Left)
+		r := dfs(node.Right)
+		if l == -1 || r == -1 || deltaAbs(l, r) > 1 {
+			return -1
+		}
+		return max(l, r) + 1
+	}
+	return dfs(root) != -1
+
+}
+
+func deltaAbs(x, y int) int {
+	if x - y > 0 {
+		return x - y
+	}
+	return y - x
 }
 
 func max(x, y int) int {

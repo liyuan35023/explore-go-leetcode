@@ -35,6 +35,22 @@ package cn
  *     Right *TreeNode
  * }
  */
-func flatten(root *TreeNode)  {
+func flatten(root *TreeNode) {
+	cur := root
+	for cur != nil {
+		if cur.Left != nil {
+			x := cur.Left
+			for x.Right != nil {
+				x = x.Right
+			}
+			x.Right = cur.Right
+			cur.Right = cur.Left
+			cur.Left = nil
+		}
+		cur = cur.Right
+	}
+
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

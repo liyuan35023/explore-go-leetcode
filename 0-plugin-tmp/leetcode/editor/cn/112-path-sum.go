@@ -35,6 +35,39 @@ package cn
  * }
  */
 func hasPathSum(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+	queue := make([]*TreeNode, 0)
+	remain := make([]int, 0)
+	queue = append(queue, root)
+	remain = append(remain, targetSum)
+	for len(queue) != 0 {
+		node := queue[0]
+		remainNum := remain[0]
+		queue = queue[1:]
+		remain = remain[1:]
+		if node.Left == nil && node.Right == nil && remainNum == node.Val {
+			return true
+		}
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+			remain = append(remain, remainNum - node.Val)
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+			remain = append(remain, remainNum - node.Val)
+		}
+	}
+	return false
+
+
+
+
+
+
+
+
 
 
 

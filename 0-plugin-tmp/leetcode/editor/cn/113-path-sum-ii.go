@@ -34,6 +34,26 @@ package cn
  * }
  */
 func pathSum(root *TreeNode, targetSum int) [][]int {
+	ans := make([][]int, 0)
+	var dfs func(node *TreeNode, remain int, solve []int)
+	dfs = func(node *TreeNode, remain int, solve []int) {
+		if node == nil {
+			return
+		}
+		if node.Left == nil && node.Right == nil {
+			if remain == node.Val {
+				solve = append(solve, node.Val)
+				ans = append(ans, append([]int{}, solve...))
+			}
+			return
+		}
+		dfs(node.Left, remain - node.Val, append(solve, node.Val))
+		dfs(node.Right, remain - node.Val, append(solve, node.Val))
+	}
+	dfs(root, targetSum, []int{})
+	return ans
+
+
 
 
 

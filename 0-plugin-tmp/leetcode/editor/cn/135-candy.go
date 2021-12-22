@@ -24,48 +24,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func candy(ratings []int) int {
-	candies := make([]int, len(ratings))
-	ans := 0
-	candies[0] = 1
-	for i := 1; i < len(ratings); i++ {
-		if ratings[i] > ratings[i-1] {
-			candies[i] = candies[i-1] + 1
-		} else {
-			candies[i] = 1
-		}
-	}
-	for i := len(ratings)-2; i >= 0; i-- {
-		if ratings[i] > ratings[i+1] && candies[i] <= candies[i+1] {
-			candies[i] = candies[i+1] + 1
-		}
-	}
-	for i := 0; i < len(ratings); i++ {
-		ans += candies[i]
-	}
-	return ans
-	//ans := 1
-	//pre := 1
-	//inc := 1
-	//des := 0
-	//for i := 1; i < len(ratings); i++ {
-	//	if ratings[i] >= ratings[i-1] {
-	//		des = 0
-	//		if ratings[i] == ratings[i-1] {
-	//			pre = 1
-	//		} else {
-	//			pre++
-	//		}
-	//		ans += pre
-	//		inc = pre
-	//	} else {
-	//		des++
-	//		if des == inc {
-	//			des++
-	//		}
-	//		ans += des
-	//		pre = 1
-	//	}
-	//}
-	//return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

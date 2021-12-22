@@ -32,6 +32,31 @@ package cn
  * }
  */
 func minDepth(root *TreeNode) int {
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		if node.Left == nil && node.Right == nil {
+			return 1
+		}
+		if node.Left == nil {
+			return dfs(node.Right) + 1
+		} else if node.Right == nil {
+			return dfs(node.Left) + 1
+		} else {
+			return min(dfs(node.Left), dfs(node.Right)) + 1
+		}
+	}
+	return dfs(root)
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

@@ -33,10 +33,21 @@ package cn
  */
 
 func sortedArrayToBST(nums []int) *TreeNode {
-
-
-
-
+	idx := 0
+	var dfs func(left, right int) *TreeNode
+	dfs = func(left, right int) *TreeNode {
+		if left > right {
+			return nil
+		}
+		mid := left + (right - left + 1) / 2
+		l := dfs(left, mid-1)
+		node := &TreeNode{Val: nums[idx]}
+		idx++
+		node.Left = l
+		node.Right = dfs(mid+1, right)
+		return node
+	}
+	return dfs(0, len(nums)-1)
 
 }
 //func sortedArrayToBST(nums []int) *TreeNode {

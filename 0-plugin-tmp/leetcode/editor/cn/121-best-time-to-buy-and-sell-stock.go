@@ -26,14 +26,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxProfit(prices []int) int {
-	// dp, dp[i]表示第i天卖出能获得的最大利润
-	// 滚动数组
-	minPrice, profit := prices[0], 0
-	for i := 1; i < len(prices); i++ {
-		profit = max(profit,  prices[i]-minPrice)
-		minPrice = min(minPrice, prices[i])
-	}
-	return profit
 }
 
 func min(x, y int) int {

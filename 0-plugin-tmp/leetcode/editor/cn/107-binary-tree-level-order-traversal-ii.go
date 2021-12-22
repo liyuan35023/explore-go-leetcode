@@ -31,5 +31,23 @@ package cn
  */
 
 func levelOrderBottom(root *TreeNode) [][]int {
+	ans := make([][]int, 0)
+	var dfs func(node *TreeNode, level int)
+	dfs = func(node *TreeNode, level int) {
+		if node == nil {
+			return
+		}
+		if level > len(ans) {
+			tmp := []int{node.Val}
+			ans = append([][]int{tmp}, ans...)
+		} else {
+			ans[len(ans)-level] = append(ans[len(ans)-level], node.Val)
+		}
+		dfs(node.Left, level+1)
+		dfs(node.Right, level+1)
+	}
+	dfs(root, 1)
+	return ans
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

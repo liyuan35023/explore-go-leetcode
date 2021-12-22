@@ -47,24 +47,6 @@ package cn
  * }
  */
 func sumNumbers(root *TreeNode) int {
-	if root == nil {
-		return 0
-	}
-	var dfs func(node *TreeNode, value int) int
-	dfs = func(node *TreeNode, value int) int {
-		if node.Left == nil && node.Right == nil {
-			return value*10 + node.Val
-		}
-		var l, r int
-		if node.Left != nil {
-			l = dfs(node.Left, value * 10 + node.Val)
-		}
-		if node.Right != nil {
-			r = dfs(node.Right, value * 10 + node.Val)
-		}
-		return l + r
-	}
-	return dfs(root, 0)
 }
 //func sumNumbers(root *TreeNode) int {
 //	ans := 0
