@@ -39,8 +39,11 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxProfit(prices []int) int {
-
-
+	dp0, dp1, dp2, dp3, dp4 := 0, -prices[0], 0, -prices[0], 0
+	for i := 1; i < len(prices); i++ {
+		dp0, dp1, dp2, dp3, dp4 = dp0, max(dp1, dp0-prices[i]), max(dp2, dp1+prices[i]), max(dp3, dp2-prices[i]), max(dp4, dp3+prices[i])
+	}
+	return dp4
 }
 func max(x, y int) int {
 	if x > y {
