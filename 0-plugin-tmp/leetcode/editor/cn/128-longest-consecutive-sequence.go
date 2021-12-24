@@ -22,6 +22,28 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func longestConsecutive(nums []int) int {
+	numMap := make(map[int]int)
+	ans := 0
+	for _, v := range nums {
+		if _, ok := numMap[v]; !ok {
+			less, okLess := numMap[v-1]
+			more, okMore := numMap[v+1]
+			if okLess && okMore {
+				numMap[v] = less + 1 + more
+				numMap[v-less] = less + 1 + more
+				numMap[v+more] = less + 1 + more
+			} else if okLess {
+				numMap[v] = less + 1
+				numMap[v-less] = less + 1
+			} else {
+				numMap[v] = more + 1
+				numMap[v+more] = more + 1
+			}
+			ans = max(ans, numMap[v])
+		}
+	}
+	return ans
+
 
 }
 

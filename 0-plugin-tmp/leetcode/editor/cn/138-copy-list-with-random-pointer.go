@@ -18,11 +18,7 @@ package cn
 //
 // 你的代码 只 接受原链表的头节点 head 作为传入参数。 
 //
-// 
-//
 // 示例 1： 
-//
-// 
 //
 // 
 //输入：head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
@@ -31,16 +27,12 @@ package cn
 //
 // 示例 2： 
 //
-// 
 //
-// 
 //输入：head = [[1,1],[2,1]]
 //输出：[[1,1],[2,1]]
 // 
 //
 // 示例 3： 
-//
-// 
 //
 // 
 //输入：head = [[3,null],[3,0],[3,null]]
@@ -73,5 +65,37 @@ package cn
  */
 
 func copyRandomList(head *Node) *Node {
+	if head == nil {
+		return head
+	}
+	cur := head
+	for cur != nil {
+		next := cur.Next
+		tmp := &Node{Val: cur.Val, Next: cur.Next}
+		cur.Next = tmp
+		cur = next
+	}
+	newHead := head.Next
+	cur = head
+	for cur != nil {
+		copyNode := cur.Next
+		if cur.Random != nil {
+			copyNode.Random = cur.Random.Next
+		}
+		cur = cur.Next.Next
+	}
+	cur = head
+	for cur != nil {
+		copyNode := cur.Next
+		cur.Next = copyNode.Next
+		if copyNode.Next != nil {
+			copyNode.Next = copyNode.Next.Next
+		}
+		cur = cur.Next
+	}
+	return newHead
+
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

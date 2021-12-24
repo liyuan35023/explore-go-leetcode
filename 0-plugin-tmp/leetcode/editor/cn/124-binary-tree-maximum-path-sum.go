@@ -1,5 +1,7 @@
 package cn
 
+import "golang.org/x/text/date"
+
 //路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不
 //一定经过根节点。 
 //
@@ -35,9 +37,19 @@ package cn
  * }
  */
 func maxPathSum(root *TreeNode) int {
-
-
-
+	ans := -1<<31 - 1
+	var maxGain func(node *TreeNode) int
+	maxGain = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		lGain := maxGain(node.Left)
+		rGain := maxGain(node.Right)
+		ans = max(ans, node.Val + lGain + rGain)
+		return max(0, node.Val + max(lGain, rGain))
+	}
+	maxGain(root)
+	return ans
 
 
 
