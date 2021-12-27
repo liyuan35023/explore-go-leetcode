@@ -34,21 +34,5 @@ package cn
  * }
  */
 func insertionSortList(head *ListNode) *ListNode {
-	sorted := new(ListNode)
-	for head != nil {
-		nextHead := head.Next
-		preNode := sorted
-		cur := sorted.Next
-		for cur != nil && cur.Val < head.Val {
-			cur = cur.Next
-			preNode = preNode.Next
-		}
-		preNode.Next = head
-		head.Next = nil
-		head.Next = cur
-		head = nextHead
-
-	}
-	return sorted.Next
 }
 //leetcode submit region end(Prohibit modification and deletion)

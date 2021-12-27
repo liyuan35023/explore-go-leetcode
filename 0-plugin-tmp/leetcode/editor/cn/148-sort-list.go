@@ -35,41 +35,6 @@ package cn
  */
 
 func sortList(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	lessHead, mid, moreHead := partition(head)
-	mid.Next = nil
-	lessHead = sortList(lessHead)
-	moreHead = sortList(moreHead)
-	mid.Next = moreHead
-	return lessHead
-}
-
-func partition(l *ListNode) (*ListNode, *ListNode, *ListNode) {
-	pivot := l.Val
-	dummyLess := new(ListNode)
-	dummyMore := new(ListNode)
-	preLess := dummyLess
-	preMore := dummyMore
-	cur := l.Next
-	for cur != nil {
-		if cur.Val >= pivot {
-			preMore.Next = cur
-			preMore = cur
-		} else if cur.Val < pivot {
-			preLess.Next = cur
-			preLess = cur
-		}
-		tmp := cur.Next
-		cur.Next = nil
-		cur = tmp
-	}
-	preLess.Next = l
-	l.Next = dummyMore.Next
-
-	return dummyLess.Next, l, dummyMore.Next
-
 }
 
 //func sortList(head *ListNode) *ListNode {

@@ -45,36 +45,5 @@ package cn
  * }
  */
 func hasCycle(head *ListNode) bool {
-	if head == nil || head.Next == nil {
-		return false
-	}
-	slow, fast := head, head
-	for fast != nil && fast.Next != nil {
-		slow = slow.Next
-		fast = fast.Next.Next
-		if slow == fast {
-			break
-		}
-	}
-	return slow == fast
-
-
-
-	//if head == nil || head.Next == nil {
-	//	return false
-	//}
-	//// 反转
-	//node := head
-	//var pre *ListNode
-	//for node != nil {
-	//	tmp := node.Next
-	//	node.Next = pre
-	//	pre = node
-	//	node = tmp
-	//	if node == head {
-	//		return true
-	//	}
-	//}
-	//return false
 }
 //leetcode submit region end(Prohibit modification and deletion)

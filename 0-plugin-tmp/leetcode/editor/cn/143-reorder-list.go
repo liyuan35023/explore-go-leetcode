@@ -32,32 +32,6 @@ package cn
  * }
  */
 func reorderList(head *ListNode) {
-	slow, fast := head, head
-	for fast != nil && fast.Next != nil {
-		slow = slow.Next
-		fast = fast.Next.Next
-	}
-	var pre *ListNode
-	for slow != nil {
-		tmp := slow.Next
-		slow.Next = pre
-		pre = slow
-		slow = tmp
-	}
-	cur1, cur2 := head, pre
-	dummy := new(ListNode)
-	pre = dummy
-	for cur2 != nil && cur1 != cur2 {
-		tmp1, tmp2 := cur1.Next, cur2.Next
-		cur1.Next = cur2
-		pre.Next = cur1
-		pre = cur2
-		cur1, cur2 = tmp1, tmp2
-	}
-	if cur1 == cur2 {
-		pre.Next = cur1
-	}
-	return
 
 
 }
