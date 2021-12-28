@@ -12,9 +12,6 @@ package cn
 //
 //输出: [3,2,1] 
 //
-// 进阶: 递归算法很简单，你可以通过迭代算法完成吗？ 
-// Related Topics 栈 树 深度优先搜索 二叉树 
-// 👍 627 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -27,5 +24,16 @@ package cn
  * }
  */
 func postorderTraversal(root *TreeNode) []int {
+	ans := make([]int, 0)
+	for root != nil {
+		if root.Left == nil {
+
+
+		}
+
+
+
+	}
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

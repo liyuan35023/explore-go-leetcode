@@ -55,23 +55,5 @@ import "strings"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverseWords(s string) string {
-	ans := make([]byte, 0)
-	s = strings.TrimLeft(s, " ")
-	s = strings.TrimRight(s, " ")
-	slow, fast := len(s) - 1, len(s) - 1
-	for fast >= 0 {
-		for fast >= 0 && s[fast] != ' ' {
-			fast--
-		}
-		ans = append(ans, s[fast+1:slow+1]...)
-		if fast >= 0 {
-			ans = append(ans, ' ')
-		}
-		for fast >= 0 && s[fast] == ' ' {
-			fast--
-		}
-		slow = fast
-	}
-	return string(ans)
 }
 //leetcode submit region end(Prohibit modification and deletion)

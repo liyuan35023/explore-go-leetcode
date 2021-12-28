@@ -56,32 +56,6 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func compareVersion(version1 string, version2 string) int {
-	i, j := 0, 0
-	for i < len(version1) || j < len(version2) {
-		v1, v2 := 0, 0
-		if i < len(version1) {
-			end1 := i
-			for end1 < len(version1) && version1[end1] != '.' {
-				end1++
-			}
-			v1, _ = strconv.Atoi(version1[i:end1])
-			i = end1 + 1
-		}
-		if j < len(version2) {
-			end2 := j
-			for end2 < len(version2) && version2[end2] != '.' {
-				end2++
-			}
-			v2, _ = strconv.Atoi(version2[j:end2])
-			j = end2 + 1
-		}
-		if v1 > v2 {
-			return 1
-		} else if v1 < v2 {
-			return -1
-		}
-	}
-	return 0
 
 
 

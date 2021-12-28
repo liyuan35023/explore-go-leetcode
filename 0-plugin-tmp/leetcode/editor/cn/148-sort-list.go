@@ -1,5 +1,8 @@
 package cn
-//给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 
+
+import "golang.org/x/crypto/acme/autocert"
+
+//给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
 //
 // 进阶： 
 // 你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
@@ -35,6 +38,43 @@ package cn
  */
 
 func sortList(head *ListNode) *ListNode {
+	// quick sort
+	var helper func(node *ListNode) *ListNode
+	helper = func(node *ListNode) *ListNode {
+		if node == nil || node.Next == nil {
+			return node
+		}
+		less, mid, more := partition(node)
+		LessHead := helper(less)
+		MoreHead := helper(more)
+		mid.Next = MoreHead
+		return LessHead
+	}
+	ans := helper(head)
+	return ans
+}
+
+func partition(node *ListNode) (*ListNode, *ListNode, *ListNode) {
+	pivot := node
+	node = node.Next
+	lessDummy, moreDummy := new(ListNode), new(ListNode)
+	less, more := lessDummy, moreDummy
+	for node != nil {
+		if node.Val < pivot.Val {
+			less.Next = node
+			less = node
+		} else {
+			more.Next = node
+			more = node
+		}
+		tmp := node.Next
+		node.Next = nil
+		node = tmp
+	}
+	less.Next = pivot
+	pivot.Next = nil
+	more.Next = nil
+	return lessDummy.Next, pivot, moreDummy.Next
 }
 
 //func sortList(head *ListNode) *ListNode {

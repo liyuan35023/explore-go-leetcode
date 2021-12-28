@@ -18,22 +18,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func majorityElement(nums []int) int {
-	ans := nums[0]
-	count := 1
-	for i := 1; i < len(nums); i++ {
-		if ans == nums[i] {
-			count++
-		} else {
-			if count != 0 {
-				count--
-			} else {
-				ans = nums[i]
-				count++
-			}
-		}
-	}
-	return ans
-
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

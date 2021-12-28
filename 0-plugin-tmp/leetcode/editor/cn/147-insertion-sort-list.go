@@ -34,5 +34,28 @@ package cn
  * }
  */
 func insertionSortList(head *ListNode) *ListNode {
+	dummy := &ListNode{Next: head}
+	cur := head.Next
+	head.Next = nil
+	sortedTail := head
+	for cur != nil {
+		tmp := cur.Next
+		if sortedTail.Val <= cur.Val {
+			sortedTail.Next = cur
+			sortedTail = cur
+		} else {
+			pre, s := dummy, dummy.Next
+			for s.Val < cur.Val {
+				pre, s = s, s.Next
+			}
+			pre.Next = cur
+			cur.Next = s
+		}
+		sortedTail.Next = nil
+		cur = tmp
+	}
+	return dummy.Next
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
