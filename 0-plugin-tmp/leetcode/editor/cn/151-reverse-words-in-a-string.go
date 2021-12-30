@@ -1,6 +1,8 @@
 package cn
 
-import "strings"
+import (
+	"strings"
+)
 
 //给你一个字符串 s ，逐个翻转字符串中的所有 单词 。
 //
@@ -48,12 +50,9 @@ import "strings"
 // s 包含英文大小写字母、数字和空格 ' ' 
 // s 中 至少存在一个 单词 
 //
-// 进阶：
-//
-// 请尝试使用 O(1) 额外空间复杂度的原地解法。
-
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverseWords(s string) string {
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

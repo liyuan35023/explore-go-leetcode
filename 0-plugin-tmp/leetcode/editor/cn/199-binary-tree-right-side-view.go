@@ -32,28 +32,9 @@ package cn
  * }
  */
 func rightSideView(root *TreeNode) []int {
-	ans := make([]int, 0)
-	if root == nil {
-		return ans
-	}
-	queue := make([]*TreeNode, 0)
-	queue = append(queue, root)
-	for len(queue) != 0 {
-		n := len(queue)
-		for i := 0; i < n; i++ {
-			if queue[i].Left != nil {
-				queue = append(queue, queue[i].Left)
-			}
-			if queue[i].Right != nil {
-				queue = append(queue, queue[i].Right)
-			}
-			if i == n - 1 {
-				ans = append(ans, queue[i].Val)
-			}
-		}
-		queue = queue[n:]
-	}
-	return ans
+
+
+
 }
 //func rightSideView(root *TreeNode) []int {
 //	if root == nil {

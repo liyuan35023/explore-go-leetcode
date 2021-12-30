@@ -34,62 +34,7 @@ package cn
 // grid[i][j] 的值为 '0' 或 '1' 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-//func numIslands(grid [][]byte) int {
-//	// bfs
-//	ans := 0
-//	m, n := len(grid), len(grid[0])
-//	directions := [][]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
-//	for i := 0; i < m; i++ {
-//		for j := 0; j < n; j++ {
-//			if grid[i][j] == '1' {
-//				ans++
-//				grid[i][j] = '0'
-//				queue := make([][]int, 0)
-//				queue = append(queue, []int{i, j})
-//				for len(queue) != 0 {
-//					row, column := queue[0][0], queue[0][1]
-//					queue = queue[1:]
-//					for _, dir := range directions {
-//						newRow, newColumn := row + dir[0], column + dir[1]
-//						if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && grid[newRow][newColumn] == '1' {
-//							grid[newRow][newColumn] = '0'
-//							queue = append(queue, []int{newRow, newColumn})
-//						}
-//					}
-//
-//				}
-//			}
-//		}
-//	}
-//	return ans
-//}
-
 func numIslands(grid [][]byte) int {
-	m, n := len(grid), len(grid[0])
-	ans := 0
-	directions := [][]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
-	var dfs func(row, column int) int
-	dfs = func(row, column int) int {
-	grid[row][column] = '0'
-	area := 1
-	for _, dir := range directions {
-	newRow, newColumn := row + dir[0], column + dir[1]
-	if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && grid[newRow][newColumn] == '1' {
-		area += dfs(newRow, newColumn)
-	}
-	}
-	return area
-	}
-
-	for i := 0; i < m; i++ {
-	for j := 0; j < n; j++ {
-	if grid[i][j] == '1' {
-	ans++
-	dfs(i, j)
-	}
-	}
-	}
-	return ans
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

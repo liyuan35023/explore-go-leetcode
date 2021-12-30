@@ -30,26 +30,6 @@ import "fmt"
 //leetcode submit region begin(Prohibit modification and deletion)
 
 func rob(nums []int) int {
-	if len(nums) == 1 {
-		return nums[0]
-	} else if len(nums) == 2 {
-		return max(nums[0], nums[1])
-	}
-	path := make([][]int, len(nums))
-	path[0] = []int{0}
-	path[1] = []int{1}
-	dp0, dp1 := nums[0], nums[1]
-	for i := 2; i < len(nums); i++ {
-		if dp0 + nums[i] > dp1 {
-			path[i] = append(path[i], path[i-2]...)
-			path[i] = append(path[i], i)
-		} else {
-			path[i] = append(path[i], path[i-1]...)
-		}
-		dp0, dp1 = dp1, max(dp0 + nums[i], dp1)
-	}
-	fmt.Println(path[len(nums)-1])
-	return dp1
 
 }
 //func rob(nums []int) int {
