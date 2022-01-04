@@ -34,12 +34,5 @@ package cn
  * }
  */
 func reverseList(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-	ret := reverseList(head.Next)
-	head.Next.Next = head
-	head.Next = nil
-	return ret
 }
 //leetcode submit region end(Prohibit modification and deletion)

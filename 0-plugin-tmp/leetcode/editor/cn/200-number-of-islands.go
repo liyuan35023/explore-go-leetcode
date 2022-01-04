@@ -35,6 +35,32 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func numIslands(grid [][]byte) int {
+	ans := 0
+	m, n := len(grid), len(grid[0])
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	var dfs func(i, j int)
+	dfs = func(i, j int) {
+		if grid[i][j] == '0' {
+			return
+		}
+		grid[i][j] = '0'
+		for _, dir := range directions {
+			newRow, newColumn := i + dir[0], j + dir[1]
+			if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && grid[newRow][newColumn] == '1' {
+				dfs(newRow, newColumn)
+			}
+		}
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '1' {
+				ans++
+				dfs(i, j)
+			}
+		}
+	}
+	return ans
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

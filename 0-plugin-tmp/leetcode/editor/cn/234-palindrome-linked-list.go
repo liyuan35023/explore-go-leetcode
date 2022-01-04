@@ -26,32 +26,6 @@ import "container/heap"
  * }
  */
 func isPalindrome(head *ListNode) bool {
-	dummy := new(ListNode)
-	dummy.Next = head
-	slow, fast := head, dummy
-	pre := dummy
-	for fast != nil && fast.Next != nil {
-		fast = fast.Next.Next
-		tmp := slow.Next
-		slow.Next = pre
-		pre = slow
-		slow = tmp
-	}
-	var start1, start2 *ListNode
-	if fast == nil {
-		start1, start2 = pre.Next, slow
-	} else {
-		start1, start2 = pre, slow
-	}
-	for start1 != nil && start2 != nil {
-		if start1.Val != start2.Val {
-			return false
-		}
-		start1 = start1.Next
-		start2 = start2.Next
-	}
-	return true
-
 
 
 

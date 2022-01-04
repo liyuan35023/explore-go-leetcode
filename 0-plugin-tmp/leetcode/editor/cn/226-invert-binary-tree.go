@@ -31,21 +31,5 @@ package cn
  */
 
 func invertTree(root *TreeNode) *TreeNode {
-	if root == nil {
-		return nil
-	}
-	queue := []*TreeNode{root}
-	for len(queue) != 0 {
-		node := queue[0]
-		queue = queue[1:]
-		if node.Left != nil {
-			queue = append(queue, node.Left)
-		}
-		if node.Right != nil {
-			queue = append(queue, node.Right)
-		}
-		node.Left, node.Right = node.Right, node.Left
-	}
-	return root
 }
 //leetcode submit region end(Prohibit modification and deletion)

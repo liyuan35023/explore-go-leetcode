@@ -50,17 +50,36 @@ import "strconv"
 //
 // 
 // 1 <= version1.length, version2.length <= 500 
-// version1 和 version2 仅包含数字和 '.' 
-// version1 和 version2 都是 有效版本号 
+// version1 和 version2 仅包含数字和 '.'
+// version1 和 version2 都是 有效版本号
 // version1 和 version2 的所有修订号都可以存储在 32 位整数 中 
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func compareVersion(version1 string, version2 string) int {
+	i, j := 0, 0
+	for i < len(version1) || j < len(version2) {
+		var v1, v2 int
+		x, y := i, j
+		for ; x < len(version1) && version1[x] != '.'; x++ {
+		}
+		if i < len(version1) {
+			v1, _ = strconv.Atoi(version1[i:x])
+			i = x + 1
+		}
 
-
-
-
-
+		for ; y < len(version2) && version2[y] != '.'; y++ {
+		}
+		if j < len(version2) {
+			v2, _ = strconv.Atoi(version2[j:y])
+			j = y + 1
+		}
+		if v1 > v2 {
+			return 1
+		} else if v1 < v2 {
+			return -1
+		}
+	}
+	return 0
 
 
 

@@ -41,54 +41,31 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 type MyStack struct {
-	queue []int
 }
 
 
 /** Initialize your data structure here. */
 func Constructor() MyStack {
-	return MyStack{
-		queue: make([]int, 0),
-	}
 }
 
 
 /** Push element x onto stack. */
 func (this *MyStack) Push(x int)  {
-	this.queue = append(this.queue, x)
-	n := len(this.queue)
-	for i := 0; i < n - 1; i++ {
-		tmp := this.queue[0]
-		this.queue = append(this.queue, tmp)
-		this.queue = this.queue[1:]
-	}
 }
 
 
 /** Removes the element on top of the stack and returns that element. */
 func (this *MyStack) Pop() int {
-	ans := -1
-	if len(this.queue) != 0 {
-		ans = this.queue[0]
-		this.queue = this.queue[1:]
-	}
-	return ans
 }
 
 
 /** Get the top element. */
 func (this *MyStack) Top() int {
-	ans := -1
-	if len(this.queue) != 0 {
-		ans = this.queue[0]
-	}
-	return ans
 }
 
 
 /** Returns whether the stack is empty. */
 func (this *MyStack) Empty() bool {
-	return len(this.queue) == 0
 }
 
 

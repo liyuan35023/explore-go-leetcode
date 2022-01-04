@@ -27,18 +27,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func searchMatrix(matrix [][]int, target int) bool {
-	m, n := len(matrix), len(matrix[0])
-	row, column := 0, n-1
-	for row >= 0 && row < m && column >= 0 && column < n {
-		if matrix[row][column] == target {
-			return true
-		} else if matrix[row][column] > target {
-			column--
-		} else {
-			row++
-		}
-	}
-	return false
 
 }
 
