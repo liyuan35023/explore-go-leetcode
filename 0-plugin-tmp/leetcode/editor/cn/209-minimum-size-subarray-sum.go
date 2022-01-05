@@ -35,40 +35,7 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minSubArrayLen(target int, nums []int) int {
-	sum := make([]int, 0)
-	ans := 0
-
-	for i := 0; i < len(nums); i++ {
-		if i == 0 {
-			sum = append(sum, nums[i])
-		} else {
-			sum = append(sum, sum[i-1]+nums[i])
-		}
-		if sum[i] >= target {
-			idx := findFirstBiggerIdx(sum, sum[i]-target)
-			if ans == 0 {
-				ans = i - idx + 1
-			} else {
-				ans = min(ans, i - idx + 1)
-			}
-		}
-	}
-	return ans
 }
-
-func findFirstBiggerIdx(nums []int, target int) int {
-	left, right := 0, len(nums) - 1
-	for left < right {
-		mid := left + (right - left) / 2
-		if nums[mid] <= target {
-			left = mid + 1
-		} else if nums[mid] > target {
-			right = mid
-		}
-	}
-	return left
-}
-
 
 func min(x, y int) int {
 	if x < y {

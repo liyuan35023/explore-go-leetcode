@@ -26,37 +26,7 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func findKthLargest(nums []int, k int) int {
-	rand.Seed(time.Now().UnixNano())
-	left, right := 0, len(nums) - 1
-	for left < right {
-		mid := randomPartition(nums, left, right)
-		if mid == k - 1 {
-			return nums[mid]
-		} else if mid > k - 1 {
-			right = mid - 1
-		} else {
-			left = mid + 1
-		}
-	}
-	return nums[left]
 }
 
-func randomPartition(nums []int, left, right int) int {
-	randomIdx := rand.Intn(right-left+1) + left
-	nums[left], nums[randomIdx] = nums[randomIdx], nums[left]
-	pivot := nums[left]
-	for left < right {
-		for left < right && nums[right] <= pivot {
-			right--
-		}
-		nums[left] = nums[right]
-		for left < right && nums[left] >= pivot {
-			left++
-		}
-		nums[right] = nums[left]
-	}
-	nums[left] = pivot
-	return left
-}
 
 //leetcode submit region end(Prohibit modification and deletion)
