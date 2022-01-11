@@ -31,28 +31,27 @@ package cn
  * }
  */
 func oddEvenList(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
-	}
-	cur := head
+	dummyOdd := new(ListNode)
+	dummyEven := new(ListNode)
+	preOdd := dummyOdd
+	preEven := dummyEven
 	n := 1
-	oddDummy := new(ListNode)
-	evenDummy := new(ListNode)
-	oddPre, evenPre := oddDummy, evenDummy
-	for cur != nil {
-		if n % 2 != 0 {
-			oddPre.Next = cur
-			oddPre = cur
+	for head != nil {
+		if n % 2 == 1 {
+			preOdd.Next = head
+			preOdd = head
+			head = head.Next
+			preOdd.Next = nil
 		} else {
-			evenPre.Next = cur
-			evenPre = cur
+			preEven.Next = head
+			preEven = head
+			head = head.Next
+			preEven.Next = nil
 		}
-		cur = cur.Next
 		n++
 	}
-	evenPre.Next = nil
-	oddPre.Next = evenDummy.Next
-	return oddDummy.Next
+	preOdd.Next = dummyEven.Next
+	return dummyOdd.Next
 
 
 

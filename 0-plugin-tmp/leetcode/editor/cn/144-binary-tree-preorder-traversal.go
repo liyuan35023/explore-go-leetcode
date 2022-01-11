@@ -44,8 +44,5 @@ package cn
 func preorderTraversal(root *TreeNode) []int {
 
 
-
-
-
 }
 //leetcode submit region end(Prohibit modification and deletion)

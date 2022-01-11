@@ -22,69 +22,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func topKFrequent(nums []int, k int) []int {
-	heap := make([]int, 0)
-	// 堆排序
-	// 小顶堆， 删除堆顶的元素，直至剩下k个
-	numMap := make(map[int]int)
-	for _, v := range nums {
-		numMap[v]++
-	}
-
-	for num, count := range numMap {
-		if len(heap) < k {
-			heap = append(heap, num)
-			headUpAdjust(heap, numMap, len(heap)-1)
-		} else if numMap[heap[0]] < count {
-			heap[0] = num
-			headDownAdjust(heap, numMap, 0, k)
-		}
-	}
-	return heap
-}
-
-func constructHeap(nums []int, numMap map[int]int, length int) {
-	lastNotLeaf := length / 2 - 1
-	for i := lastNotLeaf; i >= 0; i-- {
-		headDownAdjust(nums, numMap, i, length)
-	}
-}
-
-func headDownAdjust(nums []int, numMap map[int]int, parent int, length int) {
-	for parent < length / 2 {
-		minChildIdx := getMinChild(nums, numMap, parent, length)
-		if numMap[nums[parent]] > numMap[nums[minChildIdx]] {
-			nums[parent], nums[minChildIdx] = nums[minChildIdx], nums[parent]
-			parent = minChildIdx
-		} else {
-			break
-		}
-	}
-}
-
-func getMinChild(nums []int, numMap map[int]int, parent int, length int) int {
-	child1 := parent * 2 + 1
-	child2 := parent * 2 + 2
-	if child2 >= length {
-		return child1
-	} else {
-		if numMap[nums[child1]] < numMap[nums[child2]] {
-			return child1
-		} else {
-			return child2
-		}
-	}
-}
-
-func headUpAdjust(nums []int, numMap map[int]int, idx int) {
-	for idx > 0 {
-		parent := (idx - 1) / 2
-		if parent >= 0 && numMap[nums[parent]] > numMap[nums[idx]] {
-			nums[parent], nums[idx] = nums[parent], nums[idx]
-			idx = parent
-		} else {
-			break
-		}
-	}
 }
 
 

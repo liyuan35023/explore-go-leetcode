@@ -1,5 +1,7 @@
 package cn
 
+import "sort"
+
 //给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
 //
 // 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。 
@@ -40,6 +42,28 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func coinChange(coins []int, amount int) int {
+	sort.Ints(coins)
+	dp := make([]int, amount+1)
+	dp[0] = 0
+	for i := 1; i < amount+1; i++ {
+		minCount := 1 << 31 - 1
+		for _, c := range coins {
+			if i < c {
+				break
+			}
+			if dp[i-c] != -1 {
+				minCount = min(minCount, dp[i-c]+1)
+			}
+		}
+		if minCount == 1 << 31 - 1 {
+			dp[i] = -1
+		} else {
+			dp[i] = minCount
+		}
+	}
+	return dp[amount]
+
+
 }
 
 

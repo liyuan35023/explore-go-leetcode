@@ -1,6 +1,5 @@
 package cn
 
-import "database/sql"
 
 //给定一个 m x n 整数矩阵 matrix ，找出其中 最长递增路径 的长度。
 //
@@ -32,35 +31,15 @@ import "database/sql"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func longestIncreasingPath(matrix [][]int) int {
-	ans := 0
 	m, n := len(matrix), len(matrix[0])
-	directions := [][2]int{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}
 	dp := make([][]int, m)
 	for i := 0; i < m; i++ {
 		dp[i] = make([]int, n)
 	}
-	var dfs func(row, column int) int
-	dfs = func(row, column int) int {
-		if dp[row][column] > 0 {
-			return dp[row][column]
-		}
-		longest := 0
-		for _, dir := range directions {
-			newRow := row + dir[0]
-			newColumn := column + dir[1]
-			if newRow >= 0 && newRow < m && newColumn >=0 && newColumn < n && matrix[row][column] < matrix[newRow][newColumn] {
-				longest = max(longest, dfs(newRow, newColumn))
-			}
-		}
-		dp[row][column] = longest + 1
-		return dp[row][column]
-	}
-	for i := 0; i < m; i++ {
-		for j := 0; j < n; j++ {
-			ans = max(ans, dfs(i, j))
-		}
-	}
-	return ans
+
+
+
+
 }
 
 func max(x, y int) int {

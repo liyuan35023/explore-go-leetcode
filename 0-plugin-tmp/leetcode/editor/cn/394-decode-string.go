@@ -1,6 +1,5 @@
 package cn
 
-import "strconv"
 
 //给定一个经过编码的字符串，返回它解码后的字符串。
 //
@@ -35,34 +34,5 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func decodeString(s string) string {
-	stack := make([]byte, 0)
-	for i := 0; i < len(s); i++ {
-		if s[i] != ']' {
-			stack = append(stack, s[i])
-		} else {
-			// 取出字符
-			str := make([]byte, 0)
-			for len(stack) != 0 && stack[len(stack)-1] != '[' {
-				str = append([]byte{stack[len(stack)-1]}, str...)
-				stack = stack[:len(stack)-1]
-			}
-			stack = stack[:len(stack)-1]
-			digit := make([]byte, 0)
-			for len(stack) != 0 && stack[len(stack)-1] >= '0' && stack[len(stack)-1] <= '9' {
-				digit = append([]byte{stack[len(stack)-1]}, digit...)
-				stack = stack[:len(stack)-1]
-			}
-
-			num, _ := strconv.Atoi(string(digit))
-			for num > 0 {
-				for i := 0; i < len(str); i++ {
-					stack = append(stack, str[i])
-				}
-				num--
-			}
-		}
-	}
-	return string(stack)
-
 }
 //leetcode submit region end(Prohibit modification and deletion)

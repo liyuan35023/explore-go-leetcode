@@ -52,11 +52,11 @@ package cn
 // -10⁴ <= nums[i] <= 10⁴ 
 // 1 <= k <= nums.length 
 // 
-// Related Topics 队列 数组 滑动窗口 单调队列 堆（优先队列） 👍 1240 👎 0
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSlidingWindow(nums []int, k int) []int {
-	return ans
+
+
 }
 
 

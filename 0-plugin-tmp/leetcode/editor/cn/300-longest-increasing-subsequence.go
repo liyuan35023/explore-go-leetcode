@@ -32,33 +32,35 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func lengthOfLIS(nums []int) int {
-	sequence := make([]int, 0)
-	sequence = append(sequence, nums[0])
-	for i := 1; i < len(nums); i++ {
-		if nums[i] > sequence[len(sequence)-1] {
-			sequence = append(sequence, nums[i])
-		} else if nums[i] < sequence[len(sequence)-1] {
-			idx := findFirstBiggerOrEqual(sequence, nums[i])
-			sequence[idx] = nums[i]
+	seq := make([]int, 0)
+	for _, v := range nums {
+		if len(seq) == 0 || seq[len(seq)-1] < v {
+			seq = append(seq, v)
+			continue
 		}
+		idx := findFirstLargeOrEqualIdx(seq, v)
+		seq[idx] = v
 	}
-	return len(sequence)
+	return len(seq)
 }
 
-func findFirstBiggerOrEqual(sequence []int, target int) int {
-	left, right := 0, len(sequence)-1
+func findFirstLargeOrEqualIdx(nums []int, target int) int {
+	left, right := 0, len(nums) - 1
 	for left <= right {
 		mid := left + (right - left) / 2
-		if sequence[mid] >= target {
+		if nums[mid] == target {
+			return mid
+		} else if nums[mid] > target {
 			right = mid - 1
 		} else {
 			left = mid + 1
 		}
 	}
 	return left
-
-
 }
+
+
+
 
 //func lengthOfLIS(nums []int) int {
 //	lastNum := make([]int, 0)

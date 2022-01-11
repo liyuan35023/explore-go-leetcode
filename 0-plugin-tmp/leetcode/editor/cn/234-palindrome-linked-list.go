@@ -1,7 +1,5 @@
 package cn
 
-import "container/heap"
-
 //请判断一个链表是否为回文链表。
 //
 // 示例 1: 
@@ -26,8 +24,30 @@ import "container/heap"
  * }
  */
 func isPalindrome(head *ListNode) bool {
+	dummy := &ListNode{Next: head}
+	slow, fast := dummy, dummy
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	mid := slow.Next
+	slow.Next = nil
+	var pre *ListNode
+	for mid != nil {
+		tmp := mid.Next
+		mid.Next = pre
+		pre = mid
+		mid = tmp
+	}
+	halfHead := pre
 
-
-
+	for head != nil && halfHead != nil {
+		if head.Val != halfHead.Val {
+			return false
+		}
+		head = head.Next
+		halfHead = halfHead.Next
+	}
+	return true
 }
 //leetcode submit region end(Prohibit modification and deletion)
