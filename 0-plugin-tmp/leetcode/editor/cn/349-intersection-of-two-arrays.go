@@ -1,5 +1,6 @@
 package cn
 
+import "sort"
 
 //给定两个数组，编写一个函数来计算它们的交集。
 //
@@ -23,5 +24,22 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func intersection(nums1 []int, nums2 []int) []int {
+	ans := make([]int, 0)
+	sort.Ints(nums1)
+	sort.Ints(nums2)
+	i, j := 0, 0
+	for i < len(nums1) && j < len(nums2) {
+		if nums1[i] == nums2[j] {
+			ans = append(ans, nums1[i])
+			for i < len(nums1) && nums1[i] == nums2[j] {
+				i++
+			}
+		} else if nums1[i] < nums2[j] {
+			i++
+		} else {
+			j++
+		}
+	}
+	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

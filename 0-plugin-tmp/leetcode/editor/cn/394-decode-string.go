@@ -1,5 +1,6 @@
 package cn
 
+import "strconv"
 
 //给定一个经过编码的字符串，返回它解码后的字符串。
 //
@@ -29,10 +30,33 @@ package cn
 // 输入：s = "abc3[cd]xyz"
 //输出："abccdcdcdxyz"
 // 
-// Related Topics 栈 递归 字符串 👍 911 👎 0
-
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func decodeString(s string) string {
+	stack := make([]byte, 0)
+	for i := 0; i < len(s); i++ {
+		if s[i] != ']' {
+			stack = append(stack, s[i])
+		} else {
+			str := make([]byte, 0)
+			for len(stack) > 0 && stack[len(stack)-1] != '[' {
+				str = append([]byte{stack[len(stack)-1]}, str...)
+				stack = stack[:len(stack)-1]
+			}
+			stack = stack[:len(stack)-1]
+			digit := make([]byte, 0)
+			for len(stack) > 0 && stack[len(stack)-1] >= '0' && stack[len(stack)-1] <= '9' {
+				digit = append([]byte{stack[len(stack)-1]}, digit...)
+				stack = stack[:len(stack)-1]
+			}
+			num, _ := strconv.Atoi(string(digit))
+			for i := 0; i < num; i++ {
+				stack = append(stack, str...)
+			}
+		}
+	}
+	return string(stack)
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

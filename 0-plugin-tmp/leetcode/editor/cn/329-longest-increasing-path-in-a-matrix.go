@@ -36,8 +36,30 @@ func longestIncreasingPath(matrix [][]int) int {
 	for i := 0; i < m; i++ {
 		dp[i] = make([]int, n)
 	}
-
-
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	var dfs func(row, column int) int
+	dfs = func(row, column int) int {
+		if dp[row][column] != 0 {
+			return dp[row][column]
+		}
+		for _, dir := range directions {
+			newRow, newColumn := row + dir[0], column + dir[1]
+			if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && matrix[row][column] > matrix[newRow][newColumn] {
+				dp[row][column] = max(dp[row][column], dfs(newRow, newColumn) + 1)
+			}
+		}
+		if dp[row][column] == 0 {
+			dp[row][column] = 1
+		}
+		return dp[row][column]
+	}
+	ans := 1
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			ans = max(ans, dfs(i, j))
+		}
+	}
+	return ans
 
 
 }

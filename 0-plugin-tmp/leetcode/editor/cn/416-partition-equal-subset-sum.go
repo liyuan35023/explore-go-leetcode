@@ -22,35 +22,6 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 
 func canPartition(nums []int) bool {
-	total := 0
-	maxNum := 0
-	n := len(nums)
-	for _, v := range nums {
-		total += v
-		maxNum = max(maxNum, v)
-	}
-	if total % 2 != 0 || maxNum > total / 2 {
-		return false
-	}
-	if total / 2 == maxNum {
-		return true
-	}
-	// dp
-	dp := make([][]bool, n)
-	for i := 0; i < n; i++ {
-		dp[i] = make([]bool, total / 2 + 1)
-	}
-	dp[0][nums[0]] = true
-	for i := 1; i < n; i++ {
-		for j := 1; j < total / 2 + 1; j++ {
-			if j >= nums[i] {
-				dp[i][j] = dp[i-1][j-nums[i]] || dp[i-1][j]
-			} else {
-				dp[i][j] = dp[i-1][j]
-			}
-		}
-	}
-	return dp[n-1][total/2]
 }
 
 
