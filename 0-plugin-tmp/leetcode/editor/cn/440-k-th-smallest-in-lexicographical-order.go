@@ -20,8 +20,11 @@ package cn
 func findKthNumber(n int, k int) int {
 }
 
-func getCount(prefix int, n int) int {
-}
+
+
+
+
+
 
 //func findKthNumber(n int, k int) int {
 //	count := 0

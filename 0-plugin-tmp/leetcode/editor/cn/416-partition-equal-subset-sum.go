@@ -1,5 +1,8 @@
 package cn
-//给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。 
+
+import "sort"
+
+//给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。
 //
 // 示例 1： 
 //
@@ -20,44 +23,9 @@ package cn
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-
 func canPartition(nums []int) bool {
 }
 
-
-
-
-
-
-//func canPartition(nums []int) bool {
-//	total := nums[0]
-//	maxNum := nums[0]
-//	for i := 1; i < len(nums); i++ {
-//		total += nums[i]
-//		maxNum = max(maxNum, nums[i])
-//	}
-//	if total % 2 != 0 || total / 2 < maxNum {
-//		return false
-//	}
-//	if total / 2 == maxNum {
-//		return true
-//	}
-//	half := total / 2
-//	// dp
-//	// dp[i][j] 表示 下标从0 到 i是否可以选出一些数字的和==j
-//	dp := make([][]bool, len(nums))
-//	for i := 0; i < len(nums); i++ {
-//		dp[i] = make([]bool, half+1)
-//	}
-//	dp[0][nums[0]] = true
-//	for i := 1; i < len(nums); i++ {
-//		for j := 1; j < half+1; j++ {
-//			dp[i][j] = dp[i-1][j] || dp[i][half-j] || j >= nums[i] && dp[i-1][j-nums[i]]
-//		}
-//	}
-//	return dp[len(nums)-1][half]
-//}
-//
 
 func max(x, y int) int {
 	if x > y {
@@ -67,3 +35,14 @@ func max(x, y int) int {
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+
+//0-1 背包问题
+//　　第 416 题：分割等和子集；
+//　　第 474 题：一和零；
+//　　第 494 题：目标和。
+//
+//　　 组合总和IV
+//
+//完全背包问题如下：
+//　　第 322 题：零钱兑换；
+//　　第 518 题：零钱兑换 II。
