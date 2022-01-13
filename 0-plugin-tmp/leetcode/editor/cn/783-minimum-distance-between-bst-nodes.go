@@ -32,44 +32,6 @@ package cn
  * }
  */
 func minDiffInBST(root *TreeNode) int {
-	ans := 1<<31 - 1
-	var dfs func(node *TreeNode) (minVal, maxVal int)
-	dfs = func(node *TreeNode) (minVal, maxVal int) {
-		if node == nil {
-			return -1, -1
-		}
-		lMin, lMax := dfs(node.Left)
-		rMin, rMax := dfs(node.Right)
-		if lMax >= 0 {
-			ans = min(ans, abs(node.Val-lMax))
-		}
-		if rMin >= 0 {
-			ans = min(ans, abs(node.Val-rMin))
-		}
-		if lMin < 0 {
-			lMin = node.Val
-		}
-		if rMax < 0 {
-			rMax = node.Val
-		}
-		return lMin, rMax
-	}
-	dfs(root)
-	return ans
-}
-
-func abs(x int) int {
-	if x > 0 {
-		return x
-	}
-	return -x
-}
-
-func min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

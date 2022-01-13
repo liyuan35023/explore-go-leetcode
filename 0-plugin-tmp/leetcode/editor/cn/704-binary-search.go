@@ -23,20 +23,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func search(nums []int, target int) int {
-	var binaryHelper func(left, right int) int
-	binaryHelper = func(left, right int) int {
-		if left > right {
-			return -1
-		}
-		mid := left + (right - left) / 2
-		if nums[mid] == target {
-			return mid
-		} else if nums[mid] > target {
-			return binaryHelper(left, mid-1)
-		} else {
-			return binaryHelper(mid+1, right)
-		}
-	}
-	return binaryHelper(0, len(nums)-1)
 }
 //leetcode submit region end(Prohibit modification and deletion)

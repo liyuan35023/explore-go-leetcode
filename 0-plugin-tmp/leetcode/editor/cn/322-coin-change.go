@@ -42,26 +42,6 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func coinChange(coins []int, amount int) int {
-	sort.Ints(coins)
-	dp := make([]int, amount+1)
-	dp[0] = 0
-	for i := 1; i < amount+1; i++ {
-		minCount := 1 << 31 - 1
-		for _, c := range coins {
-			if i < c {
-				break
-			}
-			if dp[i-c] != -1 {
-				minCount = min(minCount, dp[i-c]+1)
-			}
-		}
-		if minCount == 1 << 31 - 1 {
-			dp[i] = -1
-		} else {
-			dp[i] = minCount
-		}
-	}
-	return dp[amount]
 
 
 }

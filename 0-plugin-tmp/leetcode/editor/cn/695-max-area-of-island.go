@@ -30,29 +30,22 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxAreaOfIsland(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
 	ans := 0
 	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
-	m, n := len(grid), len(grid[0])
 	var dfs func(row, column int) int
 	dfs = func(row, column int) int {
-		area := 1
-		grid[row][column] = 0
+		grid[row][column] = '0'
 		for _, dir := range directions {
 			newRow, newColumn := row + dir[0], column + dir[1]
-			if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && grid[newRow][newColumn] == 1 {
-				area += dfs(newRow, newColumn)
-			}
+
+
 		}
-		return area
+
 	}
-	for i := 0; i < m; i++ {
-		for j := 0; j < n; j++ {
-			if grid[i][j] == 1 {
-				ans = max(ans, dfs(i, j))
-			}
-		}
-	}
-	return ans
+
+
+
 }
 
 func max(x, y int) int {

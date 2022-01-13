@@ -49,55 +49,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func gardenNoAdj(n int, paths [][]int) []int {
-	//ans := make([]int, n)
-	//exclude := make([]map[int]struct{}, n)
-	//for i := 0; i < n; i++ {
-	//	exclude[i] = make(map[int]struct{})
-	//}
-	//
-	//for _, p := range paths {
-	//	exclude[p[0]-1][p[1]-1] = struct{}{}
-	//	exclude[p[1]-1][p[0]-1] = struct{}{}
-	//}
-	//excludeType := make(map[int]int)
-	//for i := 0; i < n; i++ {
-	//	for excludeIdx := range exclude[i] {
-	//		excludeType[ans[excludeIdx]] = 1
-	//	}
-	//	for j := 1; j <= 4; j++ {
-	//		if _, ok := excludeType[j]; !ok {
-	//			ans[i] = j
-	//		}
-	//	}
-	//}
-	//
-	//return ans
-
-	ans := make([]int, n)
-	// 建立邻接图
-	graph := make([]map[int]struct{}, n)
-	for i := 0; i < n; i++ {
-		graph[i] = make(map[int]struct{})
-	}
-	for _, p := range paths {
-		graph[p[0]-1][p[1]-1] = struct{}{}
-		graph[p[1]-1][p[0]-1] = struct{}{}
-	}
-
-	for i := 0; i < n; i++ {
-		exceptType := make(map[int]struct{})
-		for k := range graph[i] {
-			if ans[k] != 0 {
-				exceptType[ans[k]] = struct{}{}
-			}
-		}
-		for j := 1; j <= 4; j++ {
-			if _, ok := exceptType[j]; !ok {
-				ans[i] = j
-				break
-			}
-		}
-	}
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

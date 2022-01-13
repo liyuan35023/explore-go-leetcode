@@ -22,39 +22,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func sortArray(nums []int) []int {
-	// merge sort
-
-	var sortHelper func(left, right int)
-	sortHelper = func(left, right int) {
-		if left >= right {
-			return
-		}
-		mid := left + (right - left) / 2
-		sortHelper(left, mid)
-		sortHelper(mid+1, right)
-		tmp := make([]int, right - left + 1)
-		i, j := left, mid + 1
-		for cur := 0; cur < right - left + 1; cur++ {
-			if j > right {
-				tmp[cur] = nums[i]
-				i++
-			} else if i > mid {
-				tmp[cur] = nums[j]
-				j++
-			} else {
-				if nums[i] < nums[j] {
-					tmp[cur] = nums[i]
-					i++
-				} else {
-					tmp[cur] = nums[j]
-					j++
-				}
-			}
-		}
-		copy(nums[left:right+1], tmp)
-	}
-	sortHelper(0, len(nums)-1)
-	return nums
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
