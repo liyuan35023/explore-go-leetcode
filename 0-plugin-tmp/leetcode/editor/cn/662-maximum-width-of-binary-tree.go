@@ -79,22 +79,6 @@ package cn
  * }
  */
 func widthOfBinaryTree(root *TreeNode) int {
-	ans := 0
-	levelWidth := make([]int, 0)
-	var dfs func(node *TreeNode, val, level int)
-	dfs = func(node *TreeNode, val, level int) {
-		if node == nil {
-			return
-		}
-		if level > len(levelWidth) {
-			levelWidth = append(levelWidth, val)
-		}
-		ans = max(ans, val - levelWidth[level-1] + 1)
-		dfs(node.Left, val * 2, level+1)
-		dfs(node.Right, val * 2 + 1, level+1)
-	}
-	dfs(root, 1, 1)
-	return ans
 }
 
 func max(x, y int) int {
