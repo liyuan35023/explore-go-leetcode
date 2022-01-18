@@ -32,16 +32,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverse(x int) int {
-	ans := 0
-	for x != 0 {
-		if ans < -1<<31 / 10 || ans > 1 << 31 / 10 {
-			return 0
-		}
-		tmp := x % 10
-		ans = ans * 10 + tmp
-		x = x / 10
-	}
-
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

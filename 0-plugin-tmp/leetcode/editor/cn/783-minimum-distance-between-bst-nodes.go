@@ -32,6 +32,46 @@ package cn
  * }
  */
 func minDiffInBST(root *TreeNode) int {
+	// zhongxu
+	ans := 1 << 31 - 1
+	pre := -1
+	for root != nil {
+		if root.Left == nil {
+			if pre != -1 {
+				ans = min(ans, root.Val - pre)
+			}
+			pre = root.Val
+			root = root.Right
+		} else {
+			x := root.Left
+			for x.Right != nil && x.Right != root {
+				x = x.Right
+			}
+			if x.Right == nil {
+				x.Right = root
+				root = root.Left
+			} else {
+				ans = min(ans, root.Val - pre)
+				pre = root.Val
+				x.Right = nil
+				root = root.Right
+			}
+		}
 
+
+	}
+
+
+
+
+	return ans
+
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
 }
 //leetcode submit region end(Prohibit modification and deletion)

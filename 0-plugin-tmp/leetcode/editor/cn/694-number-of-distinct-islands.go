@@ -47,5 +47,34 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func numDistinctIslands(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
+	path := make(map[string]int)
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	var dfs func(row, column int, startR, startC int) string
+	dfs = func(row, column int, startR, startC int) string {
+		grid[row][column] = 0
+		pos0, pos1 := startR - row, startC - column
+		ret := bytes.NewBuffer([]byte{})
+		ret.WriteString(strconv.Itoa(pos0))
+		ret.WriteString(strconv.Itoa(pos1))
+		for _, dir := range directions {
+			newRow, newColumn := row + dir[0], column + dir[1]
+			if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && grid[newRow][newColumn] == 1 {
+				s := dfs(newRow, newColumn, startR, startC)
+				ret.WriteString(s)
+			}
+		}
+		return ret.String()
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == 1 {
+				p := dfs(i, j, i, j)
+				path[p] = 1
+			}
+		}
+	}
+	return len(path)
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

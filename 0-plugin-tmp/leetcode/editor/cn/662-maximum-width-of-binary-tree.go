@@ -66,8 +66,6 @@ package cn
 // 
 //
 // 注意: 答案在32位有符号整数的表示范围内。 
-// Related Topics 树 深度优先搜索 广度优先搜索 二叉树 👍 265 👎 0
-
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -79,6 +77,27 @@ package cn
  * }
  */
 func widthOfBinaryTree(root *TreeNode) int {
+	levelLeft := make([]int, 0)
+	ans := 0
+	var dfs func(node *TreeNode, level int, pos int)
+	dfs = func(node *TreeNode, level int, pos int) {
+		if node == nil {
+			return
+		}
+		if level > len(levelLeft) {
+			levelLeft = append(levelLeft, pos)
+		}
+		ans = max(ans, pos - levelLeft[level-1] + 1)
+		if node.Left != nil {
+			dfs(node.Left, level+1, 2 * pos)
+		}
+		if node.Right != nil {
+			node.Right.Val = 2 * node.Val + 1
+			dfs(node.Right, level+1, 2 *pos + 1)
+		}
+	}
+	dfs(root, 1, 1)
+	return ans
 }
 
 func max(x, y int) int {

@@ -35,6 +35,26 @@ package cn
  * }
  */
 func isCompleteTree(root *TreeNode) bool {
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	last := false
+	for len(queue) != 0 {
+		if last && queue[0] != nil {
+			return false
+		}
+		node := queue[0]
+		queue = queue[1:]
+		if node == nil {
+			last = true
+		} else {
+			queue = append(queue, node.Left)
+			queue = append(queue, node.Right)
+		}
+	}
+	return true
+
+
+
 
 
 

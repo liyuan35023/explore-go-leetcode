@@ -49,5 +49,32 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func gardenNoAdj(n int, paths [][]int) []int {
+	adj := make([][]int, n)
+	for _, p := range paths {
+		n1, n2 := p[0]-1, p[1]-1
+		adj[n1] = append(adj[n1], n2)
+		adj[n2] = append(adj[n2], n1)
+	}
+	ans := make([]int, n)
+	excludeColor := make([]map[int]bool, n)
+	for i := 0; i < n; i++ {
+		excludeColor[i] = make(map[int]bool)
+	}
+	for i := 0; i < n; i++ {
+		for color := 1; color <= 4; color++ {
+			if _, ok := excludeColor[i][color]; ok {
+				continue
+			} else {
+				ans[i] = color
+				for _, nei := range adj[i] {
+					excludeColor[nei][color] = true
+				}
+				break
+			}
+		}
+	}
+	return ans
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

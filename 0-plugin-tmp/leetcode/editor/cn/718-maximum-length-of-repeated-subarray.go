@@ -17,6 +17,50 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func findLength(nums1 []int, nums2 []int) int {
+	if len(nums1) < len(nums2) {
+		return findLength(nums2, nums1)
+	}
+	m, n := len(nums1), len(nums2)
+
+	ans := 0
+	i, j := 0, n - 1
+	for j > 0 {
+		tmp := getCommonLen(nums1[:i+1], nums2[j:])
+		ans = max(ans, tmp)
+		i++
+		j--
+	}
+	for i < m {
+		tmp := getCommonLen(nums1[i-n+1:i+1], nums2)
+		ans = max(ans, tmp)
+		i++
+	}
+	i = i-n+1
+	j = n - 1
+	for j >= 0 {
+		tmp := getCommonLen(nums1[i:], nums2[:j])
+		ans = max(ans, tmp)
+		i++
+		j--
+	}
+	return ans
+}
+
+func getCommonLen(nums1 []int, nums2 []int) int {
+	i, j := 0, 0
+	ans := 0
+	count := 0
+	for i < len(nums1) && j < len(nums2) {
+		if nums1[i] == nums2[j] {
+			count++
+		} else {
+			count = 0
+		}
+		ans = max(ans, count)
+		i++
+		j++
+	}
+	return ans
 }
 
 
