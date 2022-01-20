@@ -24,15 +24,15 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func search(nums []int, target int) int {
 	left, right := 0, len(nums) - 1
-	for left < right {
+	for left <= right {
 		mid := left + (right - left) / 2
 		if nums[mid] >= target {
-			right = mid
+			right = mid - 1
 		} else {
 			left = mid + 1
 		}
 	}
-	if nums[left] == target {
+	if left < len(nums) && nums[left] == target {
 		return left
 	}
 	return -1

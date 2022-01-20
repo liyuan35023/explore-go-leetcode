@@ -34,7 +34,8 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func strStr(haystack string, needle string) int {
-//https://www.zhihu.com/question/21923021
+	//https://www.zhihu.com/question/21923021
+	//https://www.bilibili.com/video/BV1PD4y1o7nd/?spm_id_from=333.788.videocard.0
 
 }
 //leetcode submit region end(Prohibit modification and deletion)
