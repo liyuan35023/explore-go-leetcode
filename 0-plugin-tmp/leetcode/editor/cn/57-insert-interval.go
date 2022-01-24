@@ -41,60 +41,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func insert(intervals [][]int, newInterval []int) [][]int {
-	ans := make([][]int, 0)
-	merged := false
-	for i := 0; i < len(intervals); i++ {
-		if !merged {
-			if canMerge(intervals[i], newInterval) {
-				newInterval = mergeTwoInterval(intervals[i], newInterval)
-				ans = append(ans, newInterval)
-				merged = true
-			} else if newInterval[0] < intervals[i][0] {
-				ans = append(ans, newInterval)
-				ans = append(ans, intervals[i])
-				merged = true
-			} else {
-				ans = append(ans, intervals[i])
-			}
-		} else {
-			if canMerge(ans[len(ans)-1], intervals[i]) {
-				ans[len(ans)-1] = mergeTwoInterval(ans[len(ans)-1], intervals[i])
-			} else {
-				ans = append(ans, intervals[i])
-			}
-		}
-	}
-	if !merged {
-		ans = append(ans, newInterval)
-	}
-	return ans
-}
-
-func canMerge(i1 []int, i2 []int) bool {
-	if i1[0] < i2[0] {
-		return i1[1] >= i2[0]
-	} else {
-		return i2[1] >= i1[0]
-	}
-}
-
-func mergeTwoInterval(i1 []int, i2 []int) []int {
-	return []int{min(i1[0], i2[0]), max(i1[1], i2[1])}
-}
-
-func min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
-}
-
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

@@ -26,9 +26,27 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func myPow(x float64, n int) float64 {
-
-
-
+	ans := 1.0
+	if n == 0 {
+		return ans
+	}
+	absN := n
+	if n < 0 {
+		absN = -n
+	}
+	contributor := x
+	for absN > 0 {
+		if absN % 2 == 1 {
+			ans *= contributor
+		}
+		absN = absN / 2
+		contributor *= contributor
+	}
+	if n < 0 {
+		return 1.0 / ans
+	} else {
+		return ans
+	}
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
