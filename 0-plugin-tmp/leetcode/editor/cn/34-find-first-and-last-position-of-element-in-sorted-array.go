@@ -33,16 +33,8 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func searchRange(nums []int, target int) []int {
-	return []int{searchFirst(nums, target), searchLast(nums, target)}
-}
-
-func searchFirst(nums []int, target int) int {
-
-
-}
-
-func searchLast(nums []int, target int) int {
-
+//https://www.bilibili.com/video/BV1Ft41157zW
+//https://www.acwing.com/blog/content/31/
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

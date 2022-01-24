@@ -25,6 +25,36 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func permuteUnique(nums []int) [][]int {
+	ans := make([][]int, 0)
+	used := make([]bool, len(nums))
+	sort.Ints(nums)
+	var dfs func(solution []int)
+	dfs = func(solution []int) {
+		if len(solution) >= len(nums) {
+			ans = append(ans, append([]int{}, solution...))
+			return
+		}
+		for i := 0; i < len(nums); i++ {
+			if used[i] || i > 0 && !used[i-1] && nums[i-1] == nums[i] {
+				continue
+			}
+			used[i] = true
+			dfs(append(solution, nums[i]))
+			used[i] = false
+		}
+	}
+	dfs([]int{})
+	return ans
+
+
+
+
+
+
+
+
+
+
 
 }
 //func permuteUnique(nums []int) [][]int {

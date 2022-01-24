@@ -25,6 +25,28 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func permute(nums []int) [][]int {
+	ans := make([][]int, 0)
+	var dfs func(idx int)
+	dfs = func(idx int) {
+		if idx == len(nums) {
+			ans = append(ans, append([]int{}, nums...))
+			return
+		}
+		for i := idx; i < len(nums); i++ {
+			nums[idx], nums[i] = nums[i], nums[idx]
+			dfs(idx+1)
+			nums[idx], nums[i] = nums[i], nums[idx]
+		}
+	}
+	dfs(0)
+	return ans
+
+
+
+
+
+
+
 
 }
 //func permute(nums []int) [][]int {
