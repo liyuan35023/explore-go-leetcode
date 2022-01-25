@@ -60,18 +60,4 @@ package cn
 func isNumber(s string) bool {
 }
 
-func getInput(b byte) input {
-	switch {
-	case b == '+' || b == '-':
-		return Sign
-	case b == 'e' || b == 'E':
-		return E
-	case b == '.':
-		return Dot
-	case b >= '0' && b <= '9':
-		return Num
-	default:
-		return other
-	}
-}
 //leetcode submit region end(Prohibit modification and deletion)
