@@ -46,33 +46,7 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func simplifyPath(path string) string {
-	stack := make([]string, 0)
-	var str string
-	for i := 0; i <= len(path) ; i++ {
-		if i == len(path) || path[i] == '/' {
-			if len(str) != 0 {
-				switch str {
-				case "..":
-					if len(stack) > 0 {
-						stack = stack[:len(stack) - 1]
-					}
-				case ".":
-				default:
-					stack = append(stack, str)
-				}
-				str = ""
-			}
-			continue
-		}
-		str += string(path[i])
-	}
-	ans := "/"
-	for k, s := range stack {
-		ans += s
-		if k < len(stack) - 1 {
-			ans += "/"
-		}
-	}
-	return ans
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

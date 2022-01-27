@@ -20,21 +20,9 @@ package cn
 // n 将在 [1, 10000]之间。 
 // nums 的每个元素都将在 [-9999, 9999]之间。 
 // 
-
+//https://www.bilibili.com/video/BV1Ft41157zW
+//https://www.acwing.com/blog/content/31/
 //leetcode submit region begin(Prohibit modification and deletion)
 func search(nums []int, target int) int {
-	left, right := 0, len(nums) - 1
-	for left <= right {
-		mid := left + (right - left) / 2
-		if nums[mid] >= target {
-			right = mid - 1
-		} else {
-			left = mid + 1
-		}
-	}
-	if left < len(nums) && nums[left] == target {
-		return left
-	}
-	return -1
 }
 //leetcode submit region end(Prohibit modification and deletion)
