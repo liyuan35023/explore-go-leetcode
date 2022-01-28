@@ -30,7 +30,24 @@ package cn
  * }
  */
 func buildTree(inorder []int, postorder []int) *TreeNode {
-
+	inMap := make(map[int]int)
+	for k, v := range inorder {
+		inMap[v] = k
+	}
+	idx := len(postorder) - 1
+	var buildHelper func(left, right int) *TreeNode
+	buildHelper = func(left, right int) *TreeNode {
+		if left > right {
+			return nil
+		}
+		node := &TreeNode{Val: postorder[idx]}
+		mid := inMap[postorder[idx]]
+		idx--
+		node.Right = buildHelper(mid+1, right)
+		node.Left = buildHelper(left, mid-1)
+		return node
+	}
+	return buildHelper(0, len(postorder)-1)
 
 
 }

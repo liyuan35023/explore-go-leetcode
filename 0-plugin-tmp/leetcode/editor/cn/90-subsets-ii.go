@@ -25,22 +25,27 @@ import "sort"
 //leetcode submit region begin(Prohibit modification and deletion)
 func subsetsWithDup(nums []int) [][]int {
 	sort.Ints(nums)
-	n := len(nums)
 	ans := make([][]int, 0)
-	outer:
-	for i := 0; i < 1 << n; i++ {
-		solve := make([]int, 0)
-		for k, v := range nums {
-			if i & (1 << k) != 0 {
-				if k > 0 && v == nums[k-1] && i & (1 << (k-1)) == 0 {
-					continue outer
-				}
-				solve = append(solve, v)
-			}
+	used := make([]bool, len(nums))
+	var dfs func(idx int, solve []int)
+	dfs = func(idx int, solve []int) {
+		if idx >= len(nums) {
+			ans = append(ans, append([]int{}, solve...))
+			return
 		}
-		ans = append(ans, solve)
+		dfs(idx+1, solve)
+		if idx > 0 && nums[idx] == nums[idx-1] && !used[idx-1] {
+			return
+		}
+		used[idx] = true
+		dfs(idx+1, append(solve, nums[idx]))
+		used[idx] = false
 	}
+	dfs(0, []int{})
 	return ans
+
+
+
 }
 
 //func subsetsWithDup(nums []int) [][]int {

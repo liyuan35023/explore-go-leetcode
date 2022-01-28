@@ -65,35 +65,6 @@ package cn
  */
 
 func copyRandomList(head *Node) *Node {
-	if head == nil {
-		return head
-	}
-	cur := head
-	for cur != nil {
-		next := cur.Next
-		tmp := &Node{Val: cur.Val, Next: cur.Next}
-		cur.Next = tmp
-		cur = next
-	}
-	newHead := head.Next
-	cur = head
-	for cur != nil {
-		copyNode := cur.Next
-		if cur.Random != nil {
-			copyNode.Random = cur.Random.Next
-		}
-		cur = cur.Next.Next
-	}
-	cur = head
-	for cur != nil {
-		copyNode := cur.Next
-		cur.Next = copyNode.Next
-		if copyNode.Next != nil {
-			copyNode.Next = copyNode.Next.Next
-		}
-		cur = cur.Next
-	}
-	return newHead
 
 
 
