@@ -42,7 +42,29 @@ package cn
  * }
  */
 func preorderTraversal(root *TreeNode) []int {
+	ans := make([]int, 0)
+	for root != nil {
+		if root.Left == nil {
+			ans = append(ans, root.Val)
+			root = root.Right
+		} else {
+			x := root.Left
+			for x.Right != nil && x.Right != root {
+				x = x.Right
+			}
+			if x.Right == nil {
+				x.Right = root
+				ans = append(ans, root.Val)
+				root = root.Left
+			} else {
+				x.Right = nil
+				root = root.Right
+			}
+		}
+	}
+	return ans
 
 
+	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

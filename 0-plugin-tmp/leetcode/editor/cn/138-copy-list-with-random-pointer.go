@@ -65,8 +65,30 @@ package cn
  */
 
 func copyRandomList(head *Node) *Node {
+	cur := head
+	for cur != nil {
+		n := &Node{Val: cur.Val, Next: cur.Next}
+		cur.Next = n
+		cur = n.Next
+	}
+	dummy := new(Node)
+	pre := dummy
+	for cur = head; cur != nil; {
+		cp := cur.Next
+		if cur.Random != nil {
+			cp.Random = cur.Random.Next
+		}
+		cur = cp.Next
+	}
 
-
+	for head != nil {
+		copyNode := head.Next
+		head.Next = copyNode.Next
+		pre.Next = copyNode
+		pre = copyNode
+		head = copyNode.Next
+	}
+	return dummy.Next
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

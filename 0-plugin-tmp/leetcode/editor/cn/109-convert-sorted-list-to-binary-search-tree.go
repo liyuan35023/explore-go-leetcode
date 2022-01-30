@@ -34,34 +34,7 @@ package cn
  * }
  */
 func sortedListToBST(head *ListNode) *TreeNode {
-
-
-
-
 }
-//func sortedListToBST(head *ListNode) *TreeNode {
-//	node := head
-//	total := 0
-//	for head != nil {
-//		head = head.Next
-//		total++
-//	}
-//	var helper func(left, right int) *TreeNode
-//	helper = func(left, right int) *TreeNode {
-//		if left > right {
-//			return nil
-//		}
-//		mid := (left + right + 1) / 2
-//		l := helper(left, mid-1)
-//		root := &TreeNode{Val: node.Val}
-//		node = node.Next
-//		r := helper(mid+1, right)
-//		root.Left = l
-//		root.Right = r
-//		return root
-//	}
-//	return helper(1, total)
-//}
 
 //leetcode submit region end(Prohibit modification and deletion)
 
