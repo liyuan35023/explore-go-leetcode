@@ -24,20 +24,5 @@ package cn
  * }
  */
 func postorderTraversal(root *TreeNode) []int {
-	ans := make([]int, 0)
-	stack := make([]*TreeNode, 0)
-	for root != nil || len(stack) != 0 {
-		for root != nil {
-			stack = append(stack, root)
-			root = root.Left
-		}
-
-
-	}
-
-
-
-
-	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)
