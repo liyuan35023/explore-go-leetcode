@@ -53,6 +53,21 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverseWords(s string) string {
-
+	ans := make([]byte, 0)
+	s = strings.TrimLeft(s, " ")
+	s = strings.TrimRight(s, " ")
+	left, right := len(s) - 1, len(s) - 1
+	for right >= 0 {
+		for left >= 0 && s[left] != ' ' {
+			left--
+		}
+		ans = append(ans, s[left+1:right+1]...)
+		ans = append(ans, ' ')
+		for left >= 0 && s[left] == ' ' {
+			left--
+		}
+		right = left
+	}
+	return string(ans[:len(ans)-1])
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -24,10 +24,8 @@ package cn
 // -2³¹ <= nums[i] <= 2³¹ - 1 
 // 对于所有有效的 i 都有 nums[i] != nums[i + 1]
 //
-// 进阶：你可以实现时间复杂度为 O(logN) 的解决方案吗？ 
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func findPeakElement(nums []int) int {
-
 }
 //leetcode submit region end(Prohibit modification and deletion)

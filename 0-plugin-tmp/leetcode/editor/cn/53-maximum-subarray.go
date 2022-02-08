@@ -35,21 +35,12 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSubArray(nums []int) int {
-	var dfs func(l, r int) (int, int, int, int)
-	dfs = func(l, r int) (int, int, int, int) {
-		if l > r {
-			return 0, 0, 0, 0
-		}
-		if l == r {
-			return nums[l], nums[l], nums[l], nums[l]
-		}
-		mid := l + (r - l) / 2
-		lMax1, rMax1, max1, total1 := dfs(l, mid)
-		lMax2, rMax2, max2, total2 := dfs(mid+1, r)
-
-		return max(lMax1, total1+lMax2), max(rMax2, total2+rMax1), max(max1, max(max2, rMax1+lMax2)), total1 + total2
+	dp := nums[0]
+	ans := nums[0]
+	for i := 1; i < len(nums); i++ {
+		dp = max(nums[i], dp+nums[i])
+		ans = max(ans, dp)
 	}
-	_, _, ans, _ := dfs(0, len(nums)-1)
 	return ans
 }
 

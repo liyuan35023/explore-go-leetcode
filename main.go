@@ -390,15 +390,38 @@ func simplifyPath(path string) string {
 	return ans
 }
 
-func main() {
-	callDefer()
-	fmt.Println("333 Hello world")
+func ctxCancel() {
+	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second)
+	defer cancel()
+	workerChannel := make(chan int)
 
-	fmt.Println(simplifyPath("/home/"))
+	go func() {
+		time.Sleep(2 * time.Second)
+		// hardly work
+		workerChannel <- 2
+	}()
+
+	for {
+		select {
+		case <-ctx.Done():
+			err := ctx.Err()
+			fmt.Println("context have been canceled, error:" + err.Error())
+			return
+		case res, ok := <-workerChannel:
+			fmt.Println("result:" + strconv.Itoa(res))
+			if !ok {
+				return
+			}
+		}
+	}
+
+}
+
+func main() {
+	ctxCancel()
 
 
 	//TestMapAssign()
-	//time.Sleep(5 * time.Second)
 	//sort_alogrithm.QuickSort([]int{3, 7, 3, 4, 3, 2, 1, 8, 6}, 0, 8)
 	//ctxKV()
 	//walkPath()
