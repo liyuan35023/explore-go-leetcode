@@ -1,11 +1,5 @@
 package cn
 
-import (
-	"bytes"
-	"strconv"
-	"strings"
-)
-
 //序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方
 //式重构得到原数据。 
 //
@@ -71,65 +65,11 @@ func Constructor() Codec {
 
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
-	if root == nil {
-		return ""
-	}
-	ans := bytes.NewBuffer([]byte{})
-	queue := make([]*TreeNode, 0)
-	queue = append(queue, root)
-	for len(queue) != 0 {
-		n := len(queue)
-		for i := 0; i < n; i++ {
-			if queue[i] == nil {
-				ans.WriteString("null,")
-			} else {
-				ans.WriteString(strconv.Itoa(queue[i].Val)+",")
-				queue = append(queue, queue[i].Left)
-				queue = append(queue, queue[i].Right)
-			}
-		}
-		queue = queue[n:]
-	}
-	ret := strings.TrimRight(ans.String(), ",")
-	return ret
 
 }
 
 // Deserializes your encoded data to tree.
 func (this *Codec) deserialize(data string) *TreeNode {
-	if data == "" {
-		return nil
-	}
-	myAtoi := func(s string) int {
-		ret, _ := strconv.Atoi(s)
-		return ret
-	}
-	cells := strings.Split(data, ",")
-	queue := make([]*TreeNode, 0)
-	root := &TreeNode{Val: myAtoi(cells[0])}
-	queue = append(queue, root)
-	idx := 1
-	for len(queue) != 0 {
-		node := queue[0]
-		queue = queue[1:]
-		if cells[idx] == "null" {
-			node.Left = nil
-		} else {
-			node.Left = &TreeNode{Val: myAtoi(cells[idx])}
-			queue = append(queue, node.Left)
-		}
-		if cells[idx+1] == "null" {
-			node.Right = nil
-		} else {
-			node.Right = &TreeNode{Val: myAtoi(cells[idx+1])}
-			queue = append(queue, node.Right)
-		}
-		idx = idx + 2
-	}
-	return root
-
-
-
 
 
 }

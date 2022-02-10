@@ -35,6 +35,26 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minSubArrayLen(target int, nums []int) int {
+	ans := 1 << 31 - 1
+	left, right := 0, 0
+	total := 0
+	for right < len(nums) {
+		for right < len(nums) && total < target {
+			total += nums[right]
+			right++
+		}
+		for left <= right && total >= target {
+			ans = min(ans, right - left)
+			total -= nums[left]
+			left++
+		}
+	}
+	if ans == 1 << 31 - 1 {
+		return 0
+	}
+	return ans
+
+
 }
 
 func min(x, y int) int {

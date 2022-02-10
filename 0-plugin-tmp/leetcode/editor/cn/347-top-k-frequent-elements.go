@@ -1,6 +1,5 @@
 package cn
 
-import "math/rand"
 
 //给你一个整数数组 nums 和一个整数 k ，请你返回其中出现频率前 k 高的元素。你可以按 任意顺序 返回答案。
 //
@@ -25,47 +24,6 @@ import "math/rand"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func topKFrequent(nums []int, k int) []int {
-	countMap := make(map[int]int)
-	for _, v := range nums {
-		countMap[v]++
-	}
-	seq := make([]int, 0)
-	for value := range countMap {
-		seq = append(seq, value)
-	}
-	qsort(seq, 0, len(seq)-1, k, countMap)
-	return seq[:k]
-}
-
-func qsort(nums []int, left, right int, k int, countMap map[int]int) {
-	for left < right {
-		mid := partition(nums, left, right, countMap)
-		if mid == k - 1 {
-			return
-		} else if mid > k - 1 {
-			right = mid - 1
-		} else {
-			left = mid + 1
-		}
-	}
-}
-
-func partition(nums []int, left, right int, countMap map[int]int) int {
-	randomIdx := rand.Intn(right - left + 1) + left
-	nums[left], nums[randomIdx] = nums[randomIdx], nums[left]
-	pivot := nums[left]
-	for left < right {
-		for left < right && countMap[nums[right]] <= countMap[pivot] {
-			right--
-		}
-		nums[left] = nums[right]
-		for left < right && countMap[nums[left]] >= countMap[pivot] {
-			left++
-		}
-		nums[right] = nums[left]
-	}
-	nums[left] = pivot
-	return left
 }
 
 

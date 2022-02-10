@@ -417,8 +417,26 @@ func ctxCancel() {
 
 }
 
+func goroutineClose() {
+	ch := make(chan int, 2)
+	go func() {
+		for i := 0; i < 3; i++ {
+			ch <- i
+		}
+	}()
+	go func() {
+		time.Sleep(5 * time.Second)
+		<-ch
+		time.Sleep(100 * time.Second)
+		close(ch)
+	}()
+
+	time.Sleep(500 * time.Second)
+}
+
 func main() {
-	ctxCancel()
+	//ctxCancel()
+	goroutineClose()
 
 
 	//TestMapAssign()
