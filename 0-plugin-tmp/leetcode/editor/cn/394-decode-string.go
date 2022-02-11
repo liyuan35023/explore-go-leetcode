@@ -33,5 +33,7 @@ import "strconv"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func decodeString(s string) string {
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
