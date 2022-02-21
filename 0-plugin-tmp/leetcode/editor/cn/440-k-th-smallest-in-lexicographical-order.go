@@ -5,7 +5,6 @@ package cn
 //
 // 示例 : 
 //
-// 
 //输入:
 //n: 13   k: 2
 //
@@ -18,6 +17,13 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func findKthNumber(n int, k int) int {
+
+
+
+
+
+
+
 }
 
 
