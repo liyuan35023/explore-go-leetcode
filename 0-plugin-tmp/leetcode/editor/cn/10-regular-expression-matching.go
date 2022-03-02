@@ -44,11 +44,9 @@ package cn
 // p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
 // 保证每次出现字符 * 时，前面都匹配到有效的字符
 //
-// 👍 2171 👎 0
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func isMatch(s string, p string) bool {
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

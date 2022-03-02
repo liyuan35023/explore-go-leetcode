@@ -1,7 +1,6 @@
 package cn
 
 import (
-	"bytes"
 	"strconv"
 )
 
@@ -47,5 +46,29 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func numDistinctIslands(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	island := make(map[string]int)
+	var dfs func(row, column int, startRow, startColumn int) string
+	dfs = func(row, column int, startRow, startColumn int) string {
+		grid[row][column] = 0
+		str := strconv.Itoa(row-startRow) + strconv.Itoa(column-startColumn)
+		for _, dir := range directions {
+			newRow, newColumn := row + dir[0], column + dir[1]
+			if newRow >= 0 && newRow < m && newColumn >= 0 && newColumn < n && grid[newRow][newColumn] == 1 {
+				str += dfs(newRow, newColumn, startRow, startColumn)
+			}
+		}
+		return str
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == 1 {
+				island[dfs(i, j, i, j)] = 1
+			}
+		}
+	}
+	return len(island)
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

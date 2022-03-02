@@ -34,6 +34,8 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func nextPermutation(nums []int) {
+
+
 }
 
 

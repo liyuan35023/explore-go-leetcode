@@ -13,7 +13,6 @@ package cn
 //输出: [3,2,1] 
 //
 
-
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
  * Definition for a binary tree node.
@@ -24,5 +23,6 @@ package cn
  * }
  */
 func postorderTraversal(root *TreeNode) []int {
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

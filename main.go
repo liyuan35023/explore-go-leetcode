@@ -52,21 +52,13 @@ func (d Direction) String() string {
 	return [...]string{"North", "East", "South", "West"}[int(d)]
 }
 
-func TestGenBlockIdSeqId() *Person {
-	objID := uint64(341499936400999360)
+func TestGenBlockIdSeqId() {
+	objID := uint64(342934515607407271)
 	blockID, seqID := GenBlockIdSeqId(objID)
 	groupID := GetGroupID(objID)
 	fmt.Println(blockID, seqID, groupID)
 	//assert.Equal(t, uint32(objID>>32), blockID)
 	//assert.Equal(t, uint32(objID&0xffffffff), seqID)
-	p1 := new(Person)
-	p2 := new(Person)
-	//p1 := &Person{}
-	//p2 := &Person{}
-	println(p1)
-	println(p2)
-	//fmt.Printf(" p2:%p", p2)
-	return p2
 }
 
 func TestGenGroupId() {
@@ -434,10 +426,63 @@ func goroutineClose() {
 	time.Sleep(500 * time.Second)
 }
 
+func strStr(haystack string, needle string) int {
+	//https://www.zhihu.com/question/21923021
+	//https://www.bilibili.com/video/BV1PD4y1o7nd/?spm_id_from=333.788.videocard.0
+
+	if needle == "" {
+		return 0
+	}
+	if len(haystack) < len(needle) {
+		return -1
+	}
+	// kmp
+	// 求next数组，对于needle串各个前缀串包括他自身，求最长相等前后缀
+	m, n := len(haystack), len(needle)
+	next := getNext(needle)
+	i, j := 0, 0
+	for i <= m - (n - j) {
+		for j < n && haystack[i] == needle[j] {
+			i++
+			j++
+		}
+		if j == n {
+			return i - n
+		}
+		if j == 0 {
+			i++
+			continue
+		}
+		backIdx := next[j-1]
+		j = backIdx
+	}
+	return -1
+}
+
+func getNext(needle string) []int {
+	ans := make([]int, len(needle))
+	for i := 1; i < len(needle); i++ {
+		for j := 1; j <= i; j++ {
+			l, r := 0, j
+			for r <= i && needle[l] == needle[r] {
+				l++
+				r++
+			}
+			if r == i + 1 {
+				ans[i] = i - j + 1
+				break
+			}
+		}
+	}
+	return ans
+}
+
+
 func main() {
 	//ctxCancel()
-	goroutineClose()
+	//goroutineClose()
 
+	strStr("mississippi", "issip")
 
 	//TestMapAssign()
 	//sort_alogrithm.QuickSort([]int{3, 7, 3, 4, 3, 2, 1, 8, 6}, 0, 8)
@@ -454,8 +499,7 @@ func main() {
 	//fmt.Println(ans)
 
 	//TestGenGroupId()
-	//p := TestGenBlockIdSeqId()
-	//fmt.Println(p)
+	//TestGenBlockIdSeqId()
 	//s := "9223372036854775808"
 	//fmt.Println(__Atoi.MyAtoi(s))
 

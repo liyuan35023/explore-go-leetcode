@@ -32,5 +32,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverse(x int) int {
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
