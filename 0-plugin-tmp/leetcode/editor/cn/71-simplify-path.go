@@ -1,6 +1,7 @@
 package cn
 
 import (
+	"bytes"
 	"strings"
 )
 

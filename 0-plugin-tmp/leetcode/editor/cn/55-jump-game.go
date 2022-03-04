@@ -25,15 +25,12 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func canJump(nums []int) bool {
-	if len(nums) < 2 {
-		return true
-	}
 	maxLoc := 0
-	for i := 0; i < len(nums)-1; i++ {
+	for i := 0; i < len(nums); i++ {
 		if i > maxLoc {
-			break
+			return false
 		}
-		maxLoc = max(maxLoc, i + nums[i])
+		maxLoc = max(maxLoc, i+nums[i])
 		if maxLoc >= len(nums) - 1 {
 			return true
 		}

@@ -1,5 +1,10 @@
 package cn
 
+import (
+	"bytes"
+	"strconv"
+)
+
 //给出集合 [1,2,3,...,n]，其所有元素共有 n! 种排列。
 //
 // 按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下： 
@@ -35,6 +40,15 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func getPermutation(n int, k int) string {
+
+}
+
+func jiecheng(n int) int {
+	ans := 1
+	for i := 2; i <= n; i++ {
+		ans *= i
+	}
+	return ans
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
