@@ -25,8 +25,12 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func permute(nums []int) [][]int {
-	ans := make([][]int, 0)
-	var dfs
+
+
+
+
+
+
 
 
 
