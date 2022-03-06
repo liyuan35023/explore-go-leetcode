@@ -1,5 +1,9 @@
 package cn
 
+import (
+	"sort"
+)
+
 //给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。
 //
 // 示例 1： 
@@ -23,11 +27,26 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func permuteUnique(nums []int) [][]int {
-
-
-
-
-
+	ans := make([][]int, 0)
+	sort.Ints(nums)
+	var dfs func(idx int, solve []int)
+	used := make([]bool, len(nums))
+	dfs = func(idx int, solve []int) {
+		if idx == len(nums) {
+			ans = append(ans, append([]int{}, solve...))
+			return
+		}
+		for i := 0; i < len(nums); i++ {
+			if used[i] || i > 0 && nums[i] == nums[i-1] && !used[i-1] {
+				continue
+			}
+			used[i] = true
+			dfs(idx+1, append(solve, nums[i]))
+			used[i] = false
+		}
+	}
+	dfs(0, []int{})
+	return ans
 
 
 

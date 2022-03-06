@@ -46,54 +46,10 @@ package cn
  * }
  */
 func mergeKLists(lists []*ListNode) *ListNode {
-	tmp := make([]*ListNode, 0)
-	for _, n := range lists {
-		if n != nil {
-			tmp = append(tmp, n)
-		}
-	}
-	lists = tmp
-	if len(lists) == 0 {
-		return nil
-	}
-	construct(lists, len(lists))
-	dummy := new(ListNode)
-	pre := dummy
-	for len(lists) != 0 {
-		pre.Next = lists[0]
-		pre = lists[0]
-		if lists[0].Next == nil {
-			lists[0], lists[len(lists)-1] = lists[len(lists)-1], lists[0]
-			lists = lists[:len(lists)-1]
-		} else {
-			lists[0] = lists[0].Next
-		}
-		down(lists, 0, len(lists))
-	}
-	return dummy.Next
-}
 
-func construct(lists []*ListNode, length int) {
-	for i := length/2 - 1; i >= 0; i-- {
-		down(lists, i, length)
-	}
-}
 
-func down(lists []*ListNode, parent int, length int) {
-	for parent <= length / 2 - 1 {
-		child1 := parent * 2 + 1
-		child2 := parent * 2 + 2
-		minChild := child1
-		if child2 < length && lists[child1].Val > lists[child2].Val {
-			minChild = child2
-		}
-		if lists[parent].Val > lists[minChild].Val {
-			lists[parent], lists[minChild] = lists[minChild], lists[parent]
-			parent = minChild
-		} else {
-			break
-		}
-	}
+
+
 
 }
 
