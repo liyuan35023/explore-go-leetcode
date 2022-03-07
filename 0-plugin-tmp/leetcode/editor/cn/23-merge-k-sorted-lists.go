@@ -46,11 +46,53 @@ package cn
  * }
  */
 func mergeKLists(lists []*ListNode) *ListNode {
+	heap := make([]*ListNode, 0)
+	for _, n := range lists {
+		if n != nil {
+			heap = append(heap, n)
+		}
+	}
+	constructListNodeHeap(heap)
+	dummy := new(ListNode)
+	pre := dummy
+	for len(heap) != 0 {
+		cur := heap[0]
+		pre.Next = cur
+		pre = cur
+		if heap[0].Next == nil {
+			heap[0], heap[len(heap)-1] = heap[len(heap)-1], heap[0]
+			heap = heap[:len(heap)-1]
+		} else {
+			heap[0] = heap[0].Next
+		}
+		down(heap, 0, len(heap))
+	}
+	return dummy.Next
 
 
 
+}
 
+func constructListNodeHeap(heap []*ListNode) {
+	n := len(heap)
+	for i := n / 2 - 1; i >= 0; i-- {
+		down(heap, i, n)
+	}
+}
 
+func down(heap []*ListNode, parent int, length int) {
+	for parent <= length / 2 - 1 {
+		minChild := parent * 2 + 1
+		if parent * 2 + 2 < length && heap[minChild].Val > heap[parent*2+2].Val {
+			minChild = parent * 2 + 2
+		}
+		if heap[parent].Val > heap[minChild].Val {
+			heap[parent], heap[minChild] = heap[minChild], heap[parent]
+			parent = minChild
+		} else {
+			break
+		}
+	}
 }
 
 
