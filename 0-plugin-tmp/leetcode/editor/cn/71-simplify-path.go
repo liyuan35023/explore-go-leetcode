@@ -51,5 +51,23 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func simplifyPath(path string) string {
+	buf := bytes.NewBuffer([]byte{})
+	cells := make([]string, 0)
+	for i := 1; i < len(path) + 1; i++ {
+		if i < len(path) && path[i] != '/' {
+			buf.WriteByte(path[i])
+		} else {
+			s := buf.String()
+			if s == ".." {
+				if len(cells) > 0 {
+					cells = cells[:len(cells)-1]
+				}
+			} else if s != "." && s != "" {
+				cells = append(cells, s)
+			}
+			buf.Reset()
+		}
+	}
+	return "/" + strings.Join(cells, "/")
 }
 //leetcode submit region end(Prohibit modification and deletion)
