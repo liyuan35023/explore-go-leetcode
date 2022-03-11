@@ -21,29 +21,25 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func trap(height []int) int {
-	if len(height) == 0 {
-		return 0
-	}
 	ans := 0
-	lMax, rMax := height[0], height[len(height) - 1]
-	l, r := 0, len(height) - 1
-	for l < r {
-		if lMax < rMax {
-			ans += lMax - height[l]
-			l++
-			lMax = max(lMax, height[l])
-		} else {
-			ans += rMax - height[r]
-			r--
-			rMax = max(rMax, height[r])
+	// 单调不增栈
+	stack := make([]int, 0)
+	for i := 0; i < len(height); i++ {
+		for len(stack) > 1 && height[i] > height[stack[len(stack)-1]] {
+			dis := i - stack[len(stack)-2]
+			h := min(height[i], height[stack[len(stack)-2]]) - height[stack[len(stack)-1]]
+			area := dis * h
+			ans += area
+			stack = stack[:len(stack)-1]
 		}
+		stack = append(stack, i)
 	}
 	return ans
 
 }
 
-func max(x, y int) int {
-	if x > y {
+func min(x, y int) int {
+	if x < y {
 		return x
 	}
 	return y
