@@ -21,8 +21,6 @@ package cn
 // 输入: -1->5->3->4->0
 //输出: -1->0->3->4->5
 // 
-// Related Topics 链表 排序 
-// 👍 410 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -34,29 +32,8 @@ package cn
  * }
  */
 func insertionSortList(head *ListNode) *ListNode {
-	dummy := new(ListNode)
-	dummy.Next = head
-	cur := head.Next
-	head.Next = nil
-	sortedTail := head
-	for cur != nil {
-		n := cur.Next
-		if cur.Val >= sortedTail.Val {
-			sortedTail.Next = cur
-			sortedTail = cur
-			sortedTail.Next = nil
-		} else {
-			tmp := dummy.Next
-			pre := dummy
-			for cur.Val > tmp.Val {
-				pre = tmp
-				tmp = tmp.Next
-			}
-			pre.Next = cur
-			cur.Next = tmp
-		}
-		cur = n
-	}
-	return dummy.Next
+
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
