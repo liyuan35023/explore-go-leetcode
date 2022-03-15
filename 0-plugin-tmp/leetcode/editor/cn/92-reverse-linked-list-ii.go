@@ -30,6 +30,31 @@ package cn
  * }
  */
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	dummy := &ListNode{Next: head}
+	pre := dummy
+	cur := head
+	i := 1
+	for ; i < left; i++ {
+		cur = cur.Next
+		pre = pre.Next
+	}
+	beforeReverse := pre
+	reverseTail := cur
+	pre.Next = nil
+	pre = nil
+	for ; i <= right; i++ {
+		tmp := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = tmp
+	}
+	reverseHead := pre
+	afterReverse := cur
+	beforeReverse.Next = reverseHead
+	reverseTail.Next = afterReverse
+	return dummy.Next
+
+
 
 
 

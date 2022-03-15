@@ -34,6 +34,5 @@ package cn
 func insertionSortList(head *ListNode) *ListNode {
 
 
-
 }
 //leetcode submit region end(Prohibit modification and deletion)
