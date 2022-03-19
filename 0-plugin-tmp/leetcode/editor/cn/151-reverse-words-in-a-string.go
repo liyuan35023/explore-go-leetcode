@@ -12,8 +12,7 @@ import (
 //
 // 说明： 
 //
-// 
-// 输入字符串 s 可以在前面、后面或者单词间包含多余的空格。 
+// 输入字符串 s 可以在前面、后面或者单词间包含多余的空格。
 // 翻转后单词间应当仅用一个空格分隔。 
 // 翻转后的字符串中不应包含额外的空格。 
 // 
@@ -53,15 +52,11 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverseWords(s string) string {
-	ans := make([]string, 0)
+	stack := make([]string, 0)
+	word := make([]byte, 0)
 	left, right := len(s)-1, len(s)-1
-	for left >= 0 {
-		for left >= 0 && s[left] != ' ' {
-			left--
-		}
+	for
 
-
-	}
 
 }
 //leetcode submit region end(Prohibit modification and deletion)
