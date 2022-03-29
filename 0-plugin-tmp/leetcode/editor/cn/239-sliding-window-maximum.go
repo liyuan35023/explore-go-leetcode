@@ -20,14 +20,11 @@ package cn
 //
 // 示例 2： 
 //
-// 
 //输入：nums = [1], k = 1
 //输出：[1]
-// 
 //
 // 示例 3： 
 //
-// 
 //输入：nums = [1,-1], k = 1
 //输出：[1,-1]
 //
@@ -42,16 +39,13 @@ package cn
 //输出：[4] 
 //
 // 提示： 
-//
-// 
-// 1 <= nums.length <= 10⁵ 
+// 1 <= nums.length <= 10⁵
 // -10⁴ <= nums[i] <= 10⁴ 
 // 1 <= k <= nums.length 
 // 
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSlidingWindow(nums []int, k int) []int {
-
 }
 
 

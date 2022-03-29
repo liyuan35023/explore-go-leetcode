@@ -1,5 +1,6 @@
 package cn
-//现在你总共有 numCourses 门课需要选，记为 0 到 numCourses - 1。给你一个数组 prerequisites ，其中 
+
+//现在你总共有 numCourses 门课需要选，记为 0 到 numCourses - 1。给你一个数组 prerequisites ，其中
 //prerequisites[i] = [ai, bi] ，表示在选修课程 ai 前 必须 先选修 bi 。 
 //
 // 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示：[0,1] 。
@@ -42,7 +43,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func findOrder(numCourses int, prerequisites [][]int) []int {
-
-
 }
 //leetcode submit region end(Prohibit modification and deletion)

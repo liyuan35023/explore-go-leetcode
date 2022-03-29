@@ -33,17 +33,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func lengthOfLongestSubstring(s string) int {
-	left, right := 0, 0
-	charMap := make(map[byte]int)
-	ans := 0
-	for ; right < len(s); right++ {
-		if idx, ok := charMap[s[right]]; ok && idx >= left {
-			left = idx + 1
-		}
-		charMap[s[right]] = right
-		ans = max(ans, right-left+1)
-	}
-	return ans
 }
 
 func max(x, y int) int {

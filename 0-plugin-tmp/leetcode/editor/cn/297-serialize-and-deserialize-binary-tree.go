@@ -59,10 +59,44 @@ func Constructor() Codec {
 
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
+	ans := bytes.NewBuffer([]byte{})
+	var dfs func(node *TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			ans.WriteString("null,")
+			return
+		}
+		ans.WriteString(strconv.Itoa(node.Val))
+		ans.WriteByte(',')
+		dfs(node.Left)
+		dfs(node.Right)
+	}
+	dfs(root)
+	ret := strings.TrimLeft(ans.String(), ",")
+	return ret
 }
 
 // Deserializes your encoded data to tree.
 func (this *Codec) deserialize(data string) *TreeNode {
+	cells := strings.Split(data, ",")
+	idx := 0
+	var dfs func() *TreeNode
+	dfs = func() *TreeNode {
+		if idx == len(cells) {
+			return nil
+		}
+		if cells[idx] == "null" {
+			idx++
+			return nil
+		}
+		v, _ := strconv.Atoi(cells[idx])
+		n := &TreeNode{Val: v}
+		idx++
+		n.Left = dfs()
+		n.Right = dfs()
+		return n
+	}
+	return dfs()
 }
 
 
