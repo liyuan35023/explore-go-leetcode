@@ -18,12 +18,6 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func findKthNumber(n int, k int) int {
 
-
-
-
-
-
-
 }
 
 
