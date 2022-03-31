@@ -47,9 +47,36 @@ package cn
  * }
  */
 func reverseKGroup(head *ListNode, k int) *ListNode {
+	dummy := new(ListNode)
+	pre := dummy
+	for head != nil {
+		cur := head
+		groupHead := head
+		for i := 1; i < k && cur != nil; i++ {
+			cur = cur.Next
+		}
+		if cur == nil {
+			pre.Next = groupHead
+			break
+		}
+		next := cur.Next
+		cur.Next = nil
+		reverseOneGroup(groupHead)
+		pre.Next = cur
+		pre = groupHead
+		head = next
+	}
+	return dummy.Next
+}
 
-
-
+func reverseOneGroup(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	ret := reverseOneGroup(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return ret
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

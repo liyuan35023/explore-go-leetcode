@@ -19,7 +19,6 @@ package cn
 // -500 <= Node.val <= 500 
 // 1 <= left <= right <= n 
 // 
-// 进阶： 你可以使用一趟扫描完成反转吗？
 
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -31,30 +30,12 @@ package cn
  */
 func reverseBetween(head *ListNode, left int, right int) *ListNode {
 	dummy := &ListNode{Next: head}
-	pre := dummy
-	cur := head
+	pre, cur := dummy, head
 	i := 1
 	for ; i < left; i++ {
-		cur = cur.Next
-		pre = pre.Next
-	}
-	beforeReverse := pre
-	reverseTail := cur
-	pre.Next = nil
-	pre = nil
-	for ; i <= right; i++ {
-		tmp := cur.Next
-		cur.Next = pre
-		pre = cur
-		cur = tmp
-	}
-	reverseHead := pre
-	afterReverse := cur
-	beforeReverse.Next = reverseHead
-	reverseTail.Next = afterReverse
-	return dummy.Next
 
 
+	}
 
 
 
