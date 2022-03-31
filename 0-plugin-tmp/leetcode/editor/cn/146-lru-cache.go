@@ -40,17 +40,69 @@ package cn
 //
 //leetcode submit region begin(Prohibit modification and deletion)
 
+type dequeue struct {
+	key, val int
+	pre, next *dequeue
+}
 
 type LRUCache struct {
+	capacity int
+	cache map[int]*dequeue
+	dummyHead, dummyTail *dequeue
 }
 
 func Constructor(capacity int) LRUCache {
+	lru := LRUCache{
+		capacity:  capacity,
+		cache:     make(map[int]*dequeue),
+		dummyHead: new(dequeue),
+		dummyTail: new(dequeue),
+	}
+	lru.dummyHead.next = lru.dummyTail
+	lru.dummyTail.pre = lru.dummyHead
+	return lru
+}
+
+func (this *LRUCache) moveToHead(d *dequeue) {
+	if d.pre != nil {
+		d.pre.next = d.next
+		d.next.pre = d.pre
+	}
+	d.pre = this.dummyHead
+	d.next = this.dummyHead.next
+	this.dummyHead.next.pre = d
+	this.dummyHead.next = d
 }
 
 func (this *LRUCache) Get(key int) int {
+	if d, ok := this.cache[key]; ok {
+		// move to head
+		this.moveToHead(d)
+		return d.val
+	} else {
+		return -1
+	}
 }
 
 func (this *LRUCache) Put(key int, value int)  {
+	if d, ok := this.cache[key]; ok {
+		d.val = value
+		this.moveToHead(d)
+	} else {
+		newNode := &dequeue{
+			key: key,
+			val: value,
+		}
+		this.moveToHead(newNode)
+		this.cache[key] = newNode
+		if len(this.cache) > this.capacity {
+			// move tail
+			tail := this.dummyTail.pre
+			delete(this.cache, tail.key)
+			tail.pre.next = this.dummyTail
+			this.dummyTail.pre = tail.pre
+		}
+	}
 }
 
 
