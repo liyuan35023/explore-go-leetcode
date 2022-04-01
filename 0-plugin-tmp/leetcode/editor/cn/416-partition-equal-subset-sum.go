@@ -38,9 +38,6 @@ func max(x, y int) int {
 
 
 
-
-
-
 // https://blog.csdn.net/chanmufeng/article/details/82955730
 //0-1 背包问题
 //　　第 416 题：分割等和子集；

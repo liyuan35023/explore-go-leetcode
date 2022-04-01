@@ -1,8 +1,6 @@
 package cn
 
-import (
-	"sort"
-)
+import "sort"
 
 //给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 //
@@ -44,24 +42,21 @@ import (
 func combinationSum(candidates []int, target int) [][]int {
 	ans := make([][]int, 0)
 	sort.Ints(candidates)
-	var dfs func(idx int, remain int, solve []int)
-	dfs = func(idx int, remain int, solve []int) {
-		if idx >= len(candidates) || remain < 0 {
-			return
-		}
+	var dfs func(idx int, solve []int, remain int)
+	dfs = func(idx int, solve []int, remain int) {
 		if remain == 0 {
 			ans = append(ans, append([]int{}, solve...))
 			return
 		}
-		for i := idx; i < len(candidates); i++ {
-			if candidates[i] > remain {
-				return
-			}
-			dfs(i, remain-candidates[i], append(solve, candidates[i]))
-		}
+
+		
 	}
-	dfs(0, target, []int{})
-	return ans
+
+
+
+
+
+
 }
 //func combinationSum(candidates []int, target int) [][]int {
 //	sort.Ints(candidates)
