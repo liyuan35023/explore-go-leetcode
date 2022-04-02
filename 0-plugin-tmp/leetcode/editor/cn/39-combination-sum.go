@@ -40,19 +40,6 @@ import "sort"
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combinationSum(candidates []int, target int) [][]int {
-	ans := make([][]int, 0)
-	sort.Ints(candidates)
-	var dfs func(idx int, solve []int, remain int)
-	dfs = func(idx int, solve []int, remain int) {
-		if remain == 0 {
-			ans = append(ans, append([]int{}, solve...))
-			return
-		}
-
-		
-	}
-
-
 
 
 
