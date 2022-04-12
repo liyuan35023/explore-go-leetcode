@@ -40,7 +40,6 @@ func isCompleteTree(root *TreeNode) bool {
 
 
 
-
 }
 //func isCompleteTree(root *TreeNode) bool {
 //	queue := make([]*TreeNode, 0)

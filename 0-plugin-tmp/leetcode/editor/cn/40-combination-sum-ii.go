@@ -1,5 +1,8 @@
 package cn
 
+import (
+	"sort"
+)
 
 //给定一个数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
 //
@@ -35,7 +38,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func combinationSum2(candidates []int, target int) [][]int {
-	ans :
 
 
 }
