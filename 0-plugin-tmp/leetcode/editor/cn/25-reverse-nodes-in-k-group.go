@@ -47,7 +47,38 @@ package cn
  * }
  */
 func reverseKGroup(head *ListNode, k int) *ListNode {
+	dummy := new(ListNode)
+	pre := dummy
+	cur := head
+	for cur != nil {
+		reverseHead := cur
+		for i := 0; i < k-1 && cur != nil; i++ {
+			cur = cur.Next
+		}
+		if cur == nil {
+			pre.Next = reverseHead
+			break
+		}
+		reverseTail := cur
+		next := cur.Next
+		cur.Next = nil
+		reverseK(reverseHead, reverseTail)
+		pre.Next = reverseTail
+		pre = reverseHead
+		cur = next
+	}
+	return dummy.Next
+}
 
+func reverseK(head *ListNode, tail *ListNode) {
+	cur := head
+	var pre *ListNode
+	for cur != nil {
+		tmp := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = tmp
+	}
 
 }
 
