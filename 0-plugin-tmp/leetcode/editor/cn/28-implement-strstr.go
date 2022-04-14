@@ -36,6 +36,7 @@ package cn
 func strStr(haystack string, needle string) int {
 	//https://www.bilibili.com/video/BV1PD4y1o7nd/?spm_id_from=333.788.videocard.0
 	//https://mp.weixin.qq.com/s/MoRBHbS4hQXn7LcPdmHmIg
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

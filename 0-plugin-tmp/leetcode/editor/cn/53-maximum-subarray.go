@@ -35,19 +35,9 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSubArray(nums []int) int {
-	dp := nums[0]
-	ans := nums[0]
-	for i := 1; i < len(nums); i++ {
-		dp = max(nums[i], dp+nums[i])
-		ans = max(ans, dp)
-	}
-	return ans
-}
 
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
+
+
+
 }
 //leetcode submit region end(Prohibit modification and deletion)
