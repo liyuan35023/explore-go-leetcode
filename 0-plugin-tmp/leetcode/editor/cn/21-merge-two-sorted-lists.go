@@ -26,8 +26,6 @@ package cn
 // -100 <= Node.val <= 100 
 // l1 和 l2 均按 非递减顺序 排列 
 // 
-// Related Topics 递归 链表 
-// 👍 1757 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
@@ -51,6 +49,7 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 			pre = l2
 			l2 = l2.Next
 		}
+
 	}
 	if l1 != nil {
 		pre.Next = l1
@@ -59,5 +58,6 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 		pre.Next = l2
 	}
 	return dummy.Next
+
 }
 //leetcode submit region end(Prohibit modification and deletion)

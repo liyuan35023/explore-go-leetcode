@@ -1,5 +1,8 @@
 package cn
-//给定一个二叉树，确定它是否是一个完全二叉树。 
+
+import "sync"
+
+//给定一个二叉树，确定它是否是一个完全二叉树。
 //
 // 百度百科中对完全二叉树的定义如下： 
 //
@@ -35,8 +38,6 @@ package cn
  * }
  */
 func isCompleteTree(root *TreeNode) bool {
-
-
 
 
 

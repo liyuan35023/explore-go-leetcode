@@ -47,8 +47,8 @@ func levelOrder(root *TreeNode) [][]int {
 				queue = append(queue, queue[i].Right)
 			}
 		}
-		queue = queue[n:]
 		ans = append(ans, level)
+		queue = queue[n:]
 	}
 	return ans
 }
