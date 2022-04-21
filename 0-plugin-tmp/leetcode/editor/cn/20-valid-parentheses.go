@@ -42,18 +42,5 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func isValid(s string) bool {
-	stack := make([]byte, 0)
-	bracketMap := map[byte]byte{'(':')', '[':']', '{':'}'}
-	for i := 0; i < len(s); i++ {
-		if _, ok := bracketMap[s[i]]; ok {
-			stack = append(stack, s[i])
-		} else {
-			if len(stack) == 0 || bracketMap[stack[len(stack)-1]] != s[i] {
-				return false
-			}
-			stack = stack[:len(stack)-1]
-		}
-	}
-	return len(stack) == 0
 }
 //leetcode submit region end(Prohibit modification and deletion)
