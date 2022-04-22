@@ -39,7 +39,6 @@ package cn
 // s 仅由括号 '()[]{}' 组成 
 // 
 
-
 //leetcode submit region begin(Prohibit modification and deletion)
 func isValid(s string) bool {
 }
