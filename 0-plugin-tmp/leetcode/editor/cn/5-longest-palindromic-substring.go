@@ -30,6 +30,23 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func longestPalindrome(s string) string {
+	ans := ""
+	for i := 0; i < len(s); i++ {
+		l, r := expandSubString(s, i, i)
+		if r - l + 1 > len(ans) {
+			ans = s[l:r+1]
+		}
+		l, r = expandSubString(s, i, i+1)
+		if r - l + 1 > len(ans) {
+			ans = s[l:r+1]
+		}
+	}
+	return ans
+}
+
+func expandSubString(s string, i, j int) (int, int) {
+	for ; i >= 0 && j < len(s) && s[i] == s[j]; i, j = i-1, j+1 {}
+	return i+1, j-1
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

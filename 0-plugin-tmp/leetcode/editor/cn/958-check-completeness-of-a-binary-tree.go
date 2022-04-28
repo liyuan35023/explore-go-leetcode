@@ -1,6 +1,5 @@
 package cn
 
-import "sync"
 
 //给定一个二叉树，确定它是否是一个完全二叉树。
 //
