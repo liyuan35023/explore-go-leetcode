@@ -46,12 +46,47 @@ package cn
  * }
  */
 func mergeKLists(lists []*ListNode) *ListNode {
-
-
-
+	if len(lists) == 0 {
+		return nil
+	}
+	for len(lists) != 1 {
+		n := len(lists)
+		for i := 0; i < n ; i = i + 2 {
+			if i == n - 1 {
+				lists = append(lists, lists[i])
+			} else {
+				merged := mergeTwo(lists[i], lists[i+1])
+				lists = append(lists, merged)
+			}
+		}
+		lists = lists[n:]
+	}
+	return lists[0]
 }
 
+func mergeTwo(l1, l2 *ListNode) *ListNode {
+	dummy := new(ListNode)
+	pre := dummy
+	for l1 != nil && l2 != nil {
+		if l1.Val < l2.Val {
+			pre.Next = l1
+			pre = l1
+			l1 = l1.Next
+		} else {
+			pre.Next = l2
+			pre = l2
+			l2 = l2.Next
+		}
+	}
+	if l1 != nil {
+		pre.Next = l1
+	}
+	if l2 != nil {
+		pre.Next = l2
+	}
+	return dummy.Next
 
+}
 
 
 //func mergeKLists(lists []*ListNode) *ListNode {
