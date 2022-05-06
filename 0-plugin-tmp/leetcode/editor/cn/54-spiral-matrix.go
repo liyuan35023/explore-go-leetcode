@@ -22,5 +22,39 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func spiralOrder(matrix [][]int) []int {
+	ans := make([]int, 0)
+	m, n := len(matrix), len(matrix[0])
+	top, bottom := 0, m - 1
+	left, right := 0, n - 1
+	for top < bottom && left < right {
+		i, j := top, left
+		for ; j < right; j++ {
+			ans = append(ans, matrix[top][j])
+		}
+		for ; i < bottom; i++ {
+			ans = append(ans, matrix[i][right])
+		}
+		for ; j > left; j-- {
+			ans = append(ans, matrix[bottom][j])
+		}
+		for ; i > top; i-- {
+			ans = append(ans, matrix[i][left])
+		}
+		top, bottom = top + 1, bottom - 1
+		left, right = left + 1, right - 1
+	}
+	if top == bottom {
+		for i := left; i <= right; i++ {
+			ans = append(ans, matrix[top][i])
+		}
+	} else if left == right {
+		for i := top; i <= bottom; i++ {
+			ans = append(ans, matrix[i][left])
+		}
+
+	}
+
+
+	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)
