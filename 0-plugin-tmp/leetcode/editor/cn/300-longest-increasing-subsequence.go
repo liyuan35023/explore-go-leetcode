@@ -1,5 +1,7 @@
 package cn
-//给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 
+
+
+//给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
 //
 // 子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序
 //列。 
@@ -32,7 +34,31 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func lengthOfLIS(nums []int) int {
+	seq := make([]int, 0)
+	for i := 0; i < len(nums); i++ {
+		if len(seq) == 0 || nums[i] > seq[len(seq)-1] {
+			seq = append(seq, nums[i])
+		} else {
+			idx := findFirstBigger(seq, nums[i])
+			seq[idx] = nums[i]
+		}
+	}
+	return len(seq)
 }
+
+func findFirstBigger(nums []int, target int) int {
+	left, right := 0, len(nums) - 1
+	for left <= right {
+		mid := left + (right - left) / 2
+		if nums[mid] >= target {
+			right = mid - 1
+		} else {
+			left = mid + 1
+		}
+	}
+	return left
+}
+
 
 
 

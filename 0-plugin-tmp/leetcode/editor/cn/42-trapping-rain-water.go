@@ -21,29 +21,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func trap(height []int) int {
-	lMax, rMax := height[0], height[len(height)-1]
-	l, r := 0, len(height) - 1
-	ans := 0
-	for l < r {
-		if height[l] < height[r] {
-			h := min(lMax, rMax) - height[l]
-			ans += h
-			l++
-			lMax = max(lMax, height[l])
-		} else {
-			h := min(lMax, rMax) - height[r]
-			ans += h
-			r--
-			rMax = max(rMax, height[r])
-		}
-	}
-	return ans
-}
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
 
 }
 
