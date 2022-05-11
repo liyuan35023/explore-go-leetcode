@@ -43,7 +43,6 @@ package cn
  */
 func inorderTraversal(root *TreeNode) []int {
 	ans := make([]int, 0)
-	// morris
 	for root != nil {
 		if root.Left == nil {
 			ans = append(ans, root.Val)
@@ -53,19 +52,18 @@ func inorderTraversal(root *TreeNode) []int {
 			for x.Right != nil && x.Right != root {
 				x = x.Right
 			}
-			if x.Right == root {
-				x.Right = nil
-				ans = append(ans, root.Val)
-				root = root.Right
-			} else {
+			if x.Right == nil {
 				x.Right = root
 				root = root.Left
+			} else {
+				ans = append(ans, root.Val)
+				x.Right = nil
+				root = root.Right
 			}
 		}
+
 	}
 	return ans
-
-
 
 
 

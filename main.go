@@ -439,12 +439,28 @@ func binary(nums []int) int {
 	return nums[l]
 }
 
+func concurrentMap() {
+	c := make(map[string]int)
+	go func() { //开一个goroutine写map
+		for j := 0; j < 1000000; j++ {
+			c[fmt.Sprintf("%d", j)] = j
+		}
+	}()
+	go func() { //开一个goroutine读map
+		for j := 0; j < 1000000; j++ {
+			fmt.Println(c[fmt.Sprintf("%d", j)])
+		}
+	}()
+	time.Sleep(time.Second * 20)
+
+}
+
 
 func main() {
 	//ctxCancel()
 	//goroutineClose()
 
-	strStr("mississippi", "issip")
+	concurrentMap()
 
 	//TestMapAssign()
 	//sort_alogrithm.QuickSort([]int{3, 7, 3, 4, 3, 2, 1, 8, 6}, 0, 8)

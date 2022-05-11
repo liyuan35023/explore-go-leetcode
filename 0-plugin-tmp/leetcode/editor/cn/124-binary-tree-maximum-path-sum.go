@@ -37,19 +37,6 @@ import "golang.org/x/text/date"
  * }
  */
 func maxPathSum(root *TreeNode) int {
-	ans := -1<<31 - 1
-	var maxGain func(node *TreeNode) int
-	maxGain = func(node *TreeNode) int {
-		if node == nil {
-			return 0
-		}
-		lGain := maxGain(node.Left)
-		rGain := maxGain(node.Right)
-		ans = max(ans, node.Val + lGain + rGain)
-		return max(0, node.Val + max(lGain, rGain))
-	}
-	maxGain(root)
-	return ans
 
 
 

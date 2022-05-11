@@ -21,7 +21,6 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func trap(height []int) int {
-
 }
 
 func min(x, y int) int {

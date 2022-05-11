@@ -35,9 +35,6 @@ func reorderList(head *ListNode) {
 
 
 
-
-
-
 }
 //func reorderList(head *ListNode)  {
 //	// find mid
