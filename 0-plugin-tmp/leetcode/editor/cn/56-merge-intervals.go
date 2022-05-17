@@ -26,7 +26,40 @@ import "sort"
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+type Interval [][]int
+
+func (i Interval) Len() int {
+	return len(i)
+}
+
+func (i Interval) Less(x, y int) bool {
+	return i[x][0] < i[y][0]
+}
+
+func (i Interval) Swap(x, y int) {
+	i[x], i[y] = i[y], i[x]
+}
+
 func merge(intervals [][]int) [][]int {
+	sort.Sort(Interval(intervals))
+	ans := make([][]int, 0)
+	ans = append(ans, intervals[0])
+	for i := 1; i < len(intervals); i++ {
+		if canMerge(ans[len(ans)-1], intervals[i]) {
+			ans[len(ans)-1] = mergeTwo(ans[len(ans)-1], intervals[i])
+		} else {
+			ans = append(ans, intervals[i])
+		}
+	}
+	return ans
+}
+
+func canMerge(i1, i2 []int) bool {
+	return i1[1] >= i2[0]
+}
+
+func mergeTwo(i1, i2 []int) []int {
+	return []int{min(i1[0], i2[0]), max(i1[1], i2[1])}
 }
 
 func min(x, y int) int {
