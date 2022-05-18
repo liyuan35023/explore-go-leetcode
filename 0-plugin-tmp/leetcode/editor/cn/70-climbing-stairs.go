@@ -27,8 +27,6 @@ package cn
 func climbStairs(n int) int {
 
 
-
-
 }
 //func climbStairs(n int) int {
 //	if n < 3 {
