@@ -455,6 +455,16 @@ func concurrentMap() {
 
 }
 
+func syncpool() {
+	var p = sync.Pool{
+		New: func() interface{} {
+			buf := make([]byte, 1024)
+			return &buf
+		},
+	}
+
+}
+
 
 func main() {
 	//ctxCancel()

@@ -40,9 +40,43 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
+	m, n := len(nums1), len(nums2)
+	total := m + n
+	if total % 2 == 0 {
+		return (float64(findKthLargestNum(nums1, nums2, total/2) + findKthLargestNum(nums1, nums2, total/2 + 1))) / 2
+	} else {
+		return float64(findKthLargestNum(nums1, nums2, total/2 + 1))
+	}
 }
 
+func findKthLargestNum(nums1, nums2 []int, k int) int {
+	m, n := len(nums1), len(nums2)
+	i, j := -1, -1
+	for k > 1 && i < m - 1 && j < n - 1 {
+		x, y := i + k / 2, j + k / 2
+		if x >= m {
+			x = m - 1
+		}
+		if y >= n {
+			y = n - 1
+		}
+		if nums1[x] <= nums2[y] {
+			k = k - (x - i)
+			i = x
+		} else {
+			k = k - (y - j)
+			j = y
+		}
+	}
+	if i >= m - 1 {
+		return nums2[j+k]
+	}
+	if j >= n - 1 {
+		return nums1[i+k]
+	}
+	return min(nums1[i+1], nums2[j+1])
 
+}
 
 func min(x, y int) int {
 	if x < y {
