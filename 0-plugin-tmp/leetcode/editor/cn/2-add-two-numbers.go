@@ -45,25 +45,5 @@ package cn
  * }
  */
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	dummy := new(ListNode)
-	pre := dummy
-	carry := 0
-	for l1 != nil || l2 != nil || carry != 0 {
-		var v1, v2 int
-		if l1 != nil {
-			v1 = l1.Val
-			l1 = l1.Next
-		}
-		if l2 != nil {
-			v2 = l2.Val
-			l2 = l2.Next
-		}
-		tmp := v1 + v2 + carry
-		carry = tmp / 10
-		node := &ListNode{Val: tmp%10}
-		pre.Next = node
-		pre = node
-	}
-	return dummy.Next
 }
 //leetcode submit region end(Prohibit modification and deletion)

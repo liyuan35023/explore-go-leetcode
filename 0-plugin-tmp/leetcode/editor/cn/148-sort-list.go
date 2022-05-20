@@ -37,6 +37,70 @@ package cn
  */
 
 func sortList(head *ListNode) *ListNode {
+	dummy := new(ListNode)
+	dummy.Next = head
+	cur := head
+	n := 0
+	for cur != nil {
+		n++
+		cur = cur.Next
+	}
+	for block := 1; block < n; block *= 2 {
+		pre := dummy
+		cur := dummy.Next
+		for cur != nil {
+			firstHead := cur
+			for i := 1; i < block && cur.Next != nil; i++ {
+				cur = cur.Next
+			}
+			if cur.Next == nil {
+				pre.Next = firstHead
+				break
+			}
+			secondHead := cur.Next
+			cur.Next = nil
+			cur = secondHead
+			for i := 1; i < block && cur.Next != nil; i++ {
+				cur = cur.Next
+			}
+			next := cur.Next
+			cur.Next = nil
+			// mergeTwo
+			newHead, newTail := mergettt(firstHead, secondHead)
+			pre.Next = newHead
+			pre = newTail
+			cur = next
+		}
+	}
+	return dummy.Next
+}
+
+func mergettt(l1 *ListNode, l2 *ListNode) (*ListNode, *ListNode) {
+	dummy := new(ListNode)
+	pre := dummy
+	for l1 != nil && l2 != nil {
+		if l1.Val < l2.Val {
+			pre.Next = l1
+			pre = l1
+			l1 = l1.Next
+		} else {
+			pre.Next = l2
+			pre = l2
+			l2 = l2.Next
+		}
+	}
+	for l1 != nil {
+		pre.Next = l1
+		pre = l1
+		l1 = l1.Next
+	}
+	for l2 != nil {
+		pre.Next = l2
+		pre = l2
+		l2 = l2.Next
+	}
+	return dummy.Next, pre
+
 }
 
 

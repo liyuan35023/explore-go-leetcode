@@ -29,10 +29,20 @@ package cn
  * }
  */
 func deleteDuplicates(head *ListNode) *ListNode {
-	dummy := &ListNode{Next: head}
-	pre := dummy
-
-
+	dummy := new(ListNode)
+	dummy.Next = head
+	cur := dummy
+	for cur.Next != nil && cur.Next.Next != nil {
+		if cur.Next.Val == cur.Next.Next.Val {
+			tmp := cur.Next.Val
+			for cur.Next != nil && cur.Next.Val == tmp {
+				cur.Next = cur.Next.Next
+			}
+		} else {
+			cur = cur.Next
+		}
+	}
+	return dummy.Next
 
 
 }
