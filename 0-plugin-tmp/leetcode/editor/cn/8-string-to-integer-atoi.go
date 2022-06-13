@@ -99,43 +99,43 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func myAtoi(s string) int {
-	// 状态机
-	// 数值范围
-	// 前面字母之间返回
 	stateMap := map[string][]string{
-		"init": []string{"init", "signed", "in", "end"},
-		"signed": []string{"end", "end", "in", "end"},
-		"in": []string{"end", "end", "in", "end"},
-		"end": []string{"end", "end", "end", "end"},
+		"init": {"init", "signed", "in", "end"},
+		"signed": {"end", "end", "in", "end"},
+		"in": {"end", "end", "in", "end"},
+		"end": {"end", "end", "end", "end"},
 	}
-
-	ans := 0
-	state := "init"
+	curState := "init"
+	ret := 0
 	signed := 1
+	li:
 	for i := 0; i < len(s); i++ {
-		input := getStateIdx(s[i])
-		state = stateMap[state][input]
-		if state == "end" {
-			break
-		} else if state == "signed" {
+		column := getColumn(s[i])
+		nextState := stateMap[curState][column]
+		curState = nextState
+		switch nextState {
+		case "signed":
 			if s[i] == '-' {
 				signed = -1
 			}
-		} else if state == "in" {
-			tmp := int(s[i] - '0')
-			if signed == 1 && (ans > 1 << 31 / 10 || (ans == 1 << 31 / 10 && tmp > (1 << 31 - 1) % 10)) {
+		case "in":
+			num := int(s[i] - '0')
+			if signed == 1 && num > 1 << 31 - 1 - ret * 10 {
 				return 1 << 31 - 1
 			}
-			if signed == -1 && (ans > 1 << 31 / 10 || (ans * signed == -1 << 31 / 10 && tmp > (1 << 31) %10)){
+			if signed == -1 && num > 1 << 31 - ret * 10 {
 				return -1 << 31
 			}
-			ans = ans * 10 + tmp
+			ret = ret * 10 + num
+		case "end":
+			break li
 		}
 	}
-	return signed * ans
+	return ret * signed
+
 }
 
-func getStateIdx(b byte) int {
+func getColumn(b byte) int {
 	if b == ' ' {
 		return 0
 	} else if b == '+' || b == '-' {
@@ -145,6 +145,7 @@ func getStateIdx(b byte) int {
 	} else {
 		return 3
 	}
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

@@ -34,7 +34,30 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func nextPermutation(nums []int) {
+	idx := len(nums) - 2
+	for idx >= 0 && nums[idx] >= nums[idx+1] {
+		idx--
+	}
+	if idx >= 0 {
+		firstBiggerIdx := getFirstBigger(nums[idx+1:], nums[idx]) + idx + 1
+		nums[idx], nums[firstBiggerIdx] = nums[firstBiggerIdx], nums[idx]
+	}
+	for i, j := idx + 1, len(nums) - 1; i < j; i, j = i+1, j-1 {
+		nums[i], nums[j] = nums[j], nums[i]
+	}
+}
 
+func getFirstBigger(nums []int, target int) int {
+	l, r := 0, len(nums) - 1
+	for l <= r {
+		mid := l + (r - l) / 2
+		if nums[mid] <= target {
+			r = mid - 1
+		} else {
+			l = mid + 1
+		}
+	}
+	return r
 
 }
 

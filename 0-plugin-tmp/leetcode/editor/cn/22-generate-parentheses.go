@@ -18,19 +18,19 @@ package cn
 //leetcode submit region begin(Prohibit modification and deletion)
 func generateParenthesis(n int) []string {
 	ans := make([]string, 0)
-	var dfs func(left, right int, brackets []byte)
-	dfs = func(left, right int, brackets []byte) {
+	var dfs func(left, right int, solution string)
+	dfs = func(left, right int, solution string) {
 		if left == right && left == n {
-			ans = append(ans, string(brackets))
+			ans = append(ans, solution)
 			return
 		}
 		if left < right || left > n {
 			return
 		}
-		dfs(left+1, right, append(brackets, '('))
-		dfs(left, right+1, append(brackets, ')'))
+		dfs(left + 1, right, solution + "(")
+		dfs(left, right + 1, solution + ")")
 	}
-	dfs(1, 0, []byte{'('})
+	dfs(0, 0, "")
 	return ans
 }
 //leetcode submit region end(Prohibit modification and deletion)

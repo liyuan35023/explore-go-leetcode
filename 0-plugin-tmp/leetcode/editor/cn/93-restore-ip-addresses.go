@@ -41,32 +41,46 @@ import "strconv"
 //leetcode submit region begin(Prohibit modification and deletion)
 func restoreIpAddresses(s string) []string {
 	ans := make([]string, 0)
-	var dfs func(dotNum int, startIdx int, solve string)
-	dfs = func(dotNum int, startIdx int, solve string) {
-		if dotNum == 4 {
-			if startIdx >= len(s) || s[startIdx] == '0' && startIdx < len(s) - 1 || startIdx < len(s) - 3 {
+	var dfs func(dot int, buf string, idx int)
+	dfs = func(dot int, buf string, idx int) {
+		if idx >= len(s) {
+			return
+		}
+		if dot == 4 {
+			if s[idx] == '0' && idx < len(s) - 1 {
 				return
 			}
-			num, _ := strconv.Atoi(s[startIdx:])
+			num, _ := strconv.Atoi(s[idx:])
 			if num > 255 {
 				return
 			}
-			solve += s[startIdx:]
-			ans = append(ans, solve)
+			buf += s[idx:]
+			ans = append(ans, buf)
 			return
 		}
-		for i := startIdx; i < len(s) && i < startIdx + 3; i++ {
-			num, _ := strconv.Atoi(s[startIdx:i+1])
-			if num >= 0 && num <= 255 {
-				dfs(dotNum+1, i+1, solve+s[startIdx:i+1]+".")
-			}
-			if i == startIdx && s[i] == '0' {
+		if s[idx] == '0' {
+			dfs(dot+1, buf + s[idx:idx+1] + ".", idx+1)
+			return
+		}
+		for i := idx; i < idx + 3 && i < len(s); i++ {
+			num, _ := strconv.Atoi(s[idx:i+1])
+			if num > 255 {
 				break
 			}
+			dfs(dot+1, buf + s[idx:i+1] + ".", i+1)
 		}
 	}
-	dfs(1, 0, "")
+	dfs(1, "", 0)
 	return ans
+
+
+
+
+
+
+
+
+
 
 }
 //func restoreIpAddresses(s string) []string {
