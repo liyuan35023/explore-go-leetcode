@@ -52,16 +52,15 @@ func preorderTraversal(root *TreeNode) []int {
 			for x.Right != nil && x.Right != root {
 				x = x.Right
 			}
-			if x.Right == root {
-				x.Right = nil
-				root = root.Right
-			} else {
+			if x.Right == nil {
 				x.Right = root
 				ans = append(ans, root.Val)
 				root = root.Left
+			} else {
+				x.Right = nil
+				root = root.Right
 			}
 		}
-
 	}
 	return ans
 

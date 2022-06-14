@@ -46,6 +46,26 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func maxSlidingWindow(nums []int, k int) []int {
+	ans := make([]int, 0)
+	dequeue := make([]int, 0)
+	for i := 0; i < k-1; i++ {
+		for len(dequeue) > 0 && nums[dequeue[len(dequeue)-1]] <= nums[i] {
+			dequeue = dequeue[:len(dequeue)-1]
+		}
+		dequeue = append(dequeue, i)
+	}
+	l, r := 0, k - 1
+	for ; r < len(nums); l, r = l+1, r+1 {
+		for len(dequeue) > 0 && nums[dequeue[len(dequeue)-1]] <= nums[r] {
+			dequeue = dequeue[:len(dequeue)-1]
+		}
+		dequeue = append(dequeue, r)
+		for len(dequeue) > 0 && dequeue[0] < l {
+			dequeue = dequeue[1:]
+		}
+		ans = append(ans, nums[dequeue[0]])
+	}
+	return ans
 }
 
 

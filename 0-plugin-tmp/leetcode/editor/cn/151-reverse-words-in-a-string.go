@@ -52,6 +52,21 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func reverseWords(s string) string {
-
+	s = strings.TrimLeft(s, " ")
+	s = strings.TrimRight(s, " ")
+	ans := make([]string, 0)
+	tmp := make([]byte, 0)
+	for i := len(s) - 1; i >= 0; i-- {
+		if s[i] == ' ' {
+			if len(tmp) > 0 {
+				ans = append(ans, string(tmp))
+				tmp = tmp[0:0]
+			}
+			continue
+		}
+		tmp = append([]byte{s[i]}, tmp...)
+	}
+	ans = append(ans, string(tmp))
+	return strings.Join(ans, " ")
 }
 //leetcode submit region end(Prohibit modification and deletion)

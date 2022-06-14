@@ -39,7 +39,7 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 	idx := 0
 	var buildHelper func(left, right int) *TreeNode
 	buildHelper = func(left, right int) *TreeNode {
-		if left > right {
+		if idx >= len(preorder) || left > right {
 			return nil
 		}
 		node := &TreeNode{Val: preorder[idx]}
@@ -50,6 +50,10 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 		return node
 	}
 	return buildHelper(0, len(preorder)-1)
+
+
+
+
 }
 
 
