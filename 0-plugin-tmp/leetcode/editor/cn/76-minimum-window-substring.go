@@ -22,11 +22,34 @@ package cn
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func minWindow(s string, t string) string {
-
-
-
-
-
+	charMap := make(map[byte]int)
+	for _, c := range t {
+		charMap[byte(c)]++
+	}
+	l, r := 0, 0
+	count := 0
+	ans := ""
+	for ; r < len(s); r++ {
+		if k, ok := charMap[s[r]]; ok {
+			charMap[s[r]]--
+			if k > 0 {
+				count++
+			}
+			for count == len(t) && l <= r {
+				if ans == "" || len(ans) > r - l + 1 {
+					ans = s[l:r+1]
+				}
+				if k, ok := charMap[s[l]]; ok {
+					charMap[s[l]]++
+					if k == 0 {
+						count--
+					}
+				}
+				l++
+			}
+		}
+	}
+	return ans
 }
 //func minWindow(s string, t string) string {
 //	left, right := 0, 0

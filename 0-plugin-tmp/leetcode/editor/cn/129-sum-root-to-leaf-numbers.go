@@ -48,30 +48,6 @@ package cn
  */
 func sumNumbers(root *TreeNode) int {
 	ans := 0
-	queue := make([]*TreeNode, 0)
-	queue = append(queue, root)
-	value := make([]int, 0)
-	value = append(value, 0)
-	for len(queue) != 0 {
-		node := queue[0]
-		v := value[0]
-		queue = queue[1:]
-		value = value[1:]
-		cur := v * 10 + node.Val
-		if node.Left == nil && node.Right == nil {
-			ans += cur
-		}
-		if node.Left != nil {
-			queue = append(queue, node.Left)
-			value = append(value, cur)
-		}
-		if node.Right != nil {
-			queue = append(queue, node.Right)
-			value = append(value, cur)
-		}
-
-	}
-	return ans
 
 
 
