@@ -26,15 +26,6 @@ package cn
  * }
  */
 func maxDepth(root *TreeNode) int {
-	var dfs func(node *TreeNode) int
-	dfs = func(node *TreeNode) int {
-		if node == nil {
-			return 0
-		}
-		return max(dfs(node.Left), dfs(node.Right)) + 1
-	}
-	return dfs(root)
-
 
 }
 

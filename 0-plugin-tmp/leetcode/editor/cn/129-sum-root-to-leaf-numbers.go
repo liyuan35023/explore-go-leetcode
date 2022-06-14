@@ -48,8 +48,21 @@ package cn
  */
 func sumNumbers(root *TreeNode) int {
 	ans := 0
-
-
+	var dfs func(node *TreeNode, num int)
+	dfs = func(node *TreeNode, num int) {
+		if node == nil {
+			return
+		}
+		v := num * 10 + node.Val
+		if node.Left == nil && node.Right == nil {
+			ans += v
+			return
+		}
+		dfs(node.Left, v)
+		dfs(node.Right, v)
+	}
+	dfs(root, 0)
+	return ans
 
 
 
