@@ -455,22 +455,12 @@ func concurrentMap() {
 
 }
 
-func syncpool() {
-	var p = sync.Pool{
-		New: func() interface{} {
-			buf := make([]byte, 1024)
-			return &buf
-		},
-	}
-
-}
-
 
 func main() {
 	//ctxCancel()
 	//goroutineClose()
 
-	concurrentMap()
+	//concurrentMap()
 
 	//TestMapAssign()
 	//sort_alogrithm.QuickSort([]int{3, 7, 3, 4, 3, 2, 1, 8, 6}, 0, 8)

@@ -1,9 +1,6 @@
 package cn
 
-import (
-	"math"
-	"sync"
-)
+import "math"
 
 //实现 int sqrt(int x) 函数。
 //
@@ -27,7 +24,6 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func mySqrt(x int) int {
-	
 }
 
 
